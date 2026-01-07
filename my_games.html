@@ -17,7 +17,6 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      /* 🔑 สำคัญมาก */
     }
 
     /* ===== Layout ===== */
@@ -30,7 +29,6 @@
       justify-content: center;
       align-items: flex-start;
       flex-wrap: wrap;
-      /* 🔑 ให้จอเล็กแตกบรรทัด */
     }
 
     /* ===== Card ===== */
@@ -42,6 +40,7 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
       transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
     }
 
     .card:hover {
@@ -81,7 +80,9 @@
       transition: max-height .35s ease, padding .25s ease, opacity .2s ease;
     }
 
-    .card:hover .dropdown {
+    /* Desktop hover + Mobile click */
+    .card:hover .dropdown,
+    .card.active .dropdown {
       max-height: 400px;
       padding: 14px;
       opacity: 1;
@@ -124,8 +125,7 @@
       color: #9ca3af;
     }
 
-    /* ================= */
-    /* 📱 Mobile */
+    /* ===== Mobile ===== */
     @media (max-width: 600px) {
       .container {
         gap: 24px;
@@ -138,7 +138,7 @@
       }
     }
 
-    /* 📺 TV / จอใหญ่ */
+    /* ===== TV / Large Screen ===== */
     @media (min-width: 1400px) {
       .container {
         max-width: 1200px;
@@ -188,6 +188,26 @@
     </div>
 
   </div>
+
+  <!-- ===== JS สำหรับ Mobile ===== -->
+  <script>
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      card.addEventListener("click", e => {
+        // ถ้าคลิกลิงก์ ให้ไปตามปกติ
+        if (e.target.tagName === "A") return;
+
+        // ปิดการ์ดอื่น
+        cards.forEach(c => {
+          if (c !== card) c.classList.remove("active");
+        });
+
+        // เปิด/ปิด การ์ดที่กด
+        card.classList.toggle("active");
+      });
+    });
+  </script>
 
 </body>
 
