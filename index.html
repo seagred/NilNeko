@@ -10,22 +10,24 @@
         body {
             margin: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(135deg, #020617, #0f172a);
             font-family: Arial, sans-serif;
             color: #e5e7eb;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            /* 🔧 สำคัญ */
         }
 
-
         .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 40px 20px;
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px 60px;
             text-align: center;
         }
 
+        /* ===== Avatar ===== */
         .avatar {
             width: 160px;
             height: 160px;
@@ -45,6 +47,7 @@
             margin-bottom: 20px;
         }
 
+        /* ===== Card ===== */
         .card {
             background: rgba(2, 6, 23, .8);
             border-radius: 16px;
@@ -53,13 +56,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
         }
 
-        .info {
-            margin-top: 20px;
-            color: #cbd5f5;
-            font-size: 14px;
-        }
-
-        /* ===== Social Icons ===== */
+        /* ===== Socials ===== */
         .socials {
             display: flex;
             justify-content: center;
@@ -76,12 +73,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform .2s, background .2s;
-        }
-
-        .socials a:hover {
-            background: #ef4444;
-            transform: translateY(-4px);
+            transition: transform .2s, background .2s, box-shadow .2s;
         }
 
         .socials img {
@@ -90,89 +82,66 @@
             filter: invert(1);
         }
 
-        .socials a {
-            transition: transform .25s, background .25s, box-shadow .25s;
-        }
-
-        /* Facebook */
-        .socials a[data-platform="facebook"]:hover {
-            background: #1877f2;
-            box-shadow: 0 0 15px rgba(24, 119, 242, .7);
-        }
-
-        /* YouTube */
-        .socials a[data-platform="youtube"]:hover {
-            background: #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, .7);
-        }
-
-        /* Twitch */
-        .socials a[data-platform="twitch"]:hover {
-            background: #9146ff;
-            box-shadow: 0 0 15px rgba(145, 70, 255, .7);
-        }
-
-        /* TikTok */
-        .socials a[data-platform="tiktok"]:hover {
-            background: linear-gradient(135deg, #25f4ee, #fe2c55);
-            box-shadow: 0 0 15px rgba(254, 44, 85, .7);
-        }
-
-        /* Instagram */
-        .socials a[data-platform="instagram"]:hover {
-            background: linear-gradient(135deg, #f58529, #dd2a7b, #515bd4);
-            box-shadow: 0 0 15px rgba(221, 42, 123, .7);
-        }
-
-        /* X */
-        .socials a[data-platform="x"]:hover {
-            background: #000;
-            box-shadow: 0 0 15px rgba(255, 255, 255, .4);
-        }
-
-
+        /* ===== Games Button ===== */
         .games-btn {
-            position: relative;
-            overflow: hidden;
-
             display: inline-flex;
             align-items: center;
             gap: 10px;
-
-            margin-top: 28px;
+            margin: 32px auto 0;
             padding: 14px 28px;
-
             font-size: 18px;
             font-weight: bold;
-            letter-spacing: .5px;
-
             color: #fff;
             text-decoration: none;
             border-radius: 999px;
-
             background: linear-gradient(135deg, #ef4444, #f97316);
-            box-shadow:
-                0 0 15px rgba(239, 68, 68, .6),
-                0 0 40px rgba(249, 115, 22, .3);
-
-            transition: all .25s ease;
-        }
-
-        .games-btn::before {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, #f87171, #fb923c);
-            z-index: -1;
-            opacity: .7;
+            box-shadow: 0 0 20px rgba(239, 68, 68, .6);
+            transition: transform .25s ease, box-shadow .25s ease;
         }
 
         .games-btn:hover {
             transform: translateY(-4px) scale(1.05);
-            box-shadow:
-                0 0 25px rgba(239, 68, 68, .9),
-                0 0 60px rgba(249, 115, 22, .6);
+        }
+
+        /* ===== Info ===== */
+        .info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #cbd5f5;
+        }
+
+        /* ========================= */
+        /* 📱 Mobile */
+        @media (max-width: 480px) {
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .games-btn {
+                font-size: 16px;
+                padding: 12px 22px;
+            }
+        }
+
+        /* 📺 TV / จอใหญ่ */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1100px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .games-btn {
+                font-size: 20px;
+                padding: 16px 34px;
+            }
         }
     </style>
 </head>

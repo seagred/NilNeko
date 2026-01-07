@@ -10,19 +10,27 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: linear-gradient(135deg, #020617, #0f172a);
       font-family: Arial, sans-serif;
       color: #e5e7eb;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      /* 🔑 สำคัญมาก */
     }
 
     /* ===== Layout ===== */
     .container {
+      width: 100%;
+      max-width: 900px;
+      padding: 60px 20px;
       display: flex;
-      gap: 60px;
+      gap: 40px;
+      justify-content: center;
       align-items: flex-start;
+      flex-wrap: wrap;
+      /* 🔑 ให้จอเล็กแตกบรรทัด */
     }
 
     /* ===== Card ===== */
@@ -41,8 +49,13 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, .6);
     }
 
-    .card.warframe { border-top: 5px solid #ef4444; }
-    .card.sky { border-top: 5px solid #38bdf8; }
+    .card.warframe {
+      border-top: 5px solid #ef4444;
+    }
+
+    .card.sky {
+      border-top: 5px solid #38bdf8;
+    }
 
     /* ===== Header ===== */
     .icon {
@@ -92,7 +105,6 @@
       transition: background .2s ease, transform .2s ease;
     }
 
-    /* Hover ตามการ์ด */
     .card.warframe .dropdown a:hover {
       background: #ef4444;
       transform: translateY(-2px);
@@ -103,7 +115,7 @@
       transform: translateY(-2px);
     }
 
-    /* ===== Disabled Link ===== */
+    /* ===== Disabled ===== */
     .disabled-link {
       pointer-events: none;
       opacity: 0.5;
@@ -112,8 +124,34 @@
       color: #9ca3af;
     }
 
-    .disabled-link:hover {
-      transform: none;
+    /* ================= */
+    /* 📱 Mobile */
+    @media (max-width: 600px) {
+      .container {
+        gap: 24px;
+        padding: 40px 16px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    /* 📺 TV / จอใหญ่ */
+    @media (min-width: 1400px) {
+      .container {
+        max-width: 1200px;
+        gap: 60px;
+      }
+
+      .card {
+        width: 300px;
+      }
+
+      .icon {
+        font-size: 56px;
+      }
     }
   </style>
 </head>
@@ -152,4 +190,5 @@
   </div>
 
 </body>
+
 </html>
