@@ -10,25 +10,19 @@
     body {
       margin: 0;
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: linear-gradient(135deg, #020617, #0f172a);
       font-family: Arial, sans-serif;
       color: #e5e7eb;
-
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
     }
 
     /* ===== Layout ===== */
     .container {
-      width: 100%;
-      max-width: 900px;
-      padding: 60px 20px;
       display: flex;
-      gap: 40px;
-      justify-content: center;
+      gap: 60px;
       align-items: flex-start;
-      flex-wrap: wrap;
     }
 
     /* ===== Card ===== */
@@ -40,7 +34,6 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
       transition: transform .25s ease, box-shadow .25s ease;
-      cursor: pointer;
     }
 
     .card:hover {
@@ -48,13 +41,8 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, .6);
     }
 
-    .card.warframe {
-      border-top: 5px solid #ef4444;
-    }
-
-    .card.sky {
-      border-top: 5px solid #38bdf8;
-    }
+    .card.warframe { border-top: 5px solid #ef4444; }
+    .card.sky { border-top: 5px solid #38bdf8; }
 
     /* ===== Header ===== */
     .icon {
@@ -80,9 +68,7 @@
       transition: max-height .35s ease, padding .25s ease, opacity .2s ease;
     }
 
-    /* Desktop hover + Mobile click */
-    .card:hover .dropdown,
-    .card.active .dropdown {
+    .card:hover .dropdown {
       max-height: 400px;
       padding: 14px;
       opacity: 1;
@@ -106,6 +92,7 @@
       transition: background .2s ease, transform .2s ease;
     }
 
+    /* Hover ตามการ์ด */
     .card.warframe .dropdown a:hover {
       background: #ef4444;
       transform: translateY(-2px);
@@ -116,7 +103,7 @@
       transform: translateY(-2px);
     }
 
-    /* ===== Disabled ===== */
+    /* ===== Disabled Link ===== */
     .disabled-link {
       pointer-events: none;
       opacity: 0.5;
@@ -125,33 +112,8 @@
       color: #9ca3af;
     }
 
-    /* ===== Mobile ===== */
-    @media (max-width: 600px) {
-      .container {
-        gap: 24px;
-        padding: 40px 16px;
-      }
-
-      .card {
-        width: 100%;
-        max-width: 320px;
-      }
-    }
-
-    /* ===== TV / Large Screen ===== */
-    @media (min-width: 1400px) {
-      .container {
-        max-width: 1200px;
-        gap: 60px;
-      }
-
-      .card {
-        width: 300px;
-      }
-
-      .icon {
-        font-size: 56px;
-      }
+    .disabled-link:hover {
+      transform: none;
     }
   </style>
 </head>
@@ -189,26 +151,5 @@
 
   </div>
 
-  <!-- ===== JS สำหรับ Mobile ===== -->
-  <script>
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-      card.addEventListener("click", e => {
-        // ถ้าคลิกลิงก์ ให้ไปตามปกติ
-        if (e.target.tagName === "A") return;
-
-        // ปิดการ์ดอื่น
-        cards.forEach(c => {
-          if (c !== card) c.classList.remove("active");
-        });
-
-        // เปิด/ปิด การ์ดที่กด
-        card.classList.toggle("active");
-      });
-    });
-  </script>
-
 </body>
-
 </html>
