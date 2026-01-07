@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Traveling Spirit</title>
+  <link rel="icon" type="image/png" href="81_20210123192755.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    /* ===== Search ===== */
+    .search-box {
+      max-width: 400px;
+      margin: 0 auto 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    /* ===== Grid 2–3 แถว ===== */
+    .characters {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 14px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* ===== Card ===== */
+    .char-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #334155;
+      border-radius: 12px;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+    }
+
+    .char-btn:hover {
+      transform: translateY(-4px);
+      background: #475569;
+    }
+
+    /* ไม่มี Build */
+    .char-btn.disabled {
+      background: #1f2933;
+      filter: grayscale(100%);
+      opacity: 0.6;
+    }
+
+    .char-btn.disabled:hover {
+      transform: none;
+      background: #1f2933;
+    }
+
+    /* ===== รูป ===== */
+    .img-box {
+      width: 40px;
+      height: 60px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .img-box img {
+      width: 40px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity .25s ease;
+    }
+
+    .img-box img.prime {
+      opacity: 0;
+    }
+
+    .char-btn:hover img.normal {
+      opacity: 0;
+    }
+
+    .char-btn:hover img.prime {
+      opacity: 1;
+    }
+
+    .char-btn span {
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* ===== Build Card ===== */
+    .card {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 16px;
+      border-radius: 12px;
+      background: #020617;
+      border-left: 6px solid #38bdf8;
+    }
+
+    .no-build {
+      color: #f87171;
+      font-weight: bold;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Traveling Spirits</h1>
+
+  <div class="characters" id="characters"></div>
+
+  <div id="build" class="card">
+    เลือก Traveling Spirits
+  </div>
+
+  <script>
+    const traveling = [
+      {
+        name: "Prophet of Fire",
+        normal: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b7/Prophecy-Spirit-Prophet-of-Fire.png",
+        prime: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b7/Prophecy-Spirit-Prophet-of-Fire.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/ClfrrcnbyUw"
+      },
+      {
+        name: "Crab Whisperer",
+        normal: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/10/Lightseekers-Spirit-Crab-Whisperer.png",
+        prime: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/10/Lightseekers-Spirit-Crab-Whisperer.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/Y3BCD_DxOjU"
+      },
+      {
+        name: "Ascetic Monk",
+        normal: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5c/Moments-Spirit-Ascetic-Monk.png",
+        prime: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5c/Moments-Spirit-Ascetic-Monk.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/mQBVkXGQs-M"
+      },
+    ];
+
+    const container = document.getElementById("characters");
+    const buildBox = document.getElementById("build");
+
+    // 👉 เรียงตามชื่อ (เผื่อเพิ่มทีหลัง)
+    traveling.sort((a, b) => a.name.localeCompare(b.name, "en"));
+
+    traveling.forEach(wf => {
+      const btn = document.createElement("div");
+      btn.className = "char-btn";
+
+      if (!wf.video) btn.classList.add("disabled");
+
+      btn.innerHTML = `
+      <div class="img-box">
+        <img class="normal" src="${wf.normal}">
+        ${wf.prime ? `<img class="prime" src="${wf.prime}">` : ""}
+      </div>
+      <span>${wf.name}</span>
+    `;
+
+      btn.onclick = () => showBuild(wf);
+      container.appendChild(btn);
+    });
+
+    function showBuild(wf) {
+      buildBox.innerHTML = `
+      <h2>${wf.name}</h2>
+      ${wf.desc ? `<p>${wf.desc}</p>` : ""}
+      ${wf.video ? `<iframe src="${wf.video}" allowfullscreen></iframe>` : ""}
+    `;
+    }
+  </script>
+
+
+</body>
+
+</html>

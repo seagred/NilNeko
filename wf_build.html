@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Warframe Builds</title>
+  <link rel="icon" type="image/png" href="81_20210123192755.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    /* ===== Search ===== */
+    .search-box {
+      max-width: 400px;
+      margin: 0 auto 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    /* ===== Grid 2–3 แถว ===== */
+    .characters {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 14px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* ===== Card ===== */
+    .char-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #334155;
+      border-radius: 12px;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+    }
+
+    .char-btn:hover {
+      transform: translateY(-4px);
+      background: #475569;
+    }
+
+    /* ไม่มี Build */
+    .char-btn.disabled {
+      background: #1f2933;
+      filter: grayscale(100%);
+      opacity: 0.6;
+    }
+
+    .char-btn.disabled:hover {
+      transform: none;
+      background: #1f2933;
+    }
+
+    /* ===== รูป ===== */
+    .img-box {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .img-box img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity .25s ease;
+    }
+
+    .img-box img.prime {
+      opacity: 0;
+    }
+
+    .char-btn:hover img.normal {
+      opacity: 0;
+    }
+
+    .char-btn:hover img.prime {
+      opacity: 1;
+    }
+
+    .char-btn span {
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* ===== Build Card ===== */
+    .card {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 16px;
+      border-radius: 12px;
+      background: #020617;
+      border-left: 6px solid #38bdf8;
+    }
+
+    .no-build {
+      color: #f87171;
+      font-weight: bold;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Warframe Builds</h1>
+
+  <div class="characters" id="characters"></div>
+
+  <div id="build" class="card">
+    เลือกตัวละครเพื่อดู Build
+  </div>
+
+  <script>
+    const warframes = [
+      {
+        name: "Ash",
+        normal: "https://wiki.warframe.com/images/thumb/Ash_Thumb.png/300px-Ash_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/AshPrime_Thumb.png/300px-AshPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Atlas",
+        normal: "https://wiki.warframe.com/images/thumb/Atlas_Thumb.png/300px-Atlas_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/AtlasPrime_Thumb.png/300px-AtlasPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Caliban",
+        normal: "https://wiki.warframe.com/images/thumb/Caliban_Thumb.png/300px-Caliban_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/CalibanPrime_Thumb.png/300px-CalibanPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Banshee",
+        normal: "https://wiki.warframe.com/images/thumb/Banshee_Thumb.png/300px-Banshee_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/BansheePrime_Thumb.png/300px-BansheePrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Chroma",
+        normal: "https://wiki.warframe.com/images/thumb/Chroma_Thumb.png/300px-Chroma_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/ChromaPrime_Thumb.png/300px-ChromaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Citrine",
+        normal: "https://wiki.warframe.com/images/thumb/Citrine_Thumb.png/300px-Citrine_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/CitrinePrime_Thumb.png/300px-CitrinePrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Cyte-09",
+        normal: "https://wiki.warframe.com/images/thumb/Cyte09_Thumb.png/300px-Cyte09_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/Cyte09_Thumb.png/300px-Cyte09Prime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Dagath",
+        normal: "https://wiki.warframe.com/images/thumb/Dagath_Thumb.png/300px-Dagath_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/DagathPrime_Thumb.png/300px-DagathPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Dante",
+        normal: "https://wiki.warframe.com/images/thumb/Dante_Thumb.png/300px-Dante_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/DantePrime_Thumb.png/300px-DantePrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Ember",
+        normal: "https://wiki.warframe.com/images/thumb/Ember_Thumb.png/300px-Ember_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/EmberPrime_Thumb.png/300px-EmberPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Equinox",
+        normal: "https://wiki.warframe.com/images/thumb/Equinox_Thumb.png/300px-Equinox_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/EquinoxPrime_Thumb.png/300px-EquinoxPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Excalibur",
+        normal: "https://wiki.warframe.com/images/thumb/Excalibur_Thumb.png/300px-Excalibur_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/ExcaliburPrime_Thumb.png/300px-ExcaliburPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Frost",
+        normal: "https://wiki.warframe.com/images/thumb/Frost_Thumb.png/300px-Frost_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/FrostPrime_Thumb.png/300px-FrostPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Gara",
+        normal: "https://wiki.warframe.com/images/thumb/Gara_Thumb.png/300px-Gara_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/GaraPrime_Thumb.png/300px-GaraPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Garuda",
+        normal: "https://wiki.warframe.com/images/thumb/Garuda_Thumb.png/300px-Garuda_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/GarudaPrime_Thumb.png/300px-GarudaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Gauss",
+        normal: "https://wiki.warframe.com/images/thumb/Gauss_Thumb.png/300px-Gauss_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/GaussPrime_Thumb.png/300px-GaussPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Grendel",
+        normal: "https://wiki.warframe.com/images/thumb/Grendel_Thumb.png/300px-Grendel_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/GrendelPrime_Thumb.png/300px-GrendelPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Gyre",
+        normal: "https://wiki.warframe.com/images/thumb/Gyre_Thumb.png/300px-Gyre_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/GyrePrime_Thumb.png/300px-GyrePrime_Thumb.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/PfudCg-B0fw"
+      },
+      {
+        name: "Harrow",
+        normal: "https://wiki.warframe.com/images/thumb/Harrow_Thumb.png/300px-Harrow_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/HarrowPrime_Thumb.png/300px-HarrowPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Hildryn",
+        normal: "https://wiki.warframe.com/images/thumb/Hildryn_Thumb.png/300px-Hildryn_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/HildrynPrime_Thumb.png/300px-HildrynPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Hydroid",
+        normal: "https://wiki.warframe.com/images/thumb/Hydroid_Thumb.png/300px-Hydroid_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/HydroidPrime_Thumb.png/300px-HydroidPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Inaros",
+        normal: "https://wiki.warframe.com/images/thumb/Inaros_Thumb.png/300px-Inaros_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/InarosPrime_Thumb.png/300px-InarosPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Ivara",
+        normal: "https://wiki.warframe.com/images/thumb/Ivara_Thumb.png/300px-Ivara_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/IvaraPrime_Thumb.png/300px-IvaraPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Jade",
+        normal: "https://wiki.warframe.com/images/thumb/Jade_Thumb.png/300px-Jade_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/JadePrime_Thumb.png/300px-JadePrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Khora",
+        normal: "https://wiki.warframe.com/images/thumb/Khora_Thumb.png/300px-Khora_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/KhoraPrime_Thumb.png/300px-KhoraPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Koumei",
+        normal: "https://wiki.warframe.com/images/thumb/Koumei_Thumb.png/300px-Koumei_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/KoumeiPrime_Thumb.png/300px-KoumeiPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Kullervo",
+        normal: "https://wiki.warframe.com/images/thumb/Kullervo_Thumb.png/300px-Kullervo_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/KullervoPrime_Thumb.png/300px-KullervoPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Lavos",
+        normal: "https://wiki.warframe.com/images/thumb/Lavos_Thumb.png/300px-Lavos_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/LavosPrime_Thumb.png/300px-LavosPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Limbo",
+        normal: "https://wiki.warframe.com/images/thumb/Limbo_Thumb.png/300px-Limbo_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/LimboPrime_Thumb.png/300px-LimboPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Loki",
+        normal: "https://wiki.warframe.com/images/thumb/Loki_Thumb.png/300px-Loki_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/LokiPrime_Thumb.png/300px-LokiPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Mag",
+        normal: "https://wiki.warframe.com/images/thumb/Mag_Thumb.png/300px-Mag_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/MagPrime_Thumb.png/300px-MagPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Mesa",
+        normal: "https://wiki.warframe.com/images/thumb/Mesa_Thumb.png/300px-Mesa_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/MesaPrime_Thumb.png/300px-MesaPrime_Thumb.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/-rNTnok7XSE"
+      },
+      {
+        name: "Mirage",
+        normal: "https://wiki.warframe.com/images/thumb/Mirage_Thumb.png/300px-Mirage_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/MiragePrime_Thumb.png/300px-MiragePrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Nekros",
+        normal: "https://wiki.warframe.com/images/thumb/Nekros_Thumb.png/300px-Nekros_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/NekrosPrime_Thumb.png/300px-NekrosPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Nezha",
+        normal: "https://wiki.warframe.com/images/thumb/Nezha_Thumb.png/300px-Nezha_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/NezhaPrime_Thumb.png/300px-NezhaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Nidus",
+        normal: "https://wiki.warframe.com/images/thumb/Nidus_Thumb.png/300px-Nidus_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/NidusPrime_Thumb.png/300px-NidusPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Nokko",
+        normal: "https://wiki.warframe.com/images/thumb/Nokko_Thumb.png/300px-Nokko_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/NokkoPrime_Thumb.png/300px-NokkoPrime_Thumb.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/VDcf0ZmB_CY"
+      },
+      {
+        name: "Nova",
+        normal: "https://wiki.warframe.com/images/thumb/Nova_Thumb.png/300px-Nova_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/NovaPrime_Thumb.png/300px-NovaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Nyx",
+        normal: "https://wiki.warframe.com/images/thumb/Nyx_Thumb.png/300px-Nyx_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/NyxPrime_Thumb.png/300px-NyxPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Oberon",
+        normal: "https://wiki.warframe.com/images/thumb/Oberon_Thumb.png/300px-Oberon_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/OberonPrime_Thumb.png/300px-OberonPrime_Thumb.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/XJZkJmZCnyY"
+      },
+      {
+        name: "Oraxia",
+        normal: "https://wiki.warframe.com/images/thumb/Oraxia_Thumb.png/300px-Oraxia_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/OraxiaPrime_Thumb.png/300px-OraxiaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Protea",
+        normal: "https://wiki.warframe.com/images/thumb/Protea_Thumb.png/300px-Protea_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/ProteaPrime_Thumb.png/300px-ProteaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Qorvex",
+        normal: "https://wiki.warframe.com/images/thumb/Qorvex_Thumb.png/300px-Qorvex_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/QorvexPrime_Thumb.png/300px-QorvexPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Revenant",
+        normal: "https://wiki.warframe.com/images/thumb/Revenant_Thumb.png/300px-Revenant_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/RevenantPrime_Thumb.png/300px-RevenantPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Rhino",
+        normal: "https://wiki.warframe.com/images/thumb/Rhino_Thumb.png/300px-Rhino_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/RhinoPrime_Thumb.png/300px-RhinoPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Saryn",
+        normal: "https://wiki.warframe.com/images/thumb/Saryn_Thumb.png/300px-Saryn_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/SarynPrime_Thumb.png/300px-SarynPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Sevagoth",
+        normal: "https://wiki.warframe.com/images/thumb/Sevagoth_Thumb.png/300px-Sevagoth_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/SevagothPrime_Thumb.png/300px-SevagothPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Styanax",
+        normal: "https://wiki.warframe.com/images/thumb/Styanax_Thumb.png/300px-Styanax_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/StyanaxPrime_Thumb.png/300px-StyanaxPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Temple",
+        normal: "https://wiki.warframe.com/images/thumb/Temple_Thumb.png/300px-Temple_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/TemplePrime_Thumb.png/300px-TemplePrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Titania",
+        normal: "https://wiki.warframe.com/images/thumb/Titania_Thumb.png/300px-Titania_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/TitaniaPrime_Thumb.png/300px-TitaniaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Trinity",
+        normal: "https://wiki.warframe.com/images/thumb/Trinity_Thumb.png/300px-Trinity_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/TrinityPrime_Thumb.png/300px-TrinityPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Uriel",
+        normal: "https://wiki.warframe.com/images/thumb/Uriel_Thumb.png/300px-Uriel_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/UrielPrime_Thumb.png/300px-UrielPrime_Thumb.png",
+        desc: "",
+        video: "https://www.youtube.com/embed/WCE_eRxt0wA"
+      },
+      {
+        name: "Valkyr",
+        normal: "https://wiki.warframe.com/images/thumb/Valkyr_Thumb.png/300px-Valkyr_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/ValkyrPrime_Thumb.png/300px-ValkyrPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Valkyr",
+        normal: "https://wiki.warframe.com/images/thumb/Valkyr_Thumb.png/300px-Valkyr_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/ValkyrPrime_Thumb.png/300px-ValkyrPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Volt",
+        normal: "https://wiki.warframe.com/images/thumb/Volt_Thumb.png/300px-Volt_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/VoltPrime_Thumb.png/300px-VoltPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Voruna",
+        normal: "https://wiki.warframe.com/images/thumb/Voruna_Thumb.png/300px-Voruna_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/VorunaPrime_Thumb.png/300px-VorunaPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Wisp",
+        normal: "https://wiki.warframe.com/images/thumb/Wisp_Thumb.png/300px-Wisp_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/WispPrime_Thumb.png/300px-WispPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Wukong",
+        normal: "https://wiki.warframe.com/images/thumb/Wukong_Thumb.png/300px-Wukong_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/WukongPrime_Thumb.png/300px-WukongPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Xaku",
+        normal: "https://wiki.warframe.com/images/thumb/Xaku_Thumb.png/300px-Xaku_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/XakuPrime_Thumb.png/300px-XakuPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Yareli",
+        normal: "https://wiki.warframe.com/images/thumb/Yareli_Thumb.png/300px-Yareli_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/YareliPrime_Thumb.png/300px-YareliPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+      {
+        name: "Zephyr",
+        normal: "https://wiki.warframe.com/images/thumb/Zephyr_Thumb.png/300px-Zephyr_Thumb.png",
+        prime: "https://wiki.warframe.com/images/thumb/ZephyrPrime_Thumb.png/300px-ZephyrPrime_Thumb.png",
+        desc: "",
+        video: null
+      },
+    ];
+
+    const container = document.getElementById("characters");
+    const buildBox = document.getElementById("build");
+
+    // เรียงชื่อ
+    warframes.sort((a, b) => a.name.localeCompare(b.name, "en"));
+
+    warframes.forEach(wf => {
+      const btn = document.createElement("div");
+      btn.className = "char-btn";
+
+      // ตัวที่ไม่มี build ให้ดูจาง
+      if (!wf.video) btn.classList.add("disabled");
+
+      btn.innerHTML = `
+      <div class="img-box">
+        <img class="normal" src="${wf.normal}">
+        ${wf.prime ? `<img class="prime" src="${wf.prime}">` : ""}
+      </div>
+      <span>${wf.name}</span>
+    `;
+
+      // ✅ ไม่ต้องส่ง btn แล้ว
+      btn.onclick = () => showBuild(wf);
+
+      container.appendChild(btn);
+    });
+
+    function showBuild(wf) {
+      buildBox.innerHTML = `
+      <h2>${wf.name} Build</h2>
+      <p>${wf.desc || ""}</p>
+
+      ${wf.video
+          ? `<iframe src="${wf.video}" allowfullscreen></iframe>`
+          : `<p class="no-build">⛔ ยังไม่มี Build สำหรับตัวนี้</p>`
+        }
+    `;
+
+      // เลื่อนลงมาหาการ์ด
+      buildBox.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+
+</body>
+
+</html>

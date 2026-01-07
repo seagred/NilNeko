@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Game</title>
+  <link rel="icon" type="image/png" href="81_20210123192755.png">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      font-family: Arial, sans-serif;
+      color: #e5e7eb;
+    }
+
+    /* ===== Layout ===== */
+    .container {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    /* ===== Card ===== */
+    .card {
+      width: 260px;
+      background: #020617;
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .6);
+    }
+
+    .card.warframe { border-top: 5px solid #ef4444; }
+    .card.sky { border-top: 5px solid #38bdf8; }
+
+    /* ===== Header ===== */
+    .icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* ===== Dropdown ===== */
+    .dropdown {
+      margin-top: 16px;
+      background: rgba(2, 6, 23, .95);
+      border-radius: 14px;
+      overflow: hidden;
+
+      max-height: 0;
+      opacity: 0;
+      padding: 0 14px;
+      transition: max-height .35s ease, padding .25s ease, opacity .2s ease;
+    }
+
+    .card:hover .dropdown {
+      max-height: 400px;
+      padding: 14px;
+      opacity: 1;
+    }
+
+    .dropdown-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ===== Buttons ===== */
+    .dropdown a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #334155;
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    /* Hover ตามการ์ด */
+    .card.warframe .dropdown a:hover {
+      background: #ef4444;
+      transform: translateY(-2px);
+    }
+
+    .card.sky .dropdown a:hover {
+      background: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    /* ===== Disabled Link ===== */
+    .disabled-link {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #1f2933;
+      color: #9ca3af;
+    }
+
+    .disabled-link:hover {
+      transform: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Warframe -->
+    <div class="card warframe">
+      <div class="icon">🎮</div>
+      <div class="title">Warframe</div>
+
+      <div class="dropdown">
+        <div class="dropdown-content">
+          <a class="disabled-link">Weapon Builds</a>
+          <a href="wf_build.html">Warframe Builds</a>
+          <a class="disabled-link">Warframe Fashions</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sky -->
+    <div class="card sky">
+      <div class="icon">🌤</div>
+      <div class="title">Sky: Children of the Light</div>
+
+      <div class="dropdown">
+        <div class="dropdown-content">
+          <a class="disabled-link">Guides</a>
+          <a href="traveling_spirit.html">Traveling Spirit</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

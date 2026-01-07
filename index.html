@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NilNeko</title>
+    <link rel="icon" type="image/png" href="81_20210123192755.png">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            font-family: Arial, sans-serif;
+            color: #e5e7eb;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ef4444;
+            box-shadow: 0 0 30px rgba(239, 68, 68, .4);
+        }
+
+        h1 {
+            margin-top: 16px;
+            font-size: 32px;
+        }
+
+        .tagline {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(2, 6, 23, .8);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+        }
+
+        .info {
+            margin-top: 20px;
+            color: #cbd5f5;
+            font-size: 14px;
+        }
+
+        /* ===== Social Icons ===== */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .socials a {
+            width: 46px;
+            height: 46px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform .2s, background .2s;
+        }
+
+        .socials a:hover {
+            background: #ef4444;
+            transform: translateY(-4px);
+        }
+
+        .socials img {
+            width: 22px;
+            height: 22px;
+            filter: invert(1);
+        }
+
+        .socials a {
+            transition: transform .25s, background .25s, box-shadow .25s;
+        }
+
+        /* Facebook */
+        .socials a[data-platform="facebook"]:hover {
+            background: #1877f2;
+            box-shadow: 0 0 15px rgba(24, 119, 242, .7);
+        }
+
+        /* YouTube */
+        .socials a[data-platform="youtube"]:hover {
+            background: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, .7);
+        }
+
+        /* Twitch */
+        .socials a[data-platform="twitch"]:hover {
+            background: #9146ff;
+            box-shadow: 0 0 15px rgba(145, 70, 255, .7);
+        }
+
+        /* TikTok */
+        .socials a[data-platform="tiktok"]:hover {
+            background: linear-gradient(135deg, #25f4ee, #fe2c55);
+            box-shadow: 0 0 15px rgba(254, 44, 85, .7);
+        }
+
+        /* Instagram */
+        .socials a[data-platform="instagram"]:hover {
+            background: linear-gradient(135deg, #f58529, #dd2a7b, #515bd4);
+            box-shadow: 0 0 15px rgba(221, 42, 123, .7);
+        }
+
+        /* X */
+        .socials a[data-platform="x"]:hover {
+            background: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, .4);
+        }
+
+
+        .games-btn {
+            position: relative;
+            overflow: hidden;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-top: 28px;
+            padding: 14px 28px;
+
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: .5px;
+
+            color: #fff;
+            text-decoration: none;
+            border-radius: 999px;
+
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            box-shadow:
+                0 0 15px rgba(239, 68, 68, .6),
+                0 0 40px rgba(249, 115, 22, .3);
+
+            transition: all .25s ease;
+        }
+
+        .games-btn::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, #f87171, #fb923c);
+            z-index: -1;
+            opacity: .7;
+        }
+
+        .games-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow:
+                0 0 25px rgba(239, 68, 68, .9),
+                0 0 60px rgba(249, 115, 22, .6);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img class="avatar" src="81_20210123192755.png" alt="NilNeko">
+
+        <h1>NilNeko 🐾</h1>
+        <div class="tagline">ปีศาจแมวสายสตรีม | Warframe 🎮</div>
+
+        <div class="card">
+            <p>
+                สวัสดีทุกท่านที่หลงมาดูนะครับ 😄<br>
+                ผม <b>NilNeko (นิล)</b> ชอบเล่นเกม วาดรูป และคุยกันชิล ๆ<br><br>
+                ช่องนี้จะสตรีมเกมเป็นหลัก โดยเฉพาะ <b>Warframe</b><br>
+                อยากดูแมวเล่นเกมหรือเข้ามาคุยเล่น กดติดตามได้เลยครับ 🐱
+            </p>
+
+            <!-- Social Icons -->
+            <div class="socials">
+                <a data-platform="facebook" href="https://www.facebook.com/DarkNeko000">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg">
+                </a>
+                <a data-platform="twitch" href="https://www.twitch.tv/nilneko">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/twitch.svg">
+                </a>
+                <a data-platform="youtube" href="https://www.youtube.com/@nilneko6366">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg">
+                </a>
+                <a data-platform="tiktok" href="https://www.tiktok.com/@nilneko">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg">
+                </a>
+                <a data-platform="instagram" href="https://www.instagram.com/nil_neko/">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg">
+                </a>
+                <a data-platform="x" href="https://x.com/NilNeko">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg">
+                </a>
+            </div>
+
+            <a class="games-btn" href="my_games.html">
+                🎮 Games 🎮
+            </a>
+            <div class="info">
+                📧 mail: zerox924@gmail.com<br>
+                🖥 Warframe IGN (PC): NilNeko
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
