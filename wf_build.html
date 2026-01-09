@@ -138,6 +138,9 @@
 <body>
 
   <h1 id="title">Warframe Builds</h1>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="🔍 ค้นหา Warframe...">
+  </div>
 
   <div class="characters" id="characters"></div>
 
@@ -594,55 +597,64 @@
     const container = document.getElementById("characters");
     const buildBox = document.getElementById("build");
     const title = document.getElementById("title");
+    const searchInput = document.getElementById("search");
 
-    // แสดงจำนวนตัวละคร
     title.innerText = `Warframe Builds (${warframes.length})`;
-
-    // เรียงชื่อ
     warframes.sort((a, b) => a.name.localeCompare(b.name, "en"));
 
-    // ฟังก์ชันแปลงลิงก์ YouTube เป็น embed
     function toEmbed(url) {
-      // จับ VIDEO_ID จากลิงก์
       const reg = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
       const match = url.match(reg);
-      if (match && match[1]) {
-        return `https://www.youtube.com/embed/${match[1]}`;
-      }
-      return url; // คืนค่าเดิมถ้าไม่ตรง pattern
+      return match ? `https://www.youtube.com/embed/${match[1]}` : url;
     }
 
-    // Render ตัวละคร
-    warframes.forEach(wf => {
-      const btn = document.createElement("div");
-      btn.className = "char-btn";
+    // 🔁 ฟังก์ชัน render (ใช้ซ้ำได้)
+    function renderCharacters(list) {
+      container.innerHTML = "";
 
-      if (!wf.video && (!wf.videos || wf.videos.length === 0)) btn.classList.add("disabled");
+      list.forEach(wf => {
+        const btn = document.createElement("div");
+        btn.className = "char-btn";
 
-      btn.innerHTML = `
-    <div class="img-box">
-      <img class="normal" src="${wf.normal}">
-      ${wf.prime ? `<img class="prime" src="${wf.prime}">` : ""}
-    </div>
-    <span>${wf.name}</span>
-  `;
+        if (!wf.video && (!wf.videos || wf.videos.length === 0))
+          btn.classList.add("disabled");
 
-      btn.onclick = () => showBuild(wf);
+        btn.innerHTML = `
+        <div class="img-box">
+          <img class="normal" src="${wf.normal}">
+          ${wf.prime ? `<img class="prime" src="${wf.prime}">` : ""}
+        </div>
+        <span>${wf.name}</span>
+      `;
 
-      container.appendChild(btn);
+        btn.onclick = () => showBuild(wf);
+        container.appendChild(btn);
+      });
+    }
+
+    // แสดงทั้งหมดตอนแรก
+    renderCharacters(warframes);
+
+    // 🔍 ค้นหาแล้วกรอง
+    searchInput.addEventListener("input", () => {
+      const keyword = searchInput.value.toLowerCase();
+
+      const filtered = warframes.filter(wf =>
+        wf.name.toLowerCase().includes(keyword)
+      );
+
+      renderCharacters(filtered);
     });
 
-    // แสดง Build + Video
     function showBuild(wf) {
       buildBox.innerHTML = `
-    <h2>${wf.name} Build</h2>
-    <p>${wf.desc || ""}</p>
-    <div id="videoBox"></div>
-  `;
+      <h2>${wf.name} Build</h2>
+      <p>${wf.desc || ""}</p>
+      <div id="videoBox"></div>
+    `;
 
       const videoBox = document.getElementById("videoBox");
 
-      // วิดีโอหลายอัน
       if (wf.videos && wf.videos.length > 0) {
         wf.videos.forEach(url => {
           const iframe = document.createElement("iframe");
@@ -651,24 +663,18 @@
           iframe.loading = "lazy";
           videoBox.appendChild(iframe);
         });
-      }
-      // วิดีโอเดี่ยว
-      else if (wf.video) {
+      } else if (wf.video) {
         const iframe = document.createElement("iframe");
         iframe.src = toEmbed(wf.video);
         iframe.allowFullscreen = true;
         iframe.loading = "lazy";
         videoBox.appendChild(iframe);
-      }
-      // ไม่มีวิดีโอ
-      else {
+      } else {
         videoBox.innerHTML = `<p class="no-build">⛔ ยังไม่มี Build สำหรับตัวนี้</p>`;
       }
 
       buildBox.scrollIntoView({ behavior: "smooth" });
     }
-
-
   </script>
 
 </body>
