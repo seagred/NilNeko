@@ -161,10 +161,20 @@
                 energy: 22,
                 base: 160,
                 ingredients: [
-                    { img: "https://heartopiawiki.com/images/thumb/b/b5/Blueberry.webp/24px-Blueberry.webp.png", qty: 1 },
-                    { img: "https://heartopiawiki.com/images/thumb/4/44/Raspberry.webp/24px-Raspberry.webp.png", qty: 1 },
-                    { img: "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png", qty: 1 },
-                    { img: "https://heartopiawiki.com/images/thumb/4/41/Mandarin.webp/24px-Mandarin.webp.png", qty: 1 }
+                    {
+                        imgs: [
+                            "https://heartopiawiki.com/images/thumb/b/b5/Blueberry.webp/24px-Blueberry.webp.png",
+                            "https://heartopiawiki.com/images/thumb/4/44/Raspberry.webp/24px-Raspberry.webp.png",
+                            "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png",
+                            "https://heartopiawiki.com/images/thumb/4/41/Mandarin.webp/24px-Mandarin.webp.png",
+                            "https://heartopiawiki.com/images/thumb/5/5e/Pineapple.webp/24px-Pineapple.webp.png",
+                            "https://heartopiawiki.com/images/thumb/c/c6/Strawberry.webp/24px-Strawberry.webp.png",
+                            "https://heartopiawiki.com/images/thumb/a/a7/Grape.webp/24px-Grape.webp.png",
+                            "https://heartopiawiki.com/images/thumb/6/62/Carrot.webp/24px-Carrot.webp.png"
+                        ],
+                        qty: 4,
+                        label: "เลือกผลไม้ใดก็ได้"
+                    }
                 ]
             },
             {
@@ -251,46 +261,61 @@
 
         const container = document.getElementById("recipes");
 
-        // ✅ ฟังก์ชัน render (หัวใจของทั้งหมด)
+        // ✅ ฟังก์ชัน render (รองรับ img / emoji / imgs[])
         function render(list) {
             container.innerHTML = list.map(r => `
-      <div class="card">
-        <div class="item-header">
-          <img src="${r.img}">
-          <div class="item-name">${r.name}</div>
-        </div>
-
-        <div class="ingredients">
-          ${r.ingredients.map(i => `
-            <div class="ing">
-              ${i.img ? `<img src="${i.img}">` : i.emoji}
-              <span>x${i.qty}</span>
-            </div>
-          `).join("")}
-        </div>
-
-        <div class="level">ต้องการเลเวลคราฟ: ${r.level}</div>
-        <div class="energy">⚡ Energy +${r.energy}</div>
-
-        <div class="prices">
-          ${multipliers.map((m, i) => `
-            <div class="price">
-              <span class="star">★${i + 1}</span>
-              ${Math.round(r.base * m)}
-            </div>
-          `).join("")}
-        </div>
+    <div class="card">
+      <div class="item-header">
+        <img src="${r.img}">
+        <div class="item-name">${r.name}</div>
       </div>
-    `).join("");
+
+      <div class="ingredients">
+        ${r.ingredients.map(i => `
+          <div class="ing">
+
+            ${
+                // 🔹 กรณีเลือกได้หลายอย่าง (any_fruit / any_meat / any_crop)
+                i.imgs
+                    ? `
+                  <div style="display:flex;gap:4px;flex-wrap:wrap">
+                    ${i.imgs.map(img => `<img src="${img}">`).join("")}
+                  </div>
+                `
+                    // 🔹 กรณีรูปเดียว
+                    : i.img
+                        ? `<img src="${i.img}">`
+                        // 🔹 กรณี emoji
+                        : i.emoji || ""
+                }
+
+            <span>x${i.qty}</span>
+
+            ${i.label ? `<small style="opacity:.6">(${i.label})</small>` : ""}
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="level">ต้องการเลเวลคราฟ: ${r.level}</div>
+      <div class="energy">⚡ Energy +${r.energy}</div>
+
+      <div class="prices">
+        ${multipliers.map((m, i) => `
+          <div class="price">
+            <span class="star">★${i + 1}</span>
+            ${Math.round(r.base * m)}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
         }
 
         // 🔍 Search
         document.getElementById("search").addEventListener("input", e => {
             const keyword = e.target.value.toLowerCase().trim();
             render(
-                recipes.filter(r =>
-                    r.name.toLowerCase().includes(keyword)
-                )
+                recipes.filter(r => r.name.toLowerCase().includes(keyword))
             );
         });
 
