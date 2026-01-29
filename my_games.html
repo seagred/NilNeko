@@ -41,8 +41,9 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, .6);
     }
 
-    .card.warframe { border-top: 5px solid #ef4444; }
-    .card.sky { border-top: 5px solid #38bdf8; }
+    .card.warframe { border-top: 5px solid #206694; }
+    .card.sky { border-top: 5px solid #57ace6; }
+    .card.heartopia { border-top: 5px solid #f8a4d4; }
 
     /* ===== Header ===== */
     .icon {
@@ -94,12 +95,17 @@
 
     /* Hover ตามการ์ด */
     .card.warframe .dropdown a:hover {
-      background: #ef4444;
+      background: #206694;
       transform: translateY(-2px);
     }
 
     .card.sky .dropdown a:hover {
-      background: #38bdf8;
+      background: #57ace6;
+      transform: translateY(-2px);
+    }
+
+    .card.heartopia .dropdown a:hover {
+      background: #f8a4d4;
       transform: translateY(-2px);
     }
 
@@ -130,21 +136,34 @@
       <div class="dropdown">
         <div class="dropdown-content">
           <a class="disabled-link">Weapon Builds</a>
-          <a href="wf_builds.html">Warframe Builds</a>
-          <a class="disabled-link" href="wf_fashions.html">Warframe Fashions</a>
+          <a href="/warframe/wf_builds.html">Warframe Builds</a>
+          <a class="disabled-link" href="/warframe/wf_fashions.html">Warframe Fashions</a>
         </div>
       </div>
     </div>
 
     <!-- Sky -->
     <div class="card sky">
-      <div class="icon">🌤</div>
+      <div class="icon">🌤️</div>
       <div class="title">Sky: Children of the Light</div>
 
       <div class="dropdown">
         <div class="dropdown-content">
           <a class="disabled-link">Guides</a>
-          <a href="traveling_spirit.html">Traveling Spirit</a>
+          <a href="/sky/traveling_spirit.html">Traveling Spirit</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heartopia -->
+    <div class="card heartopia">
+      <div class="icon">🩷</div>
+      <div class="title">Heartopia</div>
+
+      <div class="dropdown">
+        <div class="dropdown-content">
+          <a class="disabled-link">Guides</a>
+          <a href="/heartopia/cooking.html">Cooking</a>
         </div>
       </div>
     </div>

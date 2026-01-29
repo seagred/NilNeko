@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Heartopia Recipes</title>
+    <link rel="icon" type="image/png" href="/81_20210123192755.png">
+
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: linear-gradient(180deg, #f7efe5, #efe3d3);
+            padding: 32px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 32px;
+            color: #5a3e2b;
+        }
+
+        .search-box {
+            max-width: 360px;
+            margin: 0 auto 32px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: none;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+            outline: none;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: #fffaf3;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .item-header img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #6b4226;
+        }
+
+        .ingredients {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .ing {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f8e8c8;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #5a3e2b;
+        }
+
+        .ing img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .level {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .energy {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2f9e44;
+            margin-bottom: 14px;
+        }
+
+        .prices {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            text-align: center;
+        }
+
+        .price {
+            background: #f3d7a6;
+            border-radius: 10px;
+            padding: 6px 0;
+            font-size: 13px;
+            color: #5a3e2b;
+        }
+
+        .star {
+            display: block;
+            font-size: 14px;
+            color: #f5b301;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📒 สูตรอาหาร</h1>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="ค้นหาสูตรอาหาร...">
+    </div>
+    <div class="recipe-grid" id="recipes"></div>
+
+    <script>
+        const multipliers = [1, 1.5, 2, 4, 8];
+
+        const recipes = [
+            {
+                name: "สลัดคันทรี",
+                img: "https://heartopiawiki.com/images/thumb/6/67/House_Salad.webp/64px-House_Salad.webp.png",
+                level: 1,
+                energy: 15,
+                base: 90,
+                ingredients: [
+                    { emoji: "🥬", qty: 1 }
+                ]
+            },
+            {
+                name: "แยมรวมมิตร",
+                img: "https://heartopiawiki.com/images/thumb/f/f3/Mixed_Jam.webp/64px-Mixed_Jam.webp.png",
+                level: 1,
+                energy: 22,
+                base: 160,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/b/b5/Blueberry.webp/24px-Blueberry.webp.png", qty: 1 },
+                    { img: "https://heartopiawiki.com/images/thumb/4/44/Raspberry.webp/24px-Raspberry.webp.png", qty: 1 },
+                    { img: "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png", qty: 1 },
+                    { img: "https://heartopiawiki.com/images/thumb/4/41/Mandarin.webp/24px-Mandarin.webp.png", qty: 1 }
+                ]
+            },
+            {
+                name: "แยมราสเบอร์รี่",
+                img: "https://heartopiawiki.com/images/thumb/d/d3/Raspberry_Jam.webp/100px-Raspberry_Jam.webp.png",
+                level: 1,
+                energy: 30,
+                base: 250,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/4/44/Raspberry.webp/24px-Raspberry.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมบลูเบอร์รี่",
+                img: "https://heartopiawiki.com/images/thumb/1/16/Blueberry_Jam.webp/100px-Blueberry_Jam.webp.png",
+                level: 1,
+                energy: 22,
+                base: 170,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/b/b5/Blueberry.webp/24px-Blueberry.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมส้ม",
+                img: "https://heartopiawiki.com/images/thumb/b/bb/Mandarin_Jam.webp/100px-Mandarin_Jam.webp.png",
+                level: 1,
+                energy: 35,
+                base: 270,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/4/41/Mandarin.webp/24px-Mandarin.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมแอปเปิ้ล",
+                img: "https://heartopiawiki.com/images/thumb/a/ae/Apple_Jam.webp/100px-Apple_Jam.webp.png",
+                level: 1,
+                energy: 35,
+                base: 270,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "ซอสมะเขือเทศ",
+                img: "https://heartopiawiki.com/images/thumb/9/94/Tomato_Sauce.webp/100px-Tomato_Sauce.webp.png",
+                level: 1,
+                energy: 35,
+                base: 180,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/f/f1/Tomato.webp/24px-Tomato.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมสับปะรด",
+                img: "https://heartopiawiki.com/images/thumb/f/f7/Pineapple_Jam.webp/100px-Pineapple_Jam.webp.png",
+                level: 4,
+                energy: 40,
+                base: 280,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/5/5e/Pineapple.webp/24px-Pineapple.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมสตอเบอร์รี่",
+                img: "https://heartopiawiki.com/images/thumb/e/ea/Strawberry_Jam.webp/100px-Strawberry_Jam.webp.png",
+                level: 6,
+                energy: 40,
+                base: 1580,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/c/c6/Strawberry.webp/24px-Strawberry.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมองุ่น",
+                img: "https://heartopiawiki.com/images/thumb/c/c0/Grape_Jam.webp/100px-Grape_Jam.webp.png",
+                level: 7,
+                energy: 40,
+                base: 2020,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/a/a7/Grape.webp/24px-Grape.webp.png", qty: 4 }
+                ]
+            }
+        ];
+
+        const container = document.getElementById("recipes");
+
+        // ✅ ฟังก์ชัน render (หัวใจของทั้งหมด)
+        function render(list) {
+            container.innerHTML = list.map(r => `
+      <div class="card">
+        <div class="item-header">
+          <img src="${r.img}">
+          <div class="item-name">${r.name}</div>
+        </div>
+
+        <div class="ingredients">
+          ${r.ingredients.map(i => `
+            <div class="ing">
+              ${i.img ? `<img src="${i.img}">` : i.emoji}
+              <span>x${i.qty}</span>
+            </div>
+          `).join("")}
+        </div>
+
+        <div class="level">ต้องการเลเวลคราฟ: ${r.level}</div>
+        <div class="energy">⚡ Energy +${r.energy}</div>
+
+        <div class="prices">
+          ${multipliers.map((m, i) => `
+            <div class="price">
+              <span class="star">★${i + 1}</span>
+              ${Math.round(r.base * m)}
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+        }
+
+        // 🔍 Search
+        document.getElementById("search").addEventListener("input", e => {
+            const keyword = e.target.value.toLowerCase().trim();
+            render(
+                recipes.filter(r =>
+                    r.name.toLowerCase().includes(keyword)
+                )
+            );
+        });
+
+        // ✅ render ครั้งแรก
+        render(recipes);
+    </script>
+
+</body>
+
+</html>
