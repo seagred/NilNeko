@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Heartopia Recipes</title>
+    <link rel="icon" type="image/png" href="./81_20210123192755.png">
 
     <style>
         body {
@@ -133,14 +134,59 @@
             display: block;
             color: #f5b301;
         }
+
+        .info-note {
+            max-width: 640px;
+            margin: 12px auto 28px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #7a5a3a;
+            background: #fff6df;
+            border-radius: 12px;
+            text-align: center;
+            line-height: 1.4;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+        }
+
+        .filter-box {
+            max-width: 180px;
+            margin: -16px auto 28px;
+        }
+
+        .filter-box select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: none;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .12);
+            background: #fffaf3;
+            color: #5a3e2b;
+        }
     </style>
 </head>
 
 <body>
 
     <h1>📒 สูตรอาหาร</h1>
+
     <div class="search-box">
         <input id="search" placeholder="ค้นหาสูตรอาหาร..." />
+    </div>
+
+    <div class="filter-box">
+        <select id="sort">
+            <option value="">— เรียงลำดับ —</option>
+            <option value="sell-desc">ราคาขายมาก → น้อย</option>
+            <option value="sell-asc">ราคาขายน้อย → มาก</option>
+            <option value="cost-asc">ต้นทุนน้อย → มาก</option>
+            <option value="cost-desc">ต้นทุนมาก → น้อย</option>
+        </select>
+    </div>
+
+    <div class="info-note">
+        ℹ️ รูปและข้อมูลบางส่วนอาจคลาดเคลื่อน เนื่องจากอ้างอิงจาก Heartopia Wiki
+        หากพบข้อผิดพลาด รบกวนแจ้ง 🙏
     </div>
 
     <div class="recipe-grid" id="recipes"></div>
@@ -177,6 +223,12 @@
             "Green_Sugar.webp": "น้ำตาลสีเขียว",
             "Blue_Sugar.webp": "น้ำตาลสีฟ้า",
             "Indigo_Sugar.webp": "น้ำตาลสีน้ำเงิน",
+            "Coffee_Bean.webp": "เมล็ดกาแฟ",
+            "Lettuce.webp": "ผักกาดหอม",
+            "Tomato_Sauce.webp": "ซอสมะเขือเทศ",
+            "Butter.webp": "เนย",
+            "Meat.webp": "เนื้อ",
+            "Corn.webp": "ข้าวโพด",
         };
 
         // 🔑 ฟังก์ชันกลาง แก้ปัญหาทั้งหมด
@@ -294,7 +346,7 @@
                 ]
             },
             {
-                name: "แยมสตอเบอร์รี่",
+                name: "แยมสตรอเบอร์รี่",
                 img: "https://heartopiawiki.com/images/thumb/e/ea/Strawberry_Jam.webp/100px-Strawberry_Jam.webp.png",
                 level: 6,
                 energy: 40,
@@ -492,7 +544,7 @@
                 ]
             },
             {
-                name: "พายเห็ดพอร์ชอนี",
+                name: "พายเห็ดพอร์ชินี",
                 img: "https://heartopiawiki.com/images/thumb/2/2e/Penny_Bun_Pie.webp/100px-Penny_Bun_Pie.webp.png",
                 level: 1,
                 energy: 35,
@@ -550,7 +602,7 @@
             },
             {
                 name: "โรลเมฆสีแดง",
-                img: "",
+                img: "https://heartopiawiki.com/index.php?title=Special:Upload&wpDestFile=Red_Roll_Cake.webp.png",
                 level: 1,
                 energy: 48,
                 cost: 450,
@@ -563,7 +615,7 @@
                         img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
                     },
                     {
-                        img: "", qty: 2
+                        img: "https://heartopiawiki.com/images/thumb/5/5e/Red_Sugar.webp/24px-Red_Sugar.webp.png", qty: 2
                     }
                 ]
             },
@@ -588,7 +640,7 @@
             },
             {
                 name: "โรลเมฆสีเหลือง",
-                img: "",
+                img: "https://heartopiawiki.com/index.php?title=Special:Upload&wpDestFile=Yellow_Roll_Cake.webp.png",
                 level: 1,
                 energy: 48,
                 cost: 450,
@@ -601,7 +653,7 @@
                         img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
                     },
                     {
-                        img: "", qty: 2
+                        img: "https://heartopiawiki.com/images/thumb/4/47/Yellow_Sugar.webp/24px-Yellow_Sugar.webp.png", qty: 2
                     }
                 ]
             },
@@ -620,13 +672,13 @@
                         img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
                     },
                     {
-                        img: "https://heartopiawiki.com/images/thumb/e/e9/Violet_Sugar.webp/24px-Violet_Sugar.webp.png", qty: 2
+                        img: "https://heartopiawiki.com/images/thumb/6/66/Violet_Sugar.webp/24px-Violet_Sugar.webp.png", qty: 2
                     }
                 ]
             },
             {
                 name: "โรลเมฆสีเขียว",
-                img: "",
+                img: "https://heartopiawiki.com/index.php?title=Special:Upload&wpDestFile=Green_Roll_Cake.webppng",
                 level: 1,
                 energy: 48,
                 cost: 450,
@@ -639,7 +691,7 @@
                         img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
                     },
                     {
-                        img: "", qty: 2
+                        img: "https://heartopiawiki.com/images/thumb/5/55/Green_Sugar.webp/24px-Green_Sugar.webp.png", qty: 2
                     }
                 ]
             },
@@ -680,10 +732,286 @@
                         img: "https://heartopiawiki.com/images/thumb/a/a6/Indigo_Sugar.webp/24px-Indigo_Sugar.webp.png", qty: 2
                     }
                 ]
+            },
+            {
+                name: "กาแฟ",
+                img: "https://heartopiawiki.com/images/thumb/5/52/Coffee.webp/100px-Coffee.webp.png",
+                level: 2,
+                energy: 40,
+                cost: 200,
+                base: 290,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/7/7a/Coffee_Bean.webp/24px-Coffee_Bean.webp.png", qty: 4
+                    }
+                ]
+            },
+            {
+                name: "กาแฟลาเต้",
+                img: "https://heartopiawiki.com/images/thumb/0/07/Coffee_Latte.webp/100px-Coffee_Latte.webp.png",
+                level: 2,
+                energy: 40,
+                cost: 200,
+                base: 300,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/7/7a/Coffee_Bean.webp/24px-Coffee_Bean.webp.png", qty: 2
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 2
+                    }
+                ]
+            },
+            {
+                name: "เบเกิลปลารมควัน",
+                img: "https://heartopiawiki.com/images/thumb/2/2b/Smoked_Fish_Bagel.webp/100px-Smoked_Fish_Bagel.webp.png",
+                level: 2,
+                energy: 50,
+                cost: 205,
+                costFrom: "ใช้มะเขือเทศ",
+                base: 520,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/2/25/Fish.webp/24px-Fish.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/4/40/Cheese.webp/24px-Cheese.webp.png", qty: 1
+                    },
+                    { emoji: "🥬", qty: 1, label: "ผักใดก็ได้" },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "ข้าวผัดซีฟู้ด",
+                img: "https://heartopiawiki.com/images/thumb/f/f0/Seafood_Risotto.webp/100px-Seafood_Risotto.webp.png",
+                level: 3,
+                energy: 40,
+                cost: 105,
+                base: 490,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/2/25/Fish.webp/24px-Fish.webp.png", qty: 2
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/4/40/Cheese.webp/24px-Cheese.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f1/Tomato.webp/24px-Tomato.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "สตูว์ชนบท",
+                img: "https://heartopiawiki.com/images/thumb/7/77/Rustic_Ratatouille.webp/100px-Rustic_Ratatouille.webp.png",
+                level: 3,
+                energy: 60,
+                cost: 185,
+                base: 640,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f1/Tomato.webp/24px-Tomato.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/0/08/Potato.webp/24px-Potato.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/c/c3/Lettuce.webp/24px-Lettuce.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "พาสต้าครีมทรัฟเฟิลดำ",
+                img: "https://heartopiawiki.com/images/thumb/c/c1/Black_Truffle_Cream_Pasta.webp/100px-Black_Truffle_Cream_Pasta.webp.png",
+                level: 3,
+                energy: 90,
+                cost: 240,
+                base: 900,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/b/b1/Black_Truffle.webp/24px-Black_Truffle.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 2
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "พิซซ่าทะเล",
+                img: "https://heartopiawiki.com/images/thumb/3/3d/Seafood_Pizza.webp/100px-Seafood_Pizza.webp.png",
+                level: 4,
+                energy: 70,
+                cost: 235,
+                base: 780,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/4/40/Cheese.webp/24px-Cheese.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/9/94/Tomato_Sauce.webp/24px-Tomato_Sauce.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/2/25/Fish.webp/24px-Fish.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "พาสต้าซอสเนื้อ",
+                img: "https://heartopiawiki.com/images/thumb/e/e0/Meat_Sauce_Pasta.webp/100px-Meat_Sauce_Pasta.webp.png",
+                level: 4,
+                energy: 80,
+                cost: 435,
+                base: 670,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/a/a5/Meat.webp/24px-Meat.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/9/94/Tomato_Sauce.webp/24px-Tomato_Sauce.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/4/40/Cheese.webp/24px-Cheese.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "พายแอปเปิล",
+                img: "https://heartopiawiki.com/images/thumb/5/59/Apple_Pie.webp/100px-Apple_Pie.webp.png",
+                level: 5,
+                energy: 70,
+                cost: 345,
+                base: 730,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/a/a4/Egg.webp/24px-Egg.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/1/18/Butter.webp/24px-Butter.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "เค้กแครอท",
+                img: "https://heartopiawiki.com/images/thumb/a/a2/Carrot_Cake.webp/100px-Carrot_Cake.webp.png",
+                level: 5,
+                energy: 55,
+                cost: 295,
+                base: 840,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/6/62/Carrot.webp/24px-Carrot.webp.png", qty: 2
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "ซุปข้าวโพด",
+                img: "https://heartopiawiki.com/images/thumb/f/ff/Corn_Soup.webp/100px-Corn_Soup.webp.png",
+                level: 5,
+                energy: 80,
+                cost: 540,
+                base: 1340,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/1/18/Butter.webp/24px-Butter.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/5/5e/Corn.webp/24px-Corn.webp.png", qty: 2
+                    }
+                ]
+            },
+            {
+                name: "จานทะเลรวมหรูหรา",
+                img: "https://heartopiawiki.com/index.php?title=Special:Upload&wpDestFile=Deluxe_Seafood_Platter.webp.png",
+                level: 6,
+                energy: 65,
+                cost: 0,
+                base: 410,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/index.php?title=Special:Upload&wpDestFile=Shellfish.webp.png", qty: 2
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/2/25/Fish.webp/24px-Fish.webp.png", qty: 2
+                    }
+                ]
+            },
+            {
+                name: "ทีรามิสุ",
+                img: "https://heartopiawiki.com/images/thumb/8/80/Tiramisu.webp/100px-Tiramisu.webp.png",
+                level: 6,
+                energy: 65,
+                cost: 300,
+                base: 530,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/7/7a/Coffee_Bean.webp/24px-Coffee_Bean.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/a/a4/Egg.webp/24px-Egg.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/4/40/Cheese.webp/24px-Cheese.webp.png", qty: 1
+                    }
+                ]
+            },
+            {
+                name: "แฮมเบอร์เกอร์เนื้อสด",
+                img: "https://heartopiawiki.com/images/thumb/1/10/Meat_Burger.webp/100px-Meat_Burger.webp.png",
+                level: 8,
+                energy: 75,
+                cost: 480,
+                base: 1350,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1
+
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/c/c3/Lettuce.webp/24px-Lettuce.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/a/a5/Meat.webp/24px-Meat.webp.png", qty: 1
+                    },
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/9/94/Tomato_Sauce.webp/24px-Tomato_Sauce.webp.png", qty: 1
+                    },
+                ]
             }
         ];
 
         const container = document.getElementById("recipes");
+
+        function formatNumber(n) {
+            return Number(n).toLocaleString("th-TH");
+        }
 
         function render(list) {
             container.innerHTML = list.map(r => `
@@ -714,13 +1042,16 @@
 
           <div class="level">ต้องการเลเวลคราฟ: ${r.level}</div>
           <div class="energy">⚡ Energy +${r.energy}</div>
-          <div class="cost">💰 ต้นทุน ${r.cost}</div>
+          <div class="cost">
+        💰 ต้นทุน ${formatNumber(r.cost)}
+        ${r.costFrom ? `<span style="opacity:.7"> (${r.costFrom})</span>` : ""}
+        </div>
 
           <div class="prices">
             ${multipliers.map((m, i) => `
               <div class="price">
                 <span class="star">★${i + 1}</span>
-                ${Math.round(r.base * m)}
+                ${formatNumber(Math.round(r.base * m))}
               </div>
             `).join("")}
           </div>
@@ -729,6 +1060,84 @@
         }
 
         render(recipes);
+
+        const searchInput = document.getElementById("search");
+
+        searchInput.addEventListener("input", () => {
+            const q = searchInput.value.trim().toLowerCase();
+
+            // ✅ ถ้าว่าง → แสดงทั้งหมดแล้วหยุด
+            if (!q) {
+                render(recipes);
+                return;
+            }
+
+            const filtered = recipes.filter(r => {
+                // ชื่ออาหาร
+                if (r.name.toLowerCase().includes(q)) return true;
+
+                // วัตถุดิบ
+                return r.ingredients.some(i => {
+                    if (i.img) {
+                        return getIngName(i.img).toLowerCase().includes(q);
+                    }
+                    if (i.imgs) {
+                        return i.imgs.some(img =>
+                            getIngName(img).toLowerCase().includes(q)
+                        );
+                    }
+                    if (i.emoji) {
+                        return i.emoji.includes(q);
+                    }
+                    return false;
+                });
+            });
+
+            render(filtered);
+        });
+
+        const sortSelect = document.getElementById("sort");
+
+        function applyFilter() {
+            const q = searchInput.value.trim().toLowerCase();
+            let list = [...recipes];
+
+            // 🔍 search
+            if (q) {
+                list = list.filter(r => {
+                    if (r.name.toLowerCase().includes(q)) return true;
+                    return r.ingredients.some(i => {
+                        if (i.img) return getIngName(i.img).toLowerCase().includes(q);
+                        if (i.imgs) return i.imgs.some(img =>
+                            getIngName(img).toLowerCase().includes(q)
+                        );
+                        if (i.emoji) return i.emoji.includes(q);
+                        return false;
+                    });
+                });
+            }
+
+            // 🔽 sort
+            switch (sortSelect.value) {
+                case "sell-desc":
+                    list.sort((a, b) => b.base - a.base);
+                    break;
+                case "sell-asc":
+                    list.sort((a, b) => a.base - b.base);
+                    break;
+                case "cost-asc":
+                    list.sort((a, b) => a.cost - b.cost);
+                    break;
+                case "cost-desc":
+                    list.sort((a, b) => b.cost - a.cost);
+                    break;
+            }
+
+            render(list);
+        }
+
+        searchInput.addEventListener("input", applyFilter);
+        sortSelect.addEventListener("change", applyFilter);
     </script>
 
 </body>
