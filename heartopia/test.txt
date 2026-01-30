@@ -1,0 +1,221 @@
+const recipes = [
+            {
+                name: "สลัดคันทรี",
+                img: "https://heartopiawiki.com/images/thumb/6/67/House_Salad.webp/64px-House_Salad.webp.png",
+                level: 1,
+                energy: 15,
+                cost: 20,
+                costFrom: "ใช้มะเขือเทศ",
+                base: 90,
+                ingredients: [
+                    { emoji: "🥬", qty: 2 }
+                ]
+            },
+            {
+                name: "แยมรวมมิตร",
+                img: "https://heartopiawiki.com/images/thumb/f/f3/Mixed_Jam.webp/64px-Mixed_Jam.webp.png",
+                level: 1,
+                energy: 22,
+                cost: 0,
+                costFrom: "ถ้าใช้ของที่เก็บเอง",
+                base: 160,
+                ingredients: [
+                    {
+                        imgs: [
+                            "https://heartopiawiki.com/images/thumb/b/b5/Blueberry.webp/24px-Blueberry.webp.png",
+                            "https://heartopiawiki.com/images/thumb/4/44/Raspberry.webp/24px-Raspberry.webp.png",
+                            "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png",
+                            "https://heartopiawiki.com/images/thumb/4/41/Mandarin.webp/24px-Mandarin.webp.png",
+                            "https://heartopiawiki.com/images/thumb/5/5e/Pineapple.webp/24px-Pineapple.webp.png",
+                            "https://heartopiawiki.com/images/thumb/c/c6/Strawberry.webp/24px-Strawberry.webp.png",
+                            "https://heartopiawiki.com/images/thumb/a/a7/Grape.webp/24px-Grape.webp.png",
+                            "https://heartopiawiki.com/images/thumb/6/62/Carrot.webp/24px-Carrot.webp.png"
+                        ],
+                        qty: 4,
+                        label: "ผักหรือผลไม้ใดก็ได้"
+                    }
+                ]
+            },
+            {
+                name: "แยมราสเบอร์รี่",
+                img: "https://heartopiawiki.com/images/thumb/d/d3/Raspberry_Jam.webp/100px-Raspberry_Jam.webp.png",
+                level: 1,
+                energy: 30,
+                cost: 0,
+                base: 250,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/4/44/Raspberry.webp/24px-Raspberry.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมบลูเบอร์รี่",
+                img: "https://heartopiawiki.com/images/thumb/1/16/Blueberry_Jam.webp/100px-Blueberry_Jam.webp.png",
+                level: 1,
+                energy: 22,
+                cost: 0,
+                base: 170,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/b/b5/Blueberry.webp/24px-Blueberry.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมส้ม",
+                img: "https://heartopiawiki.com/images/thumb/b/bb/Mandarin_Jam.webp/100px-Mandarin_Jam.webp.png",
+                level: 1,
+                energy: 35,
+                cost: 0,
+                base: 270,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/4/41/Mandarin.webp/24px-Mandarin.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมแอปเปิ้ล",
+                img: "https://heartopiawiki.com/images/thumb/a/ae/Apple_Jam.webp/100px-Apple_Jam.webp.png",
+                level: 1,
+                energy: 35,
+                cost: 0,
+                base: 270,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/5/5d/Apple.webp/24px-Apple.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "ซอสมะเขือเทศ",
+                img: "https://heartopiawiki.com/images/thumb/9/94/Tomato_Sauce.webp/100px-Tomato_Sauce.webp.png",
+                level: 1,
+                energy: 35,
+                cost: 40,
+                base: 180,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/f/f1/Tomato.webp/24px-Tomato.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมสับปะรด",
+                img: "https://heartopiawiki.com/images/thumb/f/f7/Pineapple_Jam.webp/100px-Pineapple_Jam.webp.png",
+                level: 4,
+                energy: 40,
+                cost: 60,
+                base: 280,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/5/5e/Pineapple.webp/24px-Pineapple.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมสตอเบอร์รี่",
+                img: "https://heartopiawiki.com/images/thumb/e/ea/Strawberry_Jam.webp/100px-Strawberry_Jam.webp.png",
+                level: 6,
+                energy: 40,
+                cost: 500,
+                base: 1580,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/c/c6/Strawberry.webp/24px-Strawberry.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "แยมองุ่น",
+                img: "https://heartopiawiki.com/images/thumb/c/c0/Grape_Jam.webp/100px-Grape_Jam.webp.png",
+                level: 7,
+                energy: 40,
+                cost: 640,
+                base: 2020,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/a/a7/Grape.webp/24px-Grape.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "ฟิชแอนด์ชิปส์",
+                img: "https://heartopiawiki.com/images/thumb/e/e6/Fish_%26_Chips.webp/100px-Fish_%26_Chips.webp.png",
+                level: 1,
+                energy: 40,
+                cost: 60,
+                base: 310,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/2/25/Fish.webp/24px-Fish.webp.png", qty: 2 },
+                    { img: "https://heartopiawiki.com/images/thumb/0/08/Potato.webp/24px-Potato.webp.png", qty: 2 }
+                ]
+            },
+            {
+                name: "ชีสเค้ก",
+                img: "https://heartopiawiki.com/images/thumb/a/a9/Cheese_Cake.webp/100px-Cheese_Cake.webp.png",
+                level: 2,
+                energy: 50,
+                cost: 245,
+                base: 480,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/4/40/Cheese.webp/24px-Cheese.webp.png", qty: 1 },
+                    { img: "https://heartopiawiki.com/images/thumb/f/f5/Milk.webp/24px-Milk.webp.png", qty: 1 },
+                    { img: "https://heartopiawiki.com/images/thumb/3/3c/Wheat.webp/24px-Wheat.webp.png", qty: 1 }
+                ]
+            },
+            {
+                name: "เห็ดย่าง",
+                img: "https://heartopiawiki.com/images/thumb/6/69/Grilled_Mushroom.webp/100px-Grilled_Mushroom.webp.png",
+                level: 1,
+                energy: 15,
+                cost: 0,
+                base: 180,
+                ingredients: [
+                    {
+                        imgs: [
+                            "https://heartopiawiki.com/images/thumb/7/7a/Oyster_Mushroom.webp/24px-Oyster_Mushroom.webp.png",
+                            "https://heartopiawiki.com/images/thumb/c/c7/Shiitake.webp/24px-Shiitake.webp.png",
+                            "https://heartopiawiki.com/images/thumb/6/67/Button_Mushroom.webp/24px-Button_Mushroom.webp.png",
+                            "https://heartopiawiki.com/images/thumb/6/6c/Penny_Bun.webp/24px-Penny_Bun.webp.png",
+                            "https://heartopiawiki.com/images/thumb/b/b1/Black_Truffle.webp/24px-Black_Truffle.webp.png",
+                        ],
+                        qty: 4,
+                        label: "เห็ดใดก็ได้"
+                    }
+                ]
+            },
+            {
+                name: "เห็ดนางฟ้าย่าง",
+                img: "https://heartopiawiki.com/images/thumb/f/fa/Grilled_Oyster_Mushroom.webp/100px-Grilled_Oyster_Mushroom.webp.png",
+                level: 1,
+                energy: 15,
+                cost: 0,
+                base: 180,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/7/7a/Oyster_Mushroom.webp/24px-Oyster_Mushroom.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "เห็ดหอมย่าง",
+                img: "https://heartopiawiki.com/images/thumb/9/9b/Grilled_Shiitake.webp/100px-Grilled_Shiitake.webp.png",
+                level: 1,
+                energy: 15,
+                cost: 0,
+                base: 180,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/c/c7/Shiitake.webp/24px-Shiitake.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "เห็ดแชมปิญองย่าง",
+                img: "https://heartopiawiki.com/images/thumb/4/4e/Grilled_Button_Mushroom.webp/100px-Grilled_Button_Mushroom.webp.png",
+                level: 1,
+                energy: 15,
+                cost: 0,
+                base: 180,
+                ingredients: [
+                    { img: "https://heartopiawiki.com/images/thumb/6/67/Button_Mushroom.webp/24px-Button_Mushroom.webp.png", qty: 4 }
+                ]
+            },
+            {
+                name: "เห็ดพอร์ชินีย่าง",
+                img: "https://heartopiawiki.com/images/thumb/e/ed/Grilled_Penny_Bun.webp/100px-Grilled_Penny_Bun.webp.png",
+                level: 1,
+                energy: 15,
+                cost: 0,
+                base: 180,
+                ingredients: [
+                    {
+                        img: "https://heartopiawiki.com/images/thumb/6/6c/Penny_Bun.webp/24px-Penny_Bun.webp.png",
+                        qty: 4,
+                        name: "เห็ดพอร์ชินี"
+                    }
+                ]
+            }
+        ];
