@@ -290,6 +290,16 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       font-weight: 700;
     }
+
+    .exporting {
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+    }
+
+    .exporting .food:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
   </style>
 </head>
 
@@ -365,12 +375,13 @@
       { name: "เห็ดหอม", img: "img/เห็ดหอม.png", type: "dog" },
       { name: "เห็ดแชมปิญอง", img: "img/เห็ดแชมปิญอง.png", type: "dog" },
       { name: "อาหารสุนัข", img: "img/อาหารสุนัข.png", type: "dog" },
-      { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: "dog" },
 
       // ---- อาหารที่แมวกินได้ ----
       { name: "อาหารแมว", img: "img/อาหารแมว.png", type: "cat" },
-      { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: "cat" },
       { name: "ปลาทุกชนิด", img: "img/ปลาทุกชนิด.png", type: "cat" },
+
+      // ---- อาหารที่สุนัข & แมวกินได้ ----
+      { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: ["dog", "cat"] },
     ];
 
     const grid = document.getElementById("grid");
@@ -406,8 +417,13 @@
 
     function getVisibleFoods() {
       if (state.filter === "all") return foods;
-      return foods.filter(f => f.type === state.filter);
+
+      return foods.filter(f => {
+        if (Array.isArray(f.type)) return f.type.includes(state.filter);
+        return f.type === state.filter;
+      });
     }
+
 
     function updateStatus() {
       const visible = getVisibleFoods();
@@ -492,51 +508,55 @@
     const btnSave = document.getElementById("btnSave");
 
     btnSave.addEventListener("click", async () => {
-  const target = document.querySelector(".wrap");
+      const target = document.querySelector(".wrap");
 
-  // ✅ เปิดแท็บใหม่ทันที (Safari จะไม่บล็อก)
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  let popup = null;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      let popup = null;
 
-  if (isMobile) {
-    popup = window.open("", "_blank");
-    if (popup) {
-      popup.document.write("<p style='font-family:sans-serif'>กำลังสร้างรูป... รอสักครู่ ⏳</p>");
-    }
-  }
+      // 📱 มือถือ: เปิดแท็บใหม่ทันที กันโดนบล็อก
+      if (isMobile) {
+        popup = window.open("", "_blank");
+        if (popup) {
+          popup.document.write("<p style='font-family:sans-serif'>กำลังสร้างรูป... รอสักครู่ ⏳</p>");
+        }
+      }
 
-  // รอภาพโหลดนิดนึง
-  await new Promise(r => setTimeout(r, 200));
+      // ✅ ปิดของหนักๆ ก่อน export
+      target.classList.add("exporting");
 
-  const canvas = await html2canvas(target, {
-    backgroundColor: null,
-    scale: 2,
-    useCORS: true
-  });
+      // รอให้ DOM อัปเดต
+      await new Promise(r => setTimeout(r, 80));
 
-  const dataUrl = canvas.toDataURL("image/png");
+      const canvas = await html2canvas(target, {
+        backgroundColor: null,
+        scale: isMobile ? 1 : 1.5,  // มือถือเบาๆ / คอมคมขึ้น
+        useCORS: true
+      });
 
-  if (isMobile) {
-    // 📱 มือถือ: ใส่รูปลงแท็บที่เปิดไว้
-    if (popup) {
-      popup.document.body.innerHTML = `
+      // ✅ เปิดกลับหลัง export
+      target.classList.remove("exporting");
+
+      const dataUrl = canvas.toDataURL("image/png");
+
+      if (isMobile) {
+        if (popup) {
+          popup.document.body.innerHTML = `
         <img src="${dataUrl}" style="width:100%;height:auto;display:block;">
         <p style="font-family:sans-serif;text-align:center;margin:12px 0;">
           👉 กดค้างที่รูป แล้วเลือก "บันทึกรูป"
         </p>
       `;
-    } else {
-      // ถ้า popup โดนบล็อกจริงๆ
-      alert("มือถือบล็อก popup 😭 กรุณาอนุญาตเปิดหน้าต่างใหม่ก่อน");
-    }
-  } else {
-    // 💻 คอม: ดาวน์โหลดปกติ
-    const link = document.createElement("a");
-    link.download = "heartopia_checklist.png";
-    link.href = dataUrl;
-    link.click();
-  }
-});
+        } else {
+          alert("มือถือบล็อก popup 😭 กรุณาอนุญาตเปิดหน้าต่างใหม่ก่อน");
+        }
+      } else {
+        const link = document.createElement("a");
+        link.download = "heartopia_checklist.png";
+        link.href = dataUrl;
+        link.click();
+      }
+    });
+
 
     loadState();
     setFilter(state.filter || "all");
