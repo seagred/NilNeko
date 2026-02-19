@@ -508,56 +508,50 @@
     const btnSave = document.getElementById("btnSave");
 
     btnSave.addEventListener("click", async () => {
-      const target = document.querySelector(".wrap");
+  const target = document.querySelector(".wrap");
 
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      let popup = null;
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  let popup = null;
 
-      // 📱 มือถือ: เปิดแท็บใหม่ทันที กันโดนบล็อก
-      if (isMobile) {
-        popup = window.open("", "_blank");
-        if (popup) {
-          popup.document.write("<p style='font-family:sans-serif'>กำลังสร้างรูป... รอสักครู่ ⏳</p>");
-        }
-      }
+  if (isMobile) {
+    popup = window.open("", "_blank");
+    if (popup) {
+      popup.document.write("<p style='font-family:sans-serif'>กำลังสร้างรูป... รอสักครู่ ⏳</p>");
+    }
+  }
 
-      // ✅ ปิดของหนักๆ ก่อน export
-      target.classList.add("exporting");
+  target.classList.add("exporting");
+  await new Promise(r => setTimeout(r, 120));
 
-      // รอให้ DOM อัปเดต
-      await new Promise(r => setTimeout(r, 80));
+  const canvas = await html2canvas(target, {
+    backgroundColor: null,
+    scale: isMobile ? 1 : 1.5,
+    useCORS: true
+  });
 
-      const canvas = await html2canvas(target, {
-        backgroundColor: null,
-        scale: isMobile ? 1 : 1.5,  // มือถือเบาๆ / คอมคมขึ้น
-        useCORS: true
-      });
+  target.classList.remove("exporting");
 
-      // ✅ เปิดกลับหลัง export
-      target.classList.remove("exporting");
+  // ✅ สำคัญ: ใช้ dataURL แทน blob (Safari เซฟง่ายกว่า)
+  const dataUrl = canvas.toDataURL("image/png");
 
-      const blob = await new Promise(res => canvas.toBlob(res, "image/png", 1));
-      const url = URL.createObjectURL(blob);
-
-      if (isMobile) {
-        if (popup) {
-          popup.document.body.innerHTML = `
-          <img src="${url}" style="width:100%;height:auto;display:block;">
-          <p style="font-family:sans-serif;text-align:center;margin:12px 0;">
-            👉 กดค้างที่รูป แล้วเลือก "บันทึกรูป"
-          </p>
-        `;
-        } else {
-          alert("มือถือบล็อก popup 😭 กรุณาอนุญาตเปิดหน้าต่างใหม่ก่อน");
-        }
-      } else {
-        const link = document.createElement("a");
-        link.download = "heartopia_checklist.png";
-        link.href = dataUrl;
-        link.click();
-      }
-    });
-
+  if (isMobile) {
+    if (popup) {
+      popup.document.body.innerHTML = `
+        <img src="${dataUrl}" style="width:100%;height:auto;display:block;">
+        <p style="font-family:sans-serif;text-align:center;margin:12px 0;">
+          👉 กดค้างที่รูป แล้วเลือก "บันทึกรูป"
+        </p>
+      `;
+    } else {
+      alert("มือถือบล็อก popup 😭 กรุณาอนุญาตเปิดหน้าต่างใหม่ก่อน");
+    }
+  } else {
+    const link = document.createElement("a");
+    link.download = "heartopia_checklist.png";
+    link.href = dataUrl;
+    link.click();
+  }
+});
 
     loadState();
     setFilter(state.filter || "all");
