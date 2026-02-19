@@ -59,10 +59,11 @@
       margin: 18px auto;
       padding: 16px;
       border-radius: 22px;
-      backdrop-filter: blur(10px);
       background: var(--glass);
       border: 1px solid var(--stroke);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .header {
@@ -293,7 +294,7 @@
 
     .exporting {
       backdrop-filter: none !important;
-      box-shadow: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
     .exporting .food:hover {
@@ -509,42 +510,26 @@
 
     btnSave.addEventListener("click", async () => {
   const target = document.querySelector(".wrap");
-
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  let popup = null;
-
-  if (isMobile) {
-    popup = window.open("", "_blank");
-    if (popup) {
-      popup.document.write("<p style='font-family:sans-serif'>กำลังสร้างรูป... รอสักครู่ ⏳</p>");
-    }
-  }
 
   target.classList.add("exporting");
-  await new Promise(r => setTimeout(r, 120));
+  await new Promise(r => setTimeout(r, 150));
 
   const canvas = await html2canvas(target, {
-    backgroundColor: null,
-    scale: isMobile ? 1 : 1.5,
+    backgroundColor: "#000000",
+    scale: 1,
     useCORS: true
   });
 
   target.classList.remove("exporting");
 
-  // ✅ สำคัญ: ใช้ dataURL แทน blob (Safari เซฟง่ายกว่า)
   const dataUrl = canvas.toDataURL("image/png");
 
   if (isMobile) {
-    if (popup) {
-      popup.document.body.innerHTML = `
-        <img src="${dataUrl}" style="width:100%;height:auto;display:block;">
-        <p style="font-family:sans-serif;text-align:center;margin:12px 0;">
-          👉 กดค้างที่รูป แล้วเลือก "บันทึกรูป"
-        </p>
-      `;
-    } else {
-      alert("มือถือบล็อก popup 😭 กรุณาอนุญาตเปิดหน้าต่างใหม่ก่อน");
-    }
+    // ✅ เปิดรูปเต็มหน้า → กดแชร์/บันทึกได้ง่ายกว่า
+    const w = window.open();
+    w.document.write(`<img src="${dataUrl}" style="width:100%">`);
+    w.document.title = "บันทึกรูป";
   } else {
     const link = document.createElement("a");
     link.download = "heartopia_checklist.png";
