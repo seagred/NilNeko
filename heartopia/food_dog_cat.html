@@ -508,35 +508,74 @@
 
     const btnSave = document.getElementById("btnSave");
 
-    btnSave.addEventListener("click", async () => {
+btnSave.addEventListener("click", async () => {
   const target = document.querySelector(".wrap");
+
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  let popup = null;
+
+  if (isMobile) {
+    popup = window.open("", "_blank");
+    if (popup) {
+      popup.document.write("<p style='font-family:sans-serif;padding:16px'>⏳ กำลังสร้างรูป…</p>");
+    }
+  }
 
   target.classList.add("exporting");
   await new Promise(r => setTimeout(r, 150));
 
   const canvas = await html2canvas(target, {
     backgroundColor: "#000000",
-    scale: 1,
-    useCORS: true
+    scale: 2,
+    useCORS: true,
+    allowTaint: true
   });
 
   target.classList.remove("exporting");
 
-  const dataUrl = canvas.toDataURL("image/png");
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 1));
 
-  if (isMobile) {
-    // ✅ เปิดรูปเต็มหน้า → กดแชร์/บันทึกได้ง่ายกว่า
-    const w = window.open();
-    w.document.write(`<img src="${dataUrl}" style="width:100%">`);
-    w.document.title = "บันทึกรูป";
+  if (!blob) {
+    alert("สร้างรูปไม่สำเร็จ ลองใหม่อีกครั้งนะ");
+    return;
+  }
+
+  const file = new File([blob], "heartopia_checklist.png", { type: "image/png" });
+
+  if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: "Heartopia Checklist",
+        text: "เช็คลิสอาหาร Heartopia"
+      });
+
+      if (popup) popup.close();
+      return;
+    } catch (e) {}
+  }
+
+  const url = URL.createObjectURL(blob);
+
+  if (popup) {
+    popup.document.body.innerHTML = `
+      <img src="${url}" style="width:100%;height:auto;display:block">
+      <p style="font-family:sans-serif;padding:12px">
+        📌 กดค้างที่รูป → บันทึกรูป (iPhone)<br>
+        หรือกดแชร์ → Save Image
+      </p>
+    `;
+    popup.document.title = "บันทึกรูป";
   } else {
     const link = document.createElement("a");
+    link.href = url;
     link.download = "heartopia_checklist.png";
-    link.href = dataUrl;
     link.click();
   }
+
+  setTimeout(() => URL.revokeObjectURL(url), 15000);
 });
+
 
     loadState();
     setFilter(state.filter || "all");
