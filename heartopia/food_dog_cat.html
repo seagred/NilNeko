@@ -4,8 +4,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Heartopia - เช็คลิสอาหารสุนัขแมว</title>
-
+  <title>Heartopia Pet Food Checklist</title>
+  <link rel="icon" type="image/png" href="../81_20210123192755.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --text: #fff;
@@ -28,7 +31,7 @@
       width: 100%;
       height: 100%;
       background: transparent;
-      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+      font-family: 'Anuphan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--text);
     }
 
@@ -173,6 +176,10 @@
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 10px;
+
+      /* ✅ เพิ่ม 2 บรรทัดนี้ */
+      max-width: 980px;
+      margin: 0 auto;
     }
 
     /* Responsive: รองรับทุกแพลตฟอร์ม */
@@ -204,14 +211,24 @@
 
     .food {
       position: relative;
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--stroke);
       background: var(--card);
       cursor: pointer;
-      aspect-ratio: 1 / 1;
+
+      /* ❌ ลบ aspect-ratio เดิมออก */
+      /* aspect-ratio: 1 / 1; */
+
+      /* ✅ ใส่ขนาดตายตัวแบบไอคอน */
+      width: 150px;
+      height: 120px;
+
       transition: 0.15s;
       user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .food:hover {
@@ -220,11 +237,11 @@
     }
 
     .food img {
-      width: 100%;
-      height: 100%;
+      width: 64px;
+      height: 64px;
       object-fit: contain;
-      padding: 10px;
       display: block;
+      padding: 0;
       transition: 0.15s;
     }
 
@@ -237,15 +254,8 @@
     }
 
     .food.checked img {
-      opacity: 0.35;
-    }
-
-    .food img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 14px;
-      transform: scale(0.95);
+      filter: grayscale(1) saturate(0) contrast(1.1) brightness(0.9);
+      opacity: 0.55;
     }
 
     .tag {
