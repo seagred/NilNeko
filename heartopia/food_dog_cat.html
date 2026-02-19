@@ -1,35 +1,39 @@
 <!doctype html>
 <html lang="th">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Heartopia - เช็คลิสอาหารสุนัขแมว</title>
 
   <style>
-    :root{
+    :root {
       --text: #fff;
-      --muted: rgba(255,255,255,0.78);
-      --stroke: rgba(255,255,255,0.22);
-      --card: rgba(255,255,255,0.08);
-      --glass: rgba(0,0,0,0.60);
-      --chip: rgba(255,255,255,0.10);
-      --chipOn: rgba(255,255,255,0.22);
+      --muted: rgba(255, 255, 255, 0.78);
+      --stroke: rgba(255, 255, 255, 0.22);
+      --card: rgba(255, 255, 255, 0.08);
+      --glass: rgba(0, 0, 0, 0.60);
+      --chip: rgba(255, 255, 255, 0.10);
+      --chipOn: rgba(255, 255, 255, 0.22);
     }
 
-    *{ box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body{
-      margin:0;
-      padding:0;
-      width:100%;
-      height:100%;
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
       background: transparent;
       font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
       color: var(--text);
     }
 
     /* ===== พื้นหลัง (ใส่รูปเอง) ===== */
-    body{
+    body {
       background-image: url("img/bg.png");
       background-size: cover;
       background-position: center;
@@ -37,29 +41,29 @@
     }
 
     /* ===== ทำให้พื้นหลังนุ่มลง ===== */
-    body::before{
-      content:"";
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      background: rgba(255,255,255,0.10);
+      background: rgba(255, 255, 255, 0.10);
       z-index: 0;
     }
 
-    .wrap{
+    .wrap {
       position: relative;
       z-index: 1;
-      width:min(1200px, 96vw);
+      width: min(1200px, 96vw);
       margin: 18px auto;
       padding: 16px;
       border-radius: 22px;
       backdrop-filter: blur(10px);
       background: var(--glass);
       border: 1px solid var(--stroke);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
     }
 
-    .header{
-      display:flex;
+    .header {
+      display: flex;
       gap: 12px;
       align-items: flex-start;
       justify-content: space-between;
@@ -67,168 +71,207 @@
       margin-bottom: 12px;
     }
 
-    h1{
-      margin:0;
+    h1 {
+      margin: 0;
       font-size: 24px;
       letter-spacing: 0.2px;
     }
 
-    .sub{
+    .sub {
       margin: 6px 0 0 0;
       color: var(--muted);
       font-size: 14px;
     }
 
-    .top{
-      display:grid;
+    .top {
+      display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin: 12px 0 14px 0;
     }
 
-    label{
+    label {
       font-size: 14px;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 800;
-      display:block;
+      display: block;
       margin-bottom: 8px;
       letter-spacing: 0.2px;
     }
 
     /* ====== ทำช่องกรอกใหญ่ขึ้น ====== */
-    input{
-      width:100%;
+    input {
+      width: 100%;
       padding: 14px 14px;
       border-radius: 16px;
       border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.10);
+      background: rgba(255, 255, 255, 0.10);
       color: var(--text);
       outline: none;
-      font-size: 18px;      /* ใหญ่ขึ้น */
-      font-weight: 800;     /* หนาขึ้น */
+      font-size: 18px;
+      /* ใหญ่ขึ้น */
+      font-weight: 800;
+      /* หนาขึ้น */
     }
 
-    input::placeholder{
-      color: rgba(255,255,255,0.55);
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.55);
       font-weight: 600;
     }
 
-    .controls{
-      display:flex;
+    .controls {
+      display: flex;
       gap: 10px;
-      align-items:center;
+      align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       margin-bottom: 12px;
     }
 
-    .chips{
-      display:flex;
+    .chips {
+      display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    .chip{
+    .chip {
       border: 1px solid var(--stroke);
       background: var(--chip);
       color: var(--text);
       padding: 9px 14px;
       border-radius: 999px;
-      cursor:pointer;
+      cursor: pointer;
       font-weight: 900;
       font-size: 14px;
-      user-select:none;
+      user-select: none;
       transition: 0.15s;
     }
 
-    .chip.active{
+    .chip.active {
       background: var(--chipOn);
       transform: translateY(-1px);
     }
 
-    .btn{
+    .btn {
       padding: 10px 14px;
       border-radius: 14px;
       border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.12);
       color: var(--text);
       cursor: pointer;
       font-weight: 900;
       transition: 0.15s;
-      user-select:none;
+      user-select: none;
       font-size: 14px;
     }
-    .btn:hover{ transform: translateY(-1px); }
 
-    .grid{
-      display:grid;
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .grid {
+      display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 10px;
     }
 
     /* Responsive: รองรับทุกแพลตฟอร์ม */
-    @media (max-width: 1000px){
-      .grid{ grid-template-columns: repeat(5, 1fr); }
-    }
-    @media (max-width: 860px){
-      .grid{ grid-template-columns: repeat(4, 1fr); }
-    }
-    @media (max-width: 640px){
-      .grid{ grid-template-columns: repeat(3, 1fr); }
-      .top{ grid-template-columns: 1fr; }
-      input{ font-size: 17px; }
+    @media (max-width: 1000px) {
+      .grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
     }
 
-    .food{
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .top {
+        grid-template-columns: 1fr;
+      }
+
+      input {
+        font-size: 17px;
+      }
+    }
+
+    .food {
       position: relative;
       border-radius: 18px;
-      overflow:hidden;
+      overflow: hidden;
       border: 1px solid var(--stroke);
       background: var(--card);
-      cursor:pointer;
+      cursor: pointer;
       aspect-ratio: 1 / 1;
       transition: 0.15s;
-      user-select:none;
+      user-select: none;
     }
 
-    .food:hover{
+    .food:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     }
 
-    .food img{
-      width:100%;
-      height:100%;
+    .food img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       padding: 10px;
-      display:block;
+      display: block;
       transition: 0.15s;
     }
 
-    .food.checked img{
-      filter: grayscale(1) brightness(0.75);
-      opacity: 0.55;
+    .food.checked::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 2;
     }
 
-    .tag{
-      position:absolute;
-      left:8px;
-      right:8px;
-      bottom:8px;
+    .food.checked img {
+      opacity: 0.35;
+    }
+
+    .food img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 14px;
+      transform: scale(0.95);
+    }
+
+    .tag {
+      z-index: 3;
+    }
+
+
+    .tag {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
       padding: 6px 8px;
       border-radius: 12px;
       font-size: 12px;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(6px);
-      text-align:center;
+      text-align: center;
       line-height: 1.2;
       font-weight: 800;
     }
 
-    .footer{
+    .footer {
       margin-top: 12px;
-      display:flex;
+      display: flex;
       justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
@@ -236,11 +279,11 @@
       font-size: 12px;
     }
 
-    .pill{
+    .pill {
       padding: 7px 11px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       font-weight: 700;
     }
   </style>
@@ -253,7 +296,10 @@
         <h1>🍖 Heartopia — เช็คลิสอาหารสุนัข/แมว</h1>
         <p class="sub">เลือกสุนัข/แมว แล้วกดรูปเพื่อทำให้เทา (ติ๊กแล้ว) กดอีกทีคืนสี</p>
       </div>
-      <button class="btn" id="btnClear">ล้างเช็คลิส</button>
+      <div style="display:flex; gap:10px;">
+        <button class="btn" id="btnSave">📸 บันทึกเป็นรูป</button>
+        <button class="btn" id="btnClear">ล้างเช็คลิส</button>
+      </div>
     </div>
 
     <div class="top">
@@ -284,168 +330,191 @@
       <div class="pill">🖼️ พื้นหลัง: img/bg.png</div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    const foods = [
+      // ---- อาหารที่สุนัขกินได้ ----
+      { name: "สลัดผัก", img: "img/สลัดผัก.png", type: "dog" },
+      { name: "แยมรวมมิตร", img: "img/แยมรวมมิตร.png", type: "dog" },
+      { name: "แยมราสเบอร์รี่", img: "img/แยมราสเบอร์รี่.png", type: "dog" },
+      { name: "ซอสมะเขือเทศ", img: "img/ซอสมะเขือเทศ.png", type: "dog" },
+      { name: "แยมบลูเบอร์รี่", img: "img/แยมบลูเบอร์รี่.png", type: "dog" },
+      { name: "แยมแอปเปิ้ล", img: "img/แยมแอปเปิ้ล.png", type: "dog" },
 
-<script>
-  const foods = [
-    // ---- อาหารที่สุนัขกินได้ ----
-    { name: "สลัดผัก", img: "img/สลัดผัก.png", type: "dog" },
-    { name: "แยมรวมมิตร", img: "img/แยมรวมมิตร.png", type: "dog" },
-    { name: "แยมราสเบอร์รี่", img: "img/แยมราสเบอร์รี่.png", type: "dog" },
-    { name: "ซอสมะเขือเทศ", img: "img/ซอสมะเขือเทศ.png", type: "dog" },
-    { name: "แยมบลูเบอร์รี่", img: "img/แยมบลูเบอร์รี่.png", type: "dog" },
-    { name: "แยมแอปเปิ้ล", img: "img/แยมแอปเปิ้ล.png", type: "dog" },
+      { name: "ข้าวผัดซีฟู้ด", img: "img/ข้าวผัดซีฟู้ด.png", type: "dog" },
+      { name: "จานทะเลรวมหรูหรา", img: "img/จานทะเลรวมหรูหรา.png", type: "dog" },
+      { name: "สตูว์ชนบท", img: "img/สตูว์ชนบท.png", type: "dog" },
+      { name: "พาสต้าซอสเนื้อ", img: "img/พาสต้าซอสเนื้อ.png", type: "dog" },
+      { name: "เรดคิงแครบนึ่ง", img: "img/เรดคิงแครบนึ่ง.png", type: "dog" },
+      { name: "แยมสตรอเบอร์รี่", img: "img/แยมสตรอเบอร์รี่.png", type: "dog" },
 
-    { name: "ข้าวผัดซีฟู้ด", img: "img/ข้าวผัดซีฟู้ด.png", type: "dog" },
-    { name: "จานทะเลรวมหรูหรา", img: "img/จานทะเลรวมหรูหรา.png", type: "dog" },
-    { name: "สตูว์ชนบท", img: "img/สตูว์ชนบท.png", type: "dog" },
-    { name: "พาสต้าซอสเนื้อ", img: "img/พาสต้าซอสเนื้อ.png", type: "dog" },
-    { name: "เรดคิงแครบนึ่ง", img: "img/เรดคิงแครบนึ่ง.png", type: "dog" },
-    { name: "แยมสตรอเบอร์รี่", img: "img/แยมสตรอเบอร์รี่.png", type: "dog" },
+      { name: "ซุปข้าวโพด", img: "img/ซุปข้าวโพด.png", type: "dog" },
+      { name: "พายเห็ด", img: "img/พายเห็ด.png", type: "dog" },
+      { name: "พายเห็ดนางฟ้า", img: "img/พายเห็ดนางฟ้า.png", type: "dog" },
+      { name: "พายเห็ดหอม", img: "img/พายเห็ดหอม.png", type: "dog" },
+      { name: "พายเห็ดแชมปิญอง", img: "img/พายเห็ดแชมปิญอง.png", type: "dog" },
+      { name: "เห็ดย่าง", img: "img/เห็ดย่าง.png", type: "dog" },
 
-    { name: "ซุปข้าวโพด", img: "img/ซุปข้าวโพด.png", type: "dog" },
-    { name: "พายเห็ด", img: "img/พายเห็ด.png", type: "dog" },
-    { name: "พายเห็ดนางฟ้า", img: "img/พายเห็ดนางฟ้า.png", type: "dog" },
-    { name: "พายเห็ดหอม", img: "img/พายเห็ดหอม.png", type: "dog" },
-    { name: "พายเห็ดแชมปิญอง", img: "img/พายเห็ดแชมปิญอง.png", type: "dog" },
-    { name: "เห็ดย่าง", img: "img/เห็ดย่าง.png", type: "dog" },
+      { name: "เห็ดนางฟ้าย่าง", img: "img/เห็ดนางฟ้าย่าง.png", type: "dog" },
+      { name: "เห็ดหอมย่าง", img: "img/เห็ดหอมย่าง.png", type: "dog" },
+      { name: "เห็ดแชมปิญองย่าง", img: "img/เห็ดแชมปิญองย่าง.png", type: "dog" },
+      { name: "แฮมเบอร์เกอร์เนื้อสด", img: "img/แฮมเบอร์เกอร์เนื้อสด.png", type: "dog" },
+      { name: "มะเขือม่วงซอสเนื้อ", img: "img/มะเขือม่วงซอสเนื้อ.png", type: "dog" },
+      { name: "แอปเปิ้ล", img: "img/แอปเปิ้ล.png", type: "dog" },
 
-    { name: "เห็ดนางฟ้าย่าง", img: "img/เห็ดนางฟ้าย่าง.png", type: "dog" },
-    { name: "เห็ดหอมย่าง", img: "img/เห็ดหอมย่าง.png", type: "dog" },
-    { name: "เห็ดแชมปิญองย่าง", img: "img/เห็ดแชมปิญองย่าง.png", type: "dog" },
-    { name: "แฮมเบอร์เกอร์เนื้อสด", img: "img/แฮมเบอร์เกอร์เนื้อสด.png", type: "dog" },
-    { name: "มะเขือม่วงซอสเนื้อ", img: "img/มะเขือม่วงซอสเนื้อ.png", type: "dog" },
-    { name: "แอปเปิ้ล", img: "img/แอปเปิ้ล.png", type: "dog" },
+      { name: "เห็ดนางฟ้า", img: "img/เห็ดนางฟ้า.png", type: "dog" },
+      { name: "เห็ดหอม", img: "img/เห็ดหอม.png", type: "dog" },
+      { name: "เห็ดแชมปิญอง", img: "img/เห็ดแชมปิญอง.png", type: "dog" },
+      { name: "อาหารสุนัข", img: "img/อาหารสุนัข.png", type: "dog" },
+      { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: "dog" },
 
-    { name: "เห็ดนางฟ้า", img: "img/เห็ดนางฟ้า.png", type: "dog" },
-    { name: "เห็ดหอม", img: "img/เห็ดหอม.png", type: "dog" },
-    { name: "เห็ดแชมปิญอง", img: "img/เห็ดแชมปิญอง.png", type: "dog" },
-    { name: "อาหารสุนัข", img: "img/อาหารสุนัข.png", type: "dog" },
-    { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: "dog" },
+      // ---- อาหารที่แมวกินได้ ----
+      { name: "อาหารแมว", img: "img/อาหารแมว.png", type: "cat" },
+      { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: "cat" },
+      { name: "ปลาทุกชนิด", img: "img/ปลาทุกชนิด.png", type: "cat" },
+    ];
 
-    // ---- อาหารที่แมวกินได้ ----
-    { name: "อาหารแมว", img: "img/อาหารแมว.png", type: "cat" },
-    { name: "อาหารสัตว์ทั่วไป", img: "img/อาหารสัตว์ทั่วไป.png", type: "cat" },
-    { name: "ปลาทุกชนิด", img: "img/ปลาทุกชนิด.png", type: "cat" },
-  ];
+    const grid = document.getElementById("grid");
+    const statusEl = document.getElementById("status");
+    const ownerEl = document.getElementById("owner");
+    const petEl = document.getElementById("pet");
+    const btnClear = document.getElementById("btnClear");
+    const chips = [...document.querySelectorAll(".chip")];
 
-  const grid = document.getElementById("grid");
-  const statusEl = document.getElementById("status");
-  const ownerEl = document.getElementById("owner");
-  const petEl = document.getElementById("pet");
-  const btnClear = document.getElementById("btnClear");
-  const chips = [...document.querySelectorAll(".chip")];
+    const KEY = "heartopia_food_checklist_v3";
 
-  const KEY = "heartopia_food_checklist_v3";
+    let state = {
+      owner: "",
+      pet: "",
+      filter: "all",
+      checked: {}
+    };
 
-  let state = {
-    owner: "",
-    pet: "",
-    filter: "all",
-    checked: {}
-  };
+    function foodKey(food) {
+      return `${food.type}::${food.name}`;
+    }
 
-  function foodKey(food){
-    return `${food.type}::${food.name}`;
-  }
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) state = JSON.parse(raw);
+      } catch (e) { }
+    }
 
-  function loadState(){
-    try{
-      const raw = localStorage.getItem(KEY);
-      if(raw) state = JSON.parse(raw);
-    }catch(e){}
-  }
+    function saveState() {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
 
-  function saveState(){
-    localStorage.setItem(KEY, JSON.stringify(state));
-  }
+    function getVisibleFoods() {
+      if (state.filter === "all") return foods;
+      return foods.filter(f => f.type === state.filter);
+    }
 
-  function getVisibleFoods(){
-    if(state.filter === "all") return foods;
-    return foods.filter(f => f.type === state.filter);
-  }
+    function updateStatus() {
+      const visible = getVisibleFoods();
+      const count = visible.filter(f => state.checked[foodKey(f)]).length;
+      statusEl.textContent = `ติ๊กแล้ว: ${count}`;
+    }
 
-  function updateStatus(){
-    const visible = getVisibleFoods();
-    const count = visible.filter(f => state.checked[foodKey(f)]).length;
-    statusEl.textContent = `ติ๊กแล้ว: ${count}`;
-  }
+    function setFilter(filter) {
+      state.filter = filter;
+      saveState();
+      chips.forEach(c => c.classList.toggle("active", c.dataset.filter === filter));
+      render();
+    }
 
-  function setFilter(filter){
-    state.filter = filter;
-    saveState();
-    chips.forEach(c => c.classList.toggle("active", c.dataset.filter === filter));
-    render();
-  }
+    function render() {
+      grid.innerHTML = "";
 
-  function render(){
-    grid.innerHTML = "";
+      getVisibleFoods().forEach((f) => {
+        const key = foodKey(f);
 
-    getVisibleFoods().forEach((f) => {
-      const key = foodKey(f);
+        const card = document.createElement("div");
+        card.className = "food" + (state.checked[key] ? " checked" : "");
+        card.title = f.name;
 
-      const card = document.createElement("div");
-      card.className = "food" + (state.checked[key] ? " checked" : "");
-      card.title = f.name;
+        const img = document.createElement("img");
+        img.src = f.img;
+        img.alt = f.name;
+        img.loading = "lazy";
 
-      const img = document.createElement("img");
-      img.src = f.img;
-      img.alt = f.name;
-      img.loading = "lazy";
-
-      img.onerror = () => {
-        img.style.display = "none";
-        card.style.display = "flex";
-        card.style.alignItems = "center";
-        card.style.justifyContent = "center";
-        card.style.padding = "10px";
-        card.innerHTML = `<div style="text-align:center;color:rgba(255,255,255,0.8);font-size:12px;">
+        img.onerror = () => {
+          img.style.display = "none";
+          card.style.display = "flex";
+          card.style.alignItems = "center";
+          card.style.justifyContent = "center";
+          card.style.padding = "10px";
+          card.innerHTML = `<div style="text-align:center;color:rgba(255,255,255,0.8);font-size:12px;">
           ❌ ไม่เจอรูป<br><b>${f.img}</b>
         </div>`;
-      };
+        };
 
-      const tag = document.createElement("div");
-      tag.className = "tag";
-      tag.textContent = f.name;
+        const tag = document.createElement("div");
+        tag.className = "tag";
+        tag.textContent = f.name;
 
-      card.appendChild(img);
-      card.appendChild(tag);
+        card.appendChild(img);
+        card.appendChild(tag);
 
-      card.addEventListener("click", () => {
-        state.checked[key] = !state.checked[key];
-        saveState();
-        card.classList.toggle("checked");
-        updateStatus();
+        card.addEventListener("click", () => {
+          state.checked[key] = !state.checked[key];
+          saveState();
+          card.classList.toggle("checked");
+          updateStatus();
+        });
+
+        grid.appendChild(card);
       });
 
-      grid.appendChild(card);
+      ownerEl.value = state.owner || "";
+      petEl.value = state.pet || "";
+      updateStatus();
+    }
+
+    ownerEl.addEventListener("input", () => {
+      state.owner = ownerEl.value;
+      saveState();
     });
 
-    ownerEl.value = state.owner || "";
-    petEl.value = state.pet || "";
-    updateStatus();
-  }
+    petEl.addEventListener("input", () => {
+      state.pet = petEl.value;
+      saveState();
+    });
 
-  ownerEl.addEventListener("input", () => {
-    state.owner = ownerEl.value;
-    saveState();
-  });
+    chips.forEach(c => c.addEventListener("click", () => setFilter(c.dataset.filter)));
 
-  petEl.addEventListener("input", () => {
-    state.pet = petEl.value;
-    saveState();
-  });
+    btnClear.addEventListener("click", () => {
+      if (!confirm("ล้างเช็คลิสทั้งหมด?")) return;
+      state.checked = {};
+      saveState();
+      render();
+    });
 
-  chips.forEach(c => c.addEventListener("click", () => setFilter(c.dataset.filter)));
+    const btnSave = document.getElementById("btnSave");
 
-  btnClear.addEventListener("click", () => {
-    if(!confirm("ล้างเช็คลิสทั้งหมด?")) return;
-    state.checked = {};
-    saveState();
-    render();
-  });
+    btnSave.addEventListener("click", async () => {
+      // แคปเฉพาะกล่อง wrap (ตรงกลาง)
+      const target = document.querySelector(".wrap");
 
-  loadState();
-  setFilter(state.filter || "all");
-</script>
+      // รอภาพโหลดนิดนึง (กันรูปหาย)
+      await new Promise(r => setTimeout(r, 200));
+
+      const canvas = await html2canvas(target, {
+        backgroundColor: null, // ให้โปร่งใสถ้าอยาก
+        scale: 2,              // เพิ่มความคม
+        useCORS: true
+      });
+
+      const link = document.createElement("a");
+      link.download = `heartopia_checklist.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+
+
+    loadState();
+    setFilter(state.filter || "all");
+  </script>
 </body>
+
 </html>
