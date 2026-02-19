@@ -497,34 +497,51 @@
     const btnSave = document.getElementById("btnSave");
 
     btnSave.addEventListener("click", async () => {
-      // แคปเฉพาะกล่อง wrap (ตรงกลาง)
-      const target = document.querySelector(".wrap");
+  const target = document.querySelector(".wrap");
 
-      // รอภาพโหลดนิดนึง (กันรูปหาย)
-      await new Promise(r => setTimeout(r, 200));
+  // ✅ เปิดแท็บใหม่ทันที (Safari จะไม่บล็อก)
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  let popup = null;
 
-      const canvas = await html2canvas(target, {
-        backgroundColor: null, // ให้โปร่งใสถ้าอยาก
-        scale: 2,              // เพิ่มความคม
-        useCORS: true
-      });
+  if (isMobile) {
+    popup = window.open("", "_blank");
+    if (popup) {
+      popup.document.write("<p style='font-family:sans-serif'>กำลังสร้างรูป... รอสักครู่ ⏳</p>");
+    }
+  }
 
-      const dataUrl = canvas.toDataURL("image/png");
+  // รอภาพโหลดนิดนึง
+  await new Promise(r => setTimeout(r, 200));
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // 📱 มือถือ: เปิดรูปในแท็บใหม่
-        const w = window.open();
-        w.document.write(`<img src="${dataUrl}" style="width:100%">`);
-      } else {
-        // 💻 คอม: ดาวน์โหลดปกติ
-        const link = document.createElement("a");
-        link.download = "heartopia_checklist.png";
-        link.href = dataUrl;
-        link.click();
-      }
+  const canvas = await html2canvas(target, {
+    backgroundColor: null,
+    scale: 2,
+    useCORS: true
+  });
 
-    });
+  const dataUrl = canvas.toDataURL("image/png");
 
+  if (isMobile) {
+    // 📱 มือถือ: ใส่รูปลงแท็บที่เปิดไว้
+    if (popup) {
+      popup.document.body.innerHTML = `
+        <img src="${dataUrl}" style="width:100%;height:auto;display:block;">
+        <p style="font-family:sans-serif;text-align:center;margin:12px 0;">
+          👉 กดค้างที่รูป แล้วเลือก "บันทึกรูป"
+        </p>
+      `;
+    } else {
+      // ถ้า popup โดนบล็อกจริงๆ
+      alert("มือถือบล็อก popup 😭 กรุณาอนุญาตเปิดหน้าต่างใหม่ก่อน");
+    }
+  } else {
+    // 💻 คอม: ดาวน์โหลดปกติ
+    const link = document.createElement("a");
+    link.download = "heartopia_checklist.png";
+    link.href = dataUrl;
+    link.click();
+  }
+});
 
     loadState();
     setFilter(state.filter || "all");
