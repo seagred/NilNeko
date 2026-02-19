@@ -509,10 +509,20 @@
         useCORS: true
       });
 
-      const link = document.createElement("a");
-      link.download = `heartopia_checklist.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      const dataUrl = canvas.toDataURL("image/png");
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // 📱 มือถือ: เปิดรูปในแท็บใหม่
+        const w = window.open();
+        w.document.write(`<img src="${dataUrl}" style="width:100%">`);
+      } else {
+        // 💻 คอม: ดาวน์โหลดปกติ
+        const link = document.createElement("a");
+        link.download = "heartopia_checklist.png";
+        link.href = dataUrl;
+        link.click();
+      }
+
     });
 
 
