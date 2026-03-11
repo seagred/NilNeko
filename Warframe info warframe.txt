@@ -1,0 +1,105 @@
+Warframe info warframe 
+
+Earth- 	Hydroid ชิ้นส่วนหาได้จากบอสด่าน Oro ,Blueprint ซื้อได้จากร้านค้า
+	Gara ชิ้นส่วนหาได้จาก Bounty Cetus ,Blueprint ได้การทำเควสเควส saya's vigil	
+	Revenant ชิ้นส่วนหาได้จาก bounty Cetus ,Blueprint ได้จากการทำเควส mask of the revenant
+	Koumei ชิ้นส่วนและBlueprint หาได้จากการลง Saya's visions
+
+Lua-	Voruna หาได้จาการลง conjuction survival ด่าน circulus
+
+Venus- 	Rhino ชิ้นส่วนหาได้จากบอสด่าน Fossa ,Blueprint ซื้อได้จาก Market
+	Garuda ชิ้นส่วนหาได้จาก Bounty Fortuna ,Blueprint ได้จากการทำเควส Vox Solaris
+	Baruuk ซื้อได้จาก little duck ที่ Fortuna 
+	Hildryn ชิ้นส่วนหาได้จากการสู้ orbitor orb ,Blueprint ซื้อได้ที่ little duck
+	Nokko หาได้จากการลง bounty ของ nightcap ใน Fortuna
+
+Earth ,Venus- 	Caliban ชิ้นส่วนหาได้จากการทำ bounty Narmer ในดาว Cetus และ Fortuna
+
+Mars-	Excaiber ชิ้นส่วนหาได้จากบอสด่าน Wars ,Blueprint ซื้อได้จาก Market
+	Citrine ชิ้นส่วน และ Blueprint หาได้จากด่าน Tyana pass
+
+Phobos-	Mag ชิ้นส่วนหาได้จากบอสด่าน Iliad ,Blueprint ซื้อได้จาก Market
+
+Deimos-	Xaku ชิ้นส่วนหาได้จาก bounty necralisk ,Blueprint หาได้จากการทำเควส heart of deimos
+	Lavos ชิ้นส่วนและblueprint ซื้อได้จาก father
+	Nekros ชิ้นส่วนหาได้จากบอสด่าน Exequias ,Blueprint ซื้อได้จาก Market
+(ต้องทำเควส whisper in the wall ก่อน)
+	Dante ชิ้นส่วนหาได้จากการลง disturption ด่าน Armartus 
+	Qorvex ชิ้นส่วนและBlueprint ซื้อได้จาก bird3
+
+Ceres- 	Frost หาได้จากบอสด่าน Exta ,Blueprint ซื้อได้จาก Market
+
+Jupiter-Wisp ชิ้นส่วนและBlueprint หาได้จากบอสด่าน The Ropalolyst ,Blueprint ซื้อได้จาก Market
+	Valkyr ชิ้นส่วนหาได้จากบอส Themisto ,Blueprint ซื้อได้จาก Market
+
+Europa-	Nova ชิ้นส่วนหาได้จากบอสด่าน Naamah ,Blueprint ซื้อได้จาก Market
+
+Saturn-	Ember ชิ้นส่วนหาได้จากบอสด่าน Tethys ,Blueprint ซื้อได้จาก Market
+
+Uranus-	Equinox ชิ้นส่วนหาได้จากบอสด่าน titania ,Blueprint ซื้อได้จาก Market (ต้องทำ 2 ร่างจะมี ร่างกลางวันและกลางคืน)
+
+Neptune-Loki ชิ้นส่วนหาได้จากบอสด่าน Psamathe ,Blueprint ซื้อได้จาก Market
+
+Pluto-	Trinity ชิ้นส่วนหาได้จากบอสด่าน Hades ,Blueprint ซื้อได้จาก Market
+
+Eris-	Nidus ชิ้นส่วนหาได้จากการลง infested salvage ที่ด่าน Oestrus ,Blueprint ได้จากเควส the glast gambit
+	Atlas ชิ้นส่วนหาได้จากบอสด่าน jordas golem ,blueprint ได้จากเควส the jordas precept
+	Mesa ชิ้นส่วงนหาได้จากบอสด่าน mutalist alad v assassinate ,Blueprint ได้จากเควส Patient zero
+
+Sedna-	Saryn ชิ้นส่วนหาได้จากบอสด่าน Merrow ,Blueprint ซื้อได้จาก Market
+	Gauss ชิ้นส่วนและBlueprint หาได้จาก disruption ด่าน kappa
+
+Zariman-Gyre ชิ้นส่วนและBlueprint หาได้จาก Bounty Zariman
+
+Dojo(แคลน)		Wukong ซื้อได้จากห่อง Tenno lab
+		Volt ซื้อได้จากห้อง Tenno lab
+		Zephyr ซื้อได้จากห้อง Tenno lab
+		Banshee ซื้อได้จากห้อง Tenno lab
+		Nezha ซื้อได้จากห้อง Tenno lab
+		Yareli ซื้อได้จากห้อง Ventkid's Bash lab (Blueprint ได้จากเควส the waverider)
+		Dagath ซื้อได้จากห้อง the Dagath's hallow
+
+Duviri experience- 	Oraxia หาได้จาการลง Isle weaver 
+			Kullervo หาได้จากอารมณ์ Anger Fear Sorrow
+			(https://duviri-clock.mifuyne.com/)
+
+Railjack-	Oberon
+		Ash
+		Sevagoth (ต้องผ่านเควส Call of the tempastarii)
+
+Quest-	Protea blueprint ได้จากเควส The deadlock protocol ,ชิ้นส่วนหาได้จากการลงมือทองในยาน corpus
+	Chroma blueprint ได้จากเควส the new strange ,ชิ้นส่วนอยู่ตาม junction node ของดาว
+	Octavia blueprint ได้จากเควส Octavia's Anthem , chassis เปิดห้อง Octavia, system ลง exterminate lua ,neuroptics ลง deimos survival
+	Inaros ได้จากเควส sand of inaros ซื้อได้จาก baro
+	Mirage ได้จากเควส the hidden message
+	Titania ได้จากเควส the silver glove
+	Limbo ได้จากเควส the limbo theorem
+	Jade ได้จากเควส Jade shadows, ชิ้นส่วนและBlueprint หาได้จากด่าน blutus
+	Harrow blueprint ได้จากเควสเควส Chains of Harrow ชิ้นส่วนหาได้จาก neuroptics, systems หาได้จาก kuva fortress survival chassis หาได้จาก ลงกระหล่ำทั่วไป
+	Excaliber umbra ได้จากเควส the sacrifice
+	Uriel Blueprint ได้จากเควส the old peace ,ชิ้นส่วนหาได้จากการลงหอคอย the descendia ลงชั้น 21 เพื่อฟาร์ม
+
+the hex 1999-	Cyte-09 ชิ้นส่วนหาได้จาก bounty the hex ,Blueprint ซื้อได้กับ quincy
+		Temple ชิ้นส่วนและBlueprint หาได้จาก defense the hex
+
+Invasion-	Nyx ชิ้นส่วนหาได้จากบอส infes ในด่าน invasion  ,Blueprint ซื้อได้จาก Market
+
+Night wave-	Vauban ชิ้นส่วนและBlueprint หาได้จาก night wave
+
+Spy-	Ivara Blueprint หาได้จาก spy tier 3
+	chassis หาได้จาก spy tier 2 
+	neuroptics หาได้จาก spy tier 3
+	system หาได้จาก spy tier 1
+
+Grendel- หาได้จากการนำ vitus essence ไปแลกแล้วลงด่านแบบ no mod
+
+sanctuary onslaught-	Khora Blueprint Rotation C
+			chassis Rotation A
+			neuroptics Rotation B
+			system Rotation C
+
+Drifter camp-	stynax แลกได้กับ chipper ที่ drifter camp
+
+
+
+
