@@ -13,175 +13,307 @@
     <style>
         body {
             font-family: 'Anuphan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            margin: 0;
-            background: #050914;
-            overflow: hidden;
+            background: radial-gradient(circle at top, #0f172a, #020617);
             color: white;
+            padding: 20px;
         }
 
-        /* background */
-
-        body::before {
-            content: "";
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: url("./img_nilneko.png");
-            background-size: cover;
-            background-position: center;
-            opacity: 0.35;
-            filter: blur(10px);
+        h1 {
+            text-align: center;
+            color: #9ad1ff;
         }
 
-        /* MAP */
+        /* GRID */
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 14px;
+            max-width: 1000px;
+            margin: auto;
+        }
 
-        .map {
-            position: absolute;
-            top: 30%;
-            left: 45%;
-            transform: translate(-50%, -50%) scale(1.8);
-            width: 1600px;
-            height: 900px;
+        .char-btn {
+            text-align: center;
+            padding: 10px;
+            background: #1e293b;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .char-btn:hover {
+            background: #334155;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .char-btn img {
+            width: 50px;
+        }
+
+        /* CARD */
+        .farm-card {
+            max-width: 550px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            background: transparent;
+            border: 1px solid #3f78ff;
+            border-radius: 12px;
+            padding: 16px;
+
+            transition: .25s;
+        }
+
+        .farm-card:hover {
+            box-shadow: 0 0 15px rgba(63, 120, 255, 0.3);
+        }
+
+        .farm-left {
+            display: flex;
+            gap: 14px;
+        }
+
+        .farm-card img.wf {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.5));
+        }
+
+        .farm-node {
+            color: #facc15;
+            font-weight: 600;
+        }
+
+        .drop {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .drop span:last-child {
+            color: #7dd3fc;
         }
 
         /* PLANET */
-
-        .planet {
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            cursor: pointer;
-            transition: none;
+        .planet-big {
+            text-align: center;
         }
 
-        .planet:hover {
-            transform: scale(1.08);
-            filter:
-                drop-shadow(0 0 10px #ffffff) drop-shadow(0 0 25px #ffffff);
+        .planet-big img {
+            width: 130px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px #60a5fa);
         }
 
-        .small {
-            width: 40px;
-            height: 40px;
-        }
-
-        .label {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+        .planet-big span {
+            display: block;
             margin-top: 6px;
+            font-weight: bold;
+            color: #93c5fd;
+        }
+
+        /* POPUP */
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup.show {
+            display: flex;
+            /* 🔥 เปิด popup */
+        }
+
+        .popup-content {
+            width: 600px;
+            animation: popupIn 0.25s ease;
+        }
+
+        /* ปุ่ม */
+        .popup-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .close-btn {
+            padding: 10px 30px;
+            background: transparent;
+            color: #9ad1ff;
+            border: 1px solid #3f78ff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        .close-btn:hover {
+            background: #3f78ff;
+            color: white;
+            box-shadow: 0 0 12px rgba(63, 120, 255, 0.6);
+        }
+
+        .planet-th {
+            font-size: 16px;
+            font-weight: bold;
+            color: #93c5fd;
+        }
+
+        .planet-en {
+            font-size: 12px;
+            opacity: .6;
+        }
+
+        .boss-text {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px
+        }
+
+        /* ===== TYPE BADGE ===== */
+        .farm-type {
+            display: inline-block;
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        /* แยกสีแต่ละประเภท */
+        .type-boss {
+            background: #7f1d1d;
+            margin-top: 10px;
+            color: #fecaca;
+        }
+
+        .type-bounty {
+            background: #1e3a8a;
+            margin-top: 10px;
+            color: #bfdbfe;
+        }
+
+        .type-vendor {
+            background: #064e3b;
+            margin-top: 10px;
+            color: #a7f3d0;
+        }
+
+        .type-mission {
+            background: #1e40af;
+            margin-top: 10px;
+            color: #93c5fd;
+        }
+
+        /* ===== SECTION BOX ===== */
+        .info-box {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #020617;
+            border: 1px solid #1e40af;
+        }
+
+        /* ===== ICON TEXT ===== */
+        .info-line {
+            display: flex;
+            justify-content: space-between;
             font-size: 13px;
-            color: #cfe6ff;
-            text-shadow: 0 0 8px black;
-            white-space: nowrap;
+            margin-bottom: 4px;
         }
 
-        /* PLANET POS */
-
-        .mercury {
-            top: 480px;
-            left: 760px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Mercury.png/300px-Mercury.png");
+        .info-line span:first-child {
+            opacity: 0.6;
         }
 
-        .venus {
-            top: 560px;
-            left: 850px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Venus.png/300px-Venus.png");
+        /* ===== BOUNTY TAG ===== */
+        .bounty-source {
+            font-size: 12px;
+            margin-top: 6px;
+            color: #93c5fd;
         }
 
-        .earth {
-            top: 480px;
-            left: 940px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Earth.png/300px-Earth.png");
+        /* ===== VENDOR STYLE ===== */
+        .vendor-name {
+            font-weight: bold;
+            color: #4ade80;
         }
 
-        .lua {
-            top: 450px;
-            left: 1010px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Lua.png/300px-Lua.png");
+
+        /* ===== Search ===== */
+        .search-box {
+            max-width: 400px;
+            margin: 0 auto 20px;
         }
 
-        .mars {
-            top: 330px;
-            left: 1040px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Mars.png/300px-Mars.png");
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: none;
+            outline: none;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 14px;
         }
 
-        .deimos {
-            top: 360px;
-            left: 960px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Deimos.png/300px-Deimos.png");
+        .topUI {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        .jupiter {
-            top: 480px;
-            left: 580px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Jupiter.png/300px-Jupiter.png");
+        .topUI img {
+            width: 120px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .2s;
         }
 
-        .europa {
-            top: 510px;
-            left: 510px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Europa.png/300px-Europa.png");
+        .topUI img:hover {
+            transform: scale(1.1);
         }
 
-        .saturn {
-            top: 650px;
-            left: 660px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Saturn.png/300px-Saturn.png");
+        /* PANEL */
+        .panel {
+            display: none;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #020617;
+            border: 1px solid #3f78ff;
+            border-radius: 12px;
+            padding: 16px;
         }
 
-        .uranus {
-            top: 720px;
-            left: 820px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Uranus.png/300px-Uranus.png");
+        .panel.show {
+            display: block;
         }
 
-        .neptune {
-            top: 700px;
-            left: 940px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Neptune.png/300px-Neptune.png");
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .pluto {
-            top: 480px;
-            left: 1100px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Pluto.png/300px-Pluto.png");
+        .tab {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: #1e293b;
+            cursor: pointer;
         }
 
-        .kuva {
-            top: 580px;
-            left: 1040px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Kuva_Fortress.png/300px-Kuva_Fortress.png");
-        }
-
-        .zariman {
-            top: 420px;
-            left: 420px;
-            background-image: url("./Zariman.png");
-        }
-
-        .void {
-            top: 510px;
-            left: 450px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Void.png/300px-Void.png");
-        }
-
-        .phobos {
-            top: 360px;
-            left: 880px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Phobos.png/300px-Phobos.png?bd623");
-        }
-
-        .ceres {
-            top: 360px;
-            left: 700px;
-            background-image: url("https://wiki.warframe.com/images/thumb/Ceres.png/300px-Ceres.png?b5eca");
+        .tab.active {
+            background: #3f78ff;
         }
 
         /* TOP RIGHT UI */
@@ -196,16 +328,13 @@
         }
 
         .topUI img {
-
             width: 200px;
             cursor: pointer;
             transition: .2s;
         }
 
         .topUI img:hover {
-
             transform: scale(1.08);
-
             filter:
                 drop-shadow(0 0 10px #ffffff) drop-shadow(0 0 25px #ffffff);
         }
@@ -213,14 +342,12 @@
         /* PANEL */
 
         .panel {
-
             position: fixed;
             display: none;
             top: 160px;
             right: 20px;
-
             width: auto;
-            max-height: 500px;
+            max-height: 600px;
             /* จำกัดความสูง */
 
             background: #0b1324;
@@ -389,923 +516,730 @@
             text-shadow: 0 0 8px #00eaff;
         }
 
-        .bossList {
-            margin-top: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .mood-box {
+            position: relative;
+            text-align: center;
+            padding: 60px 30px;
+            border-radius: 20px;
+
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.08),
+                    rgba(255, 255, 255, 0.02));
+
+            backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 40px rgba(255, 255, 255, 0.03);
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
-        .bossCard {
-            display: flex;
-            gap: 12px;
-            background: linear-gradient(180deg, #0b1a35, #081326);
-            border: 1px solid #3f78ff;
-            border-radius: 10px;
-            padding: 14px;
-            box-shadow: 0 0 20px rgba(80, 140, 255, .25);
+        .mood-title {
+            font-size: 28px;
+            opacity: 0.6;
+            letter-spacing: 1px;
         }
 
-        .bossCard:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(120, 170, 255, .6);
-        }
-
-        .bossCard {
-            transition: all .2s ease;
-        }
-
-        .bossImg {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
-
-        .bossName {
-            font-size: 16px;
+        .mood-name {
+            font-size: 72px;
             font-weight: 700;
-            margin-bottom: 2px;
+
+            background: linear-gradient(180deg, #a7f3d0, #5eead4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .bossNode {
-            color: #ffd75a;
-            font-weight: 600;
+        .mood-timer {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.6;
         }
 
-        .bossMission {
-            font-size: 12px;
-            opacity: .8;
-            margin-bottom: 8px;
+        .mood-next {
+            margin-top: 50px;
+            text-align: left;
         }
 
-        .drop {
-            display: grid;
-            grid-template-columns: 170px 1fr;
+        .mood-next h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0.7;
         }
 
-        .drops {
-            margin-top: 6px;
+        .mood-next table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .frameFarm {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin: 6px 0;
-            font-size: 13px;
-            color: #9ad1ff;
-        }
-
-        .frameIcon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
-
-        .frameBig {
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
-        }
-
-        .frameName {
-            font-size: 18px;
-            font-weight: 700;
-            color: #9ad1ff;
-            margin-bottom: 4px;
-        }
-
-        .bossSmall {
-            font-size: 12px;
+        .mood-next th {
+            text-align: left;
             opacity: .7;
-            margin-bottom: 6px;
+            border-bottom: 1px solid #555;
+            padding-bottom: 6px;
+        }
+
+        .mood-next td {
+            padding: 6px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .next-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .next-item span:last-child {
+            opacity: 0.6;
+        }
+
+        .kullervo-sword {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+
+            width: 180px;
+            opacity: 0.25;
+            pointer-events: none;
+
+            transform: translate(-50%, -50%) rotate(-15deg);
+        }
+
+        /* 🔥 Anger */
+        .kullervo-sword.anger {
+            filter: drop-shadow(0 0 25px red);
+        }
+
+        /* 😱 Fear */
+        .kullervo-sword.fear {
+            filter: drop-shadow(0 0 25px purple);
+        }
+
+        /* 😢 Sorrow */
+        .kullervo-sword.sorrow {
+            filter: drop-shadow(0 0 25px cyan);
+        }
+
+        /* ANIMATION */
+        @keyframes popupIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- TOP RIGHT BUTTONS -->
+    <h1>Warframe Farm</h1>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="🔍 ค้นหา Warframe...">
+    </div>
+
+    <div class="characters" id="characters"></div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div id="popup-body"></div>
+        </div>
+    </div>
 
     <div class="topUI">
 
         <img id="duviriBtn" src="https://www-static.warframe.com/images/guide/quests/duviri-key.jpg">
 
-        <img id="railjackBtn" src="https://www-static.warframe.com/uploads/84ddc502bfeda6c72a6d4a809d64afd9.jpg">
-
     </div>
-
-    <!-- MAP -->
-    <div class="map" id="map">
-        <div class="planet mercury" onclick="showPlanet(event,'mercury')">
-            <div class="label">Mercury</div>
-        </div>
-
-        <div class="planet venus" onclick="showPlanet(event,'venus')">
-            <div class="label">Venus</div>
-        </div>
-
-        <div class="planet earth" onclick="showPlanet(event,'earth')">
-            <div class="label">Earth</div>
-        </div>
-
-        <div class="planet small lua" onclick="showPlanet(event,'lua')">
-            <div class="label">Lua</div>
-        </div>
-
-        <div class="planet mars" onclick="showPlanet(event,'mars')">
-            <div class="label">Mars</div>
-        </div>
-
-        <div class="planet small deimos" onclick="showPlanet(event,'deimos')">
-            <div class="label">Deimos</div>
-        </div>
-
-        <div class="planet jupiter" onclick="showPlanet(event,'jupiter')">
-            <div class="label">Jupiter</div>
-        </div>
-
-        <div class="planet small europa" onclick="showPlanet(event,'europa')">
-            <div class="label">Europa</div>
-        </div>
-
-        <div class="planet saturn" onclick="showPlanet(event,'saturn')">
-            <div class="label">Saturn</div>
-        </div>
-
-        <div class="planet uranus" onclick="showPlanet(event,'uranus')">
-            <div class="label">Uranus</div>
-        </div>
-
-        <div class="planet neptune" onclick="showPlanet(event,'neptune')">
-            <div class="label">Neptune</div>
-        </div>
-
-        <div class="planet small pluto" onclick="showPlanet(event,'pluto')">
-            <div class="label">Pluto</div>
-        </div>
-
-        <div class="planet kuva" onclick="showPlanet(event,'kuva')">
-            <div class="label">Kuva Fortress</div>
-        </div>
-
-        <div class="planet small zariman" onclick="showPlanet(event,'zariman')">
-            <div class="label">Zariman</div>
-        </div>
-
-        <div class="planet small void" onclick="showPlanet(event,'void')">
-            <div class="label">Void</div>
-        </div>
-        <div class="planet small phobos" onclick="showPlanet(event,'phobos')">
-            <div class="label">Phobos</div>
-        </div>
-        <div class="planet small ceres" onclick="showPlanet(event,'ceres')">
-            <div class="label">Ceres</div>
-        </div>
-    </div>
-
-    <!-- PANEL -->
 
     <div class="panel" id="panel">
         <div class="tabs">
             <div class="tab active" onclick="showMode('normal')">Normal</div>
             <div class="tab" onclick="showMode('sp')">Steel Path</div>
+            <div class="tab" onclick="showMode('mood')">Mood</div>
         </div>
 
         <div id="content"></div>
-
     </div>
 
     <div class="panel" id="planetPanel">
-
         <div id="planetContent"></div>
-
     </div>
 
     <script>
-        /* ---------------- GLOBAL DATA ---------------- */
-
-        /* ต้องอยู่นอก DOMContentLoaded */
-        const planetInfo = {
-
-            mercury: {
-                name: "Mercury",
-                enemy: "Grineer",
-                boss: "Captain Vor",
-                level: "1-6",
-                desc: "ดาวเริ่มต้นของ Grineer สำหรับผู้เล่นใหม่"
-            },
-
-            venus: {
-                name: "Venus",
-
-                bosses: [
-                    {
-                        name: "The Jackal",
-                        node: "Fossa",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Rhino",
-                            img: "https://wiki.warframe.com/images/thumb/Rhino_Thumb.png/300px-Rhino_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ],
-
-                bounty: [
-                    {
-                        name: "Garuda",
-                        img: "https://wiki.warframe.com/images/thumb/Garuda_Thumb.png/300px-Garuda_Thumb.png",
-
-                        location: "Fortuna",
-                        source: "Eudico Bounty",
-
-                        blueprint: "Vox Solaris Quest"
-                    },
-                    {
-                        name: "Nokko",
-                        img: "https://wiki.warframe.com/images/thumb/Nokko_Thumb.png/300px-Nokko_Thumb.png",
-
-                        location: "Fortuna",
-                        source: "Nightcap Bounty",
-
-                        blueprint: "Bounty"
-                    },
-                    {
-                        name: "Caliban",
-                        img: "https://wiki.warframe.com/images/thumb/Caliban_Thumb.png/300px-Caliban_Thumb.png",
-
-                        location: "Fortuna",
-                        source: "Narmer Bounty",
-
-                        blueprint: "The New War Quest"
-                    }
-                ],
-
-                mission: [
-                    {
-                        name: "Hildryn",
-                        img: "https://wiki.warframe.com/images/thumb/Hildryn_Thumb.png/300px-Hildryn_Thumb.png",
-
-                        node: "Orb Vallis",
-                        mission: "Exploiter Orb",
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Little Duck"
-                    },
-
-                    {
-                        name: "Baruuk",
-                        img: "https://wiki.warframe.com/images/thumb/Baruuk_Thumb.png/300px-Baruuk_Thumb.png",
-
-                        node: "Fortuna",
-                        mission: "Little Duck",
-
-                        drops: [
-                            { item: "Blueprint", chance: "Vendor" },
-                            { item: "Chassis", chance: "Vendor" },
-                            { item: "Systems", chance: "Vendor" },
-                            { item: "Neuroptics", chance: "Vendor" }
-                        ]
-                    }
-                ]
-            },
-
-            earth: {
-                name: "Earth",
-                bosses: [
-                    {
-                        name: "Councilor Vay Hek",
-                        node: "Oro",
-                        mission: "Assassination",
-                        frame: {
-                            name: "Hydroid",
-                            img: "https://wiki.warframe.com/images/thumb/Hydroid_Thumb.png/300px-Hydroid_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ],
-                bounty: [
-                    {
-                        name: "Gara",
-                        img: "https://wiki.warframe.com/images/thumb/Gara_Thumb.png/300px-Gara_Thumb.png",
-
-                        location: "Cetus",
-                        source: "Konzu Bounty",
-
-                        blueprint: "Saya's Vigil"
-                    },
-
-                    {
-                        name: "Revenant",
-                        img: "https://wiki.warframe.com/images/thumb/Revenant_Thumb.png/300px-Revenant_Thumb.png",
-
-                        location: "Cetus",
-                        source: "Konzu Bounty",
-
-                        blueprint: "Mask of the Revenant"
-                    },
-                    {
-                        name: "Caliban",
-                        img: "https://wiki.warframe.com/images/thumb/Caliban_Thumb.png/300px-Caliban_Thumb.png",
-
-                        location: "Cetus",
-                        source: "Narmer Bounty",
-
-                        blueprint: "The New War Quest"
-                    }
-                ],
-                mission: [
-                    {
-                        name: "Koumei",
-                        img: "https://wiki.warframe.com/images/thumb/Koumei_Thumb.png/300px-Koumei_Thumb.png",
-
-                        node: "Saya's Visions",
-                        mission: "Shrine Defense",
-
-                        drops: [
-                            { item: "Blueprint", chance: "4.09%" },
-                            { item: "Chassis Blueprint", chance: "4.09%" },
-                            { item: "Systems Blueprint", chance: "4.09%" },
-                            { item: "Neuroptics Blueprint", chance: "4.09%" }
-                        ]
-                    }
-                ]
-            },
-
-            lua: {
-                name: "Lua",
-                mission: [
-                    {
-                        name: "Voruna",
-                        img: "https://wiki.warframe.com/images/thumb/Voruna_Thumb.png/300px-Voruna_Thumb.png",
-                        node: "Circulus / Yuvarium",
-                        mission: "Conjunction Survival",
-                        drops: [
-                            { item: "Blueprint (Tier2)", chance: "12.24%" },
-                            { item: "Blueprint (Tier1)", chance: "6.82%" },
-                            { item: "Systems (Tier2)", chance: "8.16%" },
-                            { item: "Systems (Tier1)", chance: "4.55%" },
-                            { item: "Chassis (Tier2)", chance: "8.16%" },
-                            { item: "Chassis (Tier1)", chance: "4.55%" },
-                            { item: "Neuroptics (Tier2)", chance: "8.16%" },
-                            { item: "Neuroptics (Tier1)", chance: "4.55%" }
-                        ]
-                    }
-                ]
-            },
-
-            mars: {
-                name: "Mars",
-
-                bosses: [
-                    {
-                        name: "Lech Kril",
-                        node: "War",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Excalibur",
-                            img: "https://wiki.warframe.com/images/thumb/Excalibur_Thumb.png/300px-Excalibur_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ],
-
-                mission: [
-                    {
-                        name: "Citrine",
-                        img: "https://wiki.warframe.com/images/thumb/Citrine_Thumb.png/300px-Citrine_Thumb.png",
-
-                        node: "Tyana Pass",
-                        mission: "Mirror Defense",
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "Rotation C 6.1%" },
-                            { item: "Systems Blueprint", chance: "Rotation C 6.1%" },
-                            { item: "Neuroptics Blueprint", chance: "Rotation C 6.1%" },
-                            { item: "Blueprint", chance: "Rotation C 9.3%" },
-                        ]
-                    }
-                ]
-            },
-
-            deimos: {
-                name: "Deimos",
-
-                bosses: [
-                    {
-                        name: "Lephantis",
-                        node: "Exequias",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Nekros",
-                            img: "https://wiki.warframe.com/images/thumb/Nekros_Thumb.png/300px-Nekros_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ],
-
-                bounty: [
-                    {
-                        name: "Xaku",
-                        img: "https://wiki.warframe.com/images/thumb/Xaku_Thumb.png/300px-Xaku_Thumb.png",
-
-                        location: "Necralisk",
-                        source: "Bounty",
-
-                        blueprint: "Heart of Deimos Quest"
-                    }
-                ],
-
-                mission: [
-                    {
-                        name: "Dante",
-                        img: "https://wiki.warframe.com/images/thumb/Dante_Thumb.png/300px-Dante_Thumb.png",
-
-                        node: "Armatus",
-                        mission: "Disruption",
-
-                        drops: [
-                            { item: "Blueprint", chance: "Rotation Reward" },
-                            { item: "Chassis Blueprint", chance: "Rotation Reward" },
-                            { item: "Systems Blueprint", chance: "Rotation Reward" },
-                            { item: "Neuroptics Blueprint", chance: "Rotation Reward" }
-                        ],
-
-                        requirement: "Whispers in the Walls Quest"
-                    },
-
-                    {
-                        name: "Lavos",
-                        img: "https://wiki.warframe.com/images/thumb/Lavos_Thumb.png/300px-Lavos_Thumb.png",
-
-                        node: "Necralisk",
-                        mission: "Father",
-
-                        drops: [
-                            { item: "Blueprint", chance: "Vendor" },
-                            { item: "Chassis", chance: "Vendor" },
-                            { item: "Systems", chance: "Vendor" },
-                            { item: "Neuroptics", chance: "Vendor" }
-                        ]
-                    },
-
-                    {
-                        name: "Qorvex",
-                        img: "https://wiki.warframe.com/images/thumb/Qorvex_Thumb.png/300px-Qorvex_Thumb.png",
-
-                        node: "Sanctum Anatomica",
-                        mission: "Bird 3",
-
-                        drops: [
-                            { item: "Blueprint", chance: "Vendor" },
-                            { item: "Chassis", chance: "Vendor" },
-                            { item: "Systems", chance: "Vendor" },
-                            { item: "Neuroptics", chance: "Vendor" }
-                        ],
-
-                        requirement: "Whispers in the Walls Quest"
-                    }
-                ]
-            },
-
-            phobos: {
-                name: "Phobos",
-
-                bosses: [
-                    {
-                        name: "The Sergeant",
-                        node: "Iliad",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Mag",
-                            img: "https://wiki.warframe.com/images/thumb/Mag_Thumb.png/300px-Mag_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-            ceres: {
-                name: "Ceres",
-
-                bosses: [
-                    {
-                        name: "Lieutenant Lech Kril",
-                        node: "Exta",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Frost",
-                            img: "https://wiki.warframe.com/images/thumb/Frost_Thumb.png/300px-Frost_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-
-            jupiter: {
-                name: "Jupiter",
-
-                bosses: [
-                    {
-                        name: "The Ropalolyst",
-                        node: "Ropalolyst",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Wisp",
-                            img: "https://wiki.warframe.com/images/thumb/Wisp_Thumb.png/300px-Wisp_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Blueprint", chance: "22.56%" },
-                            { item: "Chassis Blueprint", chance: "25.81%" },
-                            { item: "Systems Blueprint", chance: "25.81%" },
-                            { item: "Neuroptics Blueprint", chance: "25.81%" }
-                        ],
-                        
-                        blueprint: "Market"
-                    },
-
-                    {
-                        name: "Alad V",
-                        node: "Themisto",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Valkyr",
-                            img: "https://wiki.warframe.com/images/thumb/Valkyr_Thumb.png/300px-Valkyr_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-
-            europa: {
-                name: "Europa",
-
-                bosses: [
-                    {
-                        name: "The Raptor",
-                        node: "Naamah",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Nova",
-                            img: "https://wiki.warframe.com/images/thumb/Nova_Thumb.png/300px-Nova_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-            saturn: {
-                name: "Saturn",
-
-                bosses: [
-                    {
-                        name: "General Sargas Ruk",
-                        node: "Tethys",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Ember",
-                            img: "https://wiki.warframe.com/images/thumb/Ember_Thumb.png/300px-Ember_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-
-            uranus: {
-                name: "Uranus",
-
-                bosses: [
-                    {
-                        name: "Tyl Regor",
-                        node: "Titania",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Equinox",
-                            img: "https://wiki.warframe.com/images/thumb/Equinox_Thumb.png/300px-Equinox_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Day Aspect Blueprint", chance: "Random Drop" },
-                            { item: "Night Aspect Blueprint", chance: "Random Drop" }
-                        ],
-
-                        blueprint: "Market",
-                    }
-                ]
-            },
-
-            neptune: {
-                name: "Neptune",
-
-                bosses: [
-                    {
-                        name: "Hyena Pack",
-                        node: "Psamathe",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Loki",
-                            img: "https://wiki.warframe.com/images/thumb/Loki_Thumb.png/300px-Loki_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-
-            pluto: {
-                name: "Pluto",
-
-                bosses: [
-                    {
-                        name: "Ambulas",
-                        node: "Hades",
-                        mission: "Assassination",
-
-                        frame: {
-                            name: "Trinity",
-                            img: "https://wiki.warframe.com/images/thumb/Trinity_Thumb.png/300px-Trinity_Thumb.png"
-                        },
-
-                        drops: [
-                            { item: "Chassis Blueprint", chance: "38.72%" },
-                            { item: "Systems Blueprint", chance: "22.56%" },
-                            { item: "Neuroptics Blueprint", chance: "38.72%" }
-                        ],
-
-                        blueprint: "Market"
-                    }
-                ]
-            },
-
-            kuva: {
-                name: "Kuva Fortress",
-                enemy: "Grineer",
-                boss: "None",
-                level: "30-40",
-                desc: "ฐานของ Kuva และ Lich"
-            },
-
-            zariman: {
-                name: "Zariman",
-                enemy: "Void",
-                boss: "Void Angels",
-                level: "50+",
-                desc: "พื้นที่ Endgame"
-            },
-
-            void: {
-                name: "Void",
-                enemy: "Corrupted",
-                boss: "None",
-                level: "20-40",
-                desc: "ดินแดนของ Orokin"
-            }
-
+        const warframes = [
+            { name: "Ash", normal: "https://wiki.warframe.com/images/thumb/Ash_Thumb.png/300px-Ash_Thumb.png" },
+            { name: "Atlas", normal: "https://wiki.warframe.com/images/thumb/Atlas_Thumb.png/300px-Atlas_Thumb.png" },
+            { name: "Banshee", normal: "https://wiki.warframe.com/images/thumb/Banshee_Thumb.png/300px-Banshee_Thumb.png" },
+            { name: "Baruuk", normal: "https://wiki.warframe.com/images/thumb/Baruuk_Thumb.png/300px-Banshee_Thumb.png" },
+            { name: "Caliban", normal: "https://wiki.warframe.com/images/thumb/Caliban_Thumb.png/300px-Caliban_Thumb.png" },
+            { name: "Chroma", normal: "https://wiki.warframe.com/images/thumb/Chroma_Thumb.png/300px-Chroma_Thumb.png" },
+            { name: "Citrine", normal: "https://wiki.warframe.com/images/thumb/Citrine_Thumb.png/300px-Citrine_Thumb.png" },
+            { name: "Cyte-09", normal: "https://wiki.warframe.com/images/thumb/Cyte09_Thumb.png/300px-Cyte09_Thumb.png" },
+            { name: "Dagath", normal: "https://wiki.warframe.com/images/thumb/Dagath_Thumb.png/300px-Dagath_Thumb.png" },
+            { name: "Dante", normal: "https://wiki.warframe.com/images/thumb/Dante_Thumb.png/300px-Dante_Thumb.png" },
+            { name: "Ember", normal: "https://wiki.warframe.com/images/thumb/Ember_Thumb.png/300px-Ember_Thumb.png" },
+            { name: "Equinox", normal: "https://wiki.warframe.com/images/thumb/Equinox_Thumb.png/300px-Equinox_Thumb.png" },
+            { name: "Excalibur", normal: "https://wiki.warframe.com/images/thumb/Excalibur_Thumb.png/300px-Excalibur_Thumb.png" },
+            { name: "Follie", normal: "https://wiki.warframe.com/images/thumb/Follie_Thumb.png/300px-Follie_Thumb.png" },
+            { name: "Frost", normal: "https://wiki.warframe.com/images/thumb/Frost_Thumb.png/300px-Frost_Thumb.png" },
+            { name: "Gara", normal: "https://wiki.warframe.com/images/thumb/Gara_Thumb.png/300px-Gara_Thumb.png" },
+            { name: "Garuda", normal: "https://wiki.warframe.com/images/thumb/Garuda_Thumb.png/300px-Garuda_Thumb.png" },
+            { name: "Gauss", normal: "https://wiki.warframe.com/images/thumb/Gauss_Thumb.png/300px-Gauss_Thumb.png" },
+            { name: "Grendel", normal: "https://wiki.warframe.com/images/thumb/Grendel_Thumb.png/300px-Grendel_Thumb.png" },
+            { name: "Gyre", normal: "https://wiki.warframe.com/images/thumb/Gyre_Thumb.png/300px-Gyre_Thumb.png" },
+            { name: "Harrow", normal: "https://wiki.warframe.com/images/thumb/Harrow_Thumb.png/300px-Harrow_Thumb.png" },
+            { name: "Hildryn", normal: "https://wiki.warframe.com/images/thumb/Hildryn_Thumb.png/300px-Hildryn_Thumb.png" },
+            { name: "Hydroid", normal: "https://wiki.warframe.com/images/thumb/Hydroid_Thumb.png/300px-Hydroid_Thumb.png" },
+            { name: "Inaros", normal: "https://wiki.warframe.com/images/thumb/Inaros_Thumb.png/300px-Inaros_Thumb.png" },
+            { name: "Ivara", normal: "https://wiki.warframe.com/images/thumb/Ivara_Thumb.png/300px-Ivara_Thumb.png" },
+            { name: "Jade", normal: "https://wiki.warframe.com/images/thumb/Jade_Thumb.png/300px-Jade_Thumb.png" },
+            { name: "Khora", normal: "https://wiki.warframe.com/images/thumb/Khora_Thumb.png/300px-Khora_Thumb.png" },
+            { name: "Koumei", normal: "https://wiki.warframe.com/images/thumb/Koumei_Thumb.png/300px-Koumei_Thumb.png" },
+            { name: "Kullervo", normal: "https://wiki.warframe.com/images/thumb/Kullervo_Thumb.png/300px-Kullervo_Thumb.png" },
+            { name: "Lavos", normal: "https://wiki.warframe.com/images/thumb/Lavos_Thumb.png/300px-Lavos_Thumb.png" },
+            { name: "Limbo", normal: "https://wiki.warframe.com/images/thumb/Limbo_Thumb.png/300px-Limbo_Thumb.png" },
+            { name: "Loki", normal: "https://wiki.warframe.com/images/thumb/Loki_Thumb.png/300px-Loki_Thumb.png" },
+            { name: "Mag", normal: "https://wiki.warframe.com/images/thumb/Mag_Thumb.png/300px-Mag_Thumb.png" },
+            { name: "Mesa", normal: "https://wiki.warframe.com/images/thumb/Mesa_Thumb.png/300px-Mesa_Thumb.png" },
+            { name: "Mirage", normal: "https://wiki.warframe.com/images/thumb/Mirage_Thumb.png/300px-Mirage_Thumb.png" },
+            { name: "Nekros", normal: "https://wiki.warframe.com/images/thumb/Nekros_Thumb.png/300px-Nekros_Thumb.png" },
+            { name: "Nezha", normal: "https://wiki.warframe.com/images/thumb/Nezha_Thumb.png/300px-Nezha_Thumb.png" },
+            { name: "Nidus", normal: "https://wiki.warframe.com/images/thumb/Nidus_Thumb.png/300px-Nidus_Thumb.png" },
+            { name: "Nokko", normal: "https://wiki.warframe.com/images/thumb/Nokko_Thumb.png/300px-Nokko_Thumb.png" },
+            { name: "Nova", normal: "https://wiki.warframe.com/images/thumb/Nova_Thumb.png/300px-Nova_Thumb.png" },
+            { name: "Nyx", normal: "https://wiki.warframe.com/images/thumb/Nyx_Thumb.png/300px-Nyx_Thumb.png" },
+            { name: "Oberon", normal: "https://wiki.warframe.com/images/thumb/Oberon_Thumb.png/300px-Oberon_Thumb.png" },
+            { name: "Octavia", normal: "https://wiki.warframe.com/images/thumb/Octavia_Thumb.png/300px-Oberon_Thumb.png" },
+            { name: "Oraxia", normal: "https://wiki.warframe.com/images/thumb/Oraxia_Thumb.png/300px-Oraxia_Thumb.png" },
+            { name: "Protea", normal: "https://wiki.warframe.com/images/thumb/Protea_Thumb.png/300px-Protea_Thumb.png" },
+            { name: "Qorvex", normal: "https://wiki.warframe.com/images/thumb/Qorvex_Thumb.png/300px-Qorvex_Thumb.png" },
+            { name: "Revenant", normal: "https://wiki.warframe.com/images/thumb/Revenant_Thumb.png/300px-Revenant_Thumb.png" },
+            { name: "Rhino", normal: "https://wiki.warframe.com/images/thumb/Rhino_Thumb.png/300px-Rhino_Thumb.png" },
+            { name: "Saryn", normal: "https://wiki.warframe.com/images/thumb/Saryn_Thumb.png/300px-Saryn_Thumb.png" },
+            { name: "Sevagoth", normal: "https://wiki.warframe.com/images/thumb/Sevagoth_Thumb.png/300px-Sevagoth_Thumb.png" },
+            { name: "Styanax", normal: "https://wiki.warframe.com/images/thumb/Styanax_Thumb.png/300px-Styanax_Thumb.png" },
+            { name: "Temple", normal: "https://wiki.warframe.com/images/thumb/Temple_Thumb.png/300px-Temple_Thumb.png" },
+            { name: "Titania", normal: "https://wiki.warframe.com/images/thumb/Titania_Thumb.png/300px-Titania_Thumb.png" },
+            { name: "Trinity", normal: "https://wiki.warframe.com/images/thumb/Trinity_Thumb.png/300px-Trinity_Thumb.png" },
+            { name: "Uriel", normal: "https://wiki.warframe.com/images/thumb/Uriel_Thumb.png/300px-Uriel_Thumb.png" },
+            { name: "Valkyr", normal: "https://wiki.warframe.com/images/thumb/Valkyr_Thumb.png/300px-Valkyr_Thumb.png" },
+            { name: "Vauban", normal: "https://wiki.warframe.com/images/thumb/Vauban_Thumb.png/300px-Titania_Thumb.png" },
+            { name: "Volt", normal: "https://wiki.warframe.com/images/thumb/Volt_Thumb.png/300px-Volt_Thumb.png" },
+            { name: "Voruna", normal: "https://wiki.warframe.com/images/thumb/Voruna_Thumb.png/300px-Voruna_Thumb.png" },
+            { name: "Wisp", normal: "https://wiki.warframe.com/images/thumb/Wisp_Thumb.png/300px-Wisp_Thumb.png" },
+            { name: "Wukong", normal: "https://wiki.warframe.com/images/thumb/Wukong_Thumb.png/300px-Wukong_Thumb.png" },
+            { name: "Xaku", normal: "https://wiki.warframe.com/images/thumb/Xaku_Thumb.png/300px-Xaku_Thumb.png" },
+            { name: "Yareli", normal: "https://wiki.warframe.com/images/thumb/Yareli_Thumb.png/300px-Yareli_Thumb.png" },
+            { name: "Zephyr", normal: "https://wiki.warframe.com/images/thumb/Zephyr_Thumb.png/300px-Zephyr_Thumb.png" }
+        ];
+
+        const farmData = {
+
+            "Rhino": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Rhino_Thumb.png/300px-Rhino_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/Venus.png",
+                    node: "Fossa",
+                    mission: "Assassination",
+                    boss: "The Jackal",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Hydroid": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Hydroid_Thumb.png/300px-Hydroid_Thumb.png",
+                    planet: "Earth",
+                    planetTH: "โลก",
+                    planetImg: "https://wiki.warframe.com/images/Earth.png",
+                    node: "Oro",
+                    mission: "Assassination",
+                    boss: "Councilor Vay Hek",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Excalibur": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Excalibur_Thumb.png/300px-Excalibur_Thumb.png",
+                    planet: "Mars",
+                    planetTH: "ดาวอังคาร",
+                    planetImg: "https://wiki.warframe.com/images/Mars.png",
+                    node: "War",
+                    mission: "Assassination",
+                    boss: "Lech Kril",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Nekros": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Nekros_Thumb.png/300px-Nekros_Thumb.png",
+                    planet: "Deimos",
+                    planetTH: "เดมอส",
+                    planetImg: "https://wiki.warframe.com/images/Deimos.png",
+                    node: "Exequias",
+                    mission: "Assassination",
+                    boss: "Lephantis",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Mag": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Mag_Thumb.png/300px-Mag_Thumb.png",
+                    planet: "Phobos",
+                    planetTH: "ดาวโฟบอส",
+                    planetImg: "https://wiki.warframe.com/images/Phobos.png",
+                    node: "Iliad",
+                    mission: "Assassination",
+                    boss: "The Sergeant",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Garuda": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Garuda_Thumb.png/300px-Garuda_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/Venus.png",
+                    location: "Fortuna",
+                    source: "Eudico Bounty",
+                    blueprint: "Vox Solaris Quest"
+                }
+            ],
+
+            "Gara": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Gara_Thumb.png/300px-Gara_Thumb.png",
+                    planet: "Earth",
+                    planetTH: "โลก",
+                    planetImg: "https://wiki.warframe.com/images/Earth.png",
+                    location: "Cetus",
+                    source: "Konzu Bounty",
+                    blueprint: "Saya's Vigil"
+                }
+            ],
+
+            "Revenant": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Revenant_Thumb.png/300px-Revenant_Thumb.png",
+                    planet: "Earth",
+                    planetTH: "โลก",
+                    planetImg: "https://wiki.warframe.com/images/Earth.png",
+                    location: "Cetus",
+                    source: "Konzu Bounty",
+                    blueprint: "Mask of the Revenant"
+                }
+            ],
+
+            "Xaku": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Xaku_Thumb.png/300px-Xaku_Thumb.png",
+                    planet: "Deimos",
+                    planetTH: "เดมอส",
+                    planetImg: "https://wiki.warframe.com/images/Deimos.png",
+                    location: "Necralisk",
+                    source: "Bounty",
+                    blueprint: "Heart of Deimos Quest"
+                }
+            ],
+
+            "Baruuk": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Baruuk_Thumb.png/300px-Baruuk_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/Venus.png",
+                    location: "Fortuna",
+                    vendor: "Little Duck",
+                    drops: [
+                        { item: "Blueprint", chance: "5,000 Points" },
+                        { item: "Chassis", chance: "5,000 Points" },
+                        { item: "Systems", chance: "5,000 Points" },
+                        { item: "Neuroptics", chance: "5,000 Points" }
+                    ]
+                }
+            ],
+
+            "Lavos": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Lavos_Thumb.png/300px-Lavos_Thumb.png",
+                    planet: "Deimos",
+                    planetTH: "เดมอส",
+                    planetImg: "https://wiki.warframe.com/images/Deimos.png",
+                    location: "Necralisk",
+                    vendor: "Father",
+                    drops: [
+                        { item: "Blueprint", chance: "5,000 Points" },
+                        { item: "Chassis", chance: "5,000 Points" },
+                        { item: "Systems", chance: "5,000 Points" },
+                        { item: "Neuroptics", chance: "5,000 Points" }
+                    ]
+                }
+            ],
+
+            "Koumei": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Koumei_Thumb.png/300px-Koumei_Thumb.png",
+                    planet: "Earth",
+                    planetTH: "โลก",
+                    planetImg: "https://wiki.warframe.com/images/Earth.png",
+                    location: "Cetus",
+                    source: "Saya's Vigil",
+                    drops: [
+                        { item: "Blueprint", chance: "4.09%" },
+                        { item: "Chassis Blueprint", chance: "4.09%" },
+                        { item: "Systems Blueprint", chance: "4.09%" },
+                        { item: "Neuroptics Blueprint", chance: "4.09%" }
+                    ],
+                }
+            ],
+
+            "Voruna": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Voruna_Thumb.png/300px-Voruna_Thumb.png",
+                    planet: "Lua",
+                    planetTH: "ดาวลูอา",
+                    planetImg: "https://wiki.warframe.com/images/Lua.png",
+                    node: "Circulus / Yuvarium",
+                    mission: "Conjunction Survival",
+                    drops: [
+                        { item: "Blueprint", chance: "6.82-12.24%" },
+                        { item: "Chassis Blueprint", chance: "4.55-8.16%" },
+                        { item: "Systems Blueprint", chance: "4.55-8.16%" },
+                        { item: "Neuroptics Blueprint", chance: "4.55-8.16%" }
+                    ]
+                }
+            ],
+
+            "Hildryn": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Hildryn_Thumb.png/300px-Hildryn_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/Venus.png",
+                    node: "Orb Vallis",
+                    mission: "Exploiter Orb",
+                    blueprint: "Little Duck",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Nokko": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Nokko_Thumb.png/300px-Nokko_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/Venus.png",
+                    location: "Fortuna",
+                    source: "Nightcap Bounty",
+                    drops: [
+                        { item: "Blueprint", chance: "5-8%" },
+                        { item: "Chassis Blueprint", chance: "2.50-10%" },
+                        { item: "Systems Blueprint", chance: "2.50-10%" },
+                        { item: "Neuroptics Blueprint", chance: "2.50-10%" }
+                    ],
+                }
+            ],
+
+            "Caliban": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Caliban_Thumb.png/300px-Caliban_Thumb.png",
+                    planet: "Earth",
+                    planetTH: "โลก",
+                    planetImg: "https://wiki.warframe.com/images/Earth.png",
+                    location: "Cetus",
+                    source: "Konzu Bounty",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "5.45-8.11%" },
+                        { item: "Systems Blueprint", chance: "5.45-8.11%" },
+                        { item: "Neuroptics Blueprint", chance: "5.45-8.11%" }
+                    ],
+                },
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Caliban_Thumb.png/300px-Caliban_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/Venus.png",
+                    location: "Fortuna",
+                    source: "Eudico Bounty",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "2.50-10%" },
+                        { item: "Systems Blueprint", chance: "2.50-10%" },
+                        { item: "Neuroptics Blueprint", chance: "2.50-10%" }
+                    ],
+                }
+            ],
+
+        };
+        const searchInput = document.getElementById("search");
+        const container = document.getElementById("characters")
+        renderCharacters(warframes)
+        function renderCharacters(list) {
+            container.innerHTML = "" // ล้างก่อน
+
+            list.forEach(wf => {
+                const div = document.createElement("div")
+                div.className = "char-btn"
+
+                div.innerHTML = `
+            <img src="${wf.normal}" data-normal="${wf.normal}" data-prime="${wf.prime}">
+            <div>${wf.name}</div>
+        `
+
+                const img = div.querySelector("img")
+
+                if (wf.prime) {
+                    div.addEventListener("mouseenter", () => {
+                        img.src = img.dataset.prime
+                    })
+
+                    div.addEventListener("mouseleave", () => {
+                        img.src = img.dataset.normal
+                    })
+                }
+
+                div.onclick = () => showFarm(wf)
+
+                container.appendChild(div)
+            })
         }
 
-        function showPlanet(e, id) {
+        // 🔍 ค้นหาแล้วกรอง
+        searchInput.addEventListener("input", () => {
+            const keyword = searchInput.value.toLowerCase();
 
-            const info = planetInfo[id]
-            if (!info) return
+            const filtered = warframes.filter(wf =>
+                wf.name.toLowerCase().includes(keyword)
+            );
 
-            const planetPanel = document.getElementById("planetPanel")
+            renderCharacters(filtered);
+        });
 
-            /* toggle */
-            if (planetPanel.style.display === "block") {
-                planetPanel.style.display = "none"
+        function showFarm(wf) {
+
+            const popup = document.getElementById("popup")
+            const body = document.getElementById("popup-body")
+
+            const sources = farmData[wf.name]
+
+            // ❌ ไม่มีข้อมูล
+            if (!sources) {
+                body.innerHTML = `
+        <div style="text-align:center;">❌ ไม่มีข้อมูล</div>
+        <div class="popup-footer">
+            <button class="close-btn" onclick="closePopup()">ปิด</button>
+        </div>
+        `
+                popup.classList.add("show")
                 return
             }
 
-            /* หาตำแหน่งดาวจริง */
-            const rect = e.currentTarget.getBoundingClientRect()
+            let html = ""
 
-            planetPanel.style.display = "block"
-            planetPanel.style.right = "auto"
+            sources.forEach(f => {
 
-            /* วาง panel ข้างดาว */
-            planetPanel.style.left = (rect.right + 10) + "px"
-            planetPanel.style.top = rect.top + "px";
+                /* ===== TYPE ===== */
+                let typeLabel = ""
+                let typeClass = ""
 
-            let bossHTML = ""
+                if (f.type === "boss") {
+                    typeLabel = "👹 Boss Drop"
+                    typeClass = "type-boss"
+                }
+                else if (f.type === "bounty") {
+                    typeLabel = "🌍 Bounty"
+                    typeClass = "type-bounty"
+                }
+                else if (f.type === "vendor") {
+                    typeLabel = "🛒 Vendor"
+                    typeClass = "type-vendor"
+                }
+                else if (f.type === "mission") {
+                    typeLabel = "⚔️ Mission"
+                    typeClass = "type-mission"
+                }
 
-            // BOSS
-            if (info.bosses) {
+                /* ===== DROPS ===== */
+                let dropsHTML = ""
 
-                info.bosses.forEach(b => {
+                // blueprint แยก
+                if (f.blueprint) {
+                    dropsHTML += `
+            <div class="drop">
+                <span>Blueprint</span>
+                <span>${f.blueprint}</span>
+            </div>`
+                }
 
-                    let dropsHTML = ""
-
-                    if (b.blueprint) {
+                // drops list
+                if (Array.isArray(f.drops)) {
+                    f.drops.forEach(d => {
                         dropsHTML += `
-<div class="drop">
-<span>Blueprint</span>
-<span>${b.blueprint}</span>
-</div>`
-                    }
+                <div class="drop">
+                    <span>${d.item}</span>
+                    <span>${d.chance}</span>
+                </div>`
+                    })
+                }
 
-                    if (b.drops) {
-                        b.drops.forEach(d => {
-                            dropsHTML += `
-<div class="drop">
-<span>${d.item}</span>
-<span>${d.chance}</span>
-</div>`
-                        })
-                    }
+                /* ===== INFO BOX (node / mission / boss) ===== */
+                let infoTop = ""
 
-                    bossHTML += `
+                if (f.node || f.mission || f.boss) {
+                    infoTop = `
+            <div class="info-box">
+                ${f.node ? `<div class="info-line"><span>Node</span><span>${f.node}</span></div>` : ""}
+                ${f.mission ? `<div class="info-line"><span>Mission</span><span>${f.mission}</span></div>` : ""}
+                ${f.boss ? `<div class="info-line"><span>Boss</span><span>${f.boss}</span></div>` : ""}
+            </div>`
+                }
 
-<div class="bossCard">
+                /* ===== INFO BOX (location / source / vendor) ===== */
+                let infoBottom = ""
 
-<img src="${b.frame.img}" class="frameBig">
+                if (f.location || f.source || f.vendor) {
+                    infoBottom = `
+            <div class="info-box">
+                ${f.location ? `<div class="info-line"><span>Location</span><span>${f.location}</span></div>` : ""}
+                ${f.source ? `<div class="bounty-source">🎯 ${f.source}</div>` : ""}
+                ${f.vendor ? `<div class="vendor-name">🧑‍🚀 ${f.vendor}</div>` : ""}
+            </div>`
+                }
 
-<div>
+                /* ===== PLANET ===== */
+                let planetHTML = ""
 
-<div class="frameName">${b.frame.name}</div>
+                if (f.planetImg || f.planetTH || f.planet) {
+                    planetHTML = `
+            <div class="planet-big">
+                ${f.planetImg ? `<img src="${f.planetImg}">` : ""}
+                ${f.planet ? `<div class="planet-th">${f.planet}</div>` : ""}
+                ${f.planetTH ? `<div class="planet-en">${f.planetTH}</div>` : ""}
+            </div>`
+                }
 
-<div class="bossNode">${b.node} • ${b.mission}</div>
+                /* ===== CARD ===== */
+                html += `
+        <div class="farm-card">
 
-${b.name ? `<div class="bossSmall">Boss: ${b.name}</div>` : ""}
+            <div class="farm-left">
+                <img class="wf" src="${f.img}">
 
-<div class="drops">
-${dropsHTML}
-</div>
+                <div>
+                    <div class="farm-name">${wf.name}</div>
+                    <div class="farm-type ${typeClass}">${typeLabel}</div>
 
-</div>
+                    ${infoTop}
+                    ${infoBottom}
+                    ${dropsHTML}
+                </div>
+            </div>
 
-</div>
-`
-                })
-            }
+            ${planetHTML}
 
+        </div>
+        `
+            })
 
-            // BOUNTY
-            if (info.bounty) {
+            body.innerHTML = html + `
+    <div class="popup-footer">
+        <button class="close-btn" onclick="closePopup()">ปิด</button>
+    </div>
+    `
 
-                info.bounty.forEach(f => {
-
-                    bossHTML += `
-
-<div class="bossCard">
-
-<img src="${f.img}" class="frameBig">
-
-<div>
-
-<div class="frameName">${f.name}</div>
-
-<div class="bossNode">${f.location} • ${f.source}</div>
-
-<div class="drops">
-Blueprint: ${f.blueprint}
-</div>
-
-</div>
-
-</div>
-`
-                })
-
-            }
-
-
-            // MISSION
-            if (info.mission) {
-
-                info.mission.forEach(m => {
-
-                    let dropsHTML = ""
-
-                    if (m.drops) {
-                        m.drops.forEach(d => {
-                            dropsHTML += `
-<div class="drop">
-<span>${d.item}</span>
-<span>${d.chance}</span>
-</div>`
-                        })
-                    }
-
-                    bossHTML += `
-
-<div class="bossCard">
-
-<img src="${m.img}" class="frameBig">
-
-<div>
-
-<div class="frameName">${m.name}</div>
-
-<div class="bossNode">${m.node} • ${m.mission}</div>
-
-<div class="drops">
-${dropsHTML}
-</div>
-
-</div>
-
-</div>
-`
-                })
-
-            }
-
-            document.getElementById("planetContent").innerHTML = `
-
-<h2>${info.name}</h2>
-
-<div class="bossList">
-${bossHTML}
-</div>
-
-`
+            popup.classList.add("show")
         }
-        /* ---------------- ROTATION DATA ---------------- */
+        function closePopup() {
+            document.getElementById("popup").classList.remove("show")
+        }
+
+        window.onclick = function (e) {
+            const popup = document.getElementById("popup")
+            if (e.target === popup) closePopup()
+        }
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closePopup()
+        })
 
         const normalWeeks = [
 
@@ -1516,19 +1450,100 @@ ${bossHTML}
 
             currentMode = mode
 
-            document.querySelectorAll(".tab").forEach(t => {
-                t.classList.remove("active")
-            })
+            const tabs = document.querySelectorAll(".tab")
+            tabs.forEach(t => t.classList.remove("active"))
 
-            if (mode === "normal") {
-                document.querySelectorAll(".tab")[0].classList.add("active")
-            } else {
-                document.querySelectorAll(".tab")[1].classList.add("active")
+            if (mode === "normal") tabs[0].classList.add("active")
+            else if (mode === "sp") tabs[1].classList.add("active")
+            else tabs[2].classList.add("active")
+
+            /* ---------------- MOOD ---------------- */
+            if (mode === "mood") {
+
+                const data = getMoodRotation()
+                const mood = data.current
+
+                let kullervoImg = ""
+
+                let type = mood.name.toLowerCase().trim()
+
+
+                if (["anger", "fear", "sorrow"].includes(type)) {
+
+                    kullervoImg = `
+        <img class="kullervo-sword ${type}" 
+        src="https://wiki.warframe.com/images/thumb/Kullervo_Thumb.png/300px-Kullervo_Thumb.png">
+    `
+                }
+
+                function formatTime(date) {
+                    return date.toLocaleTimeString('en-GB', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    });
+                }
+
+                const nextHTML = data.next.map(x => `
+            <tr>
+                <td>${x.name}</td>
+                <td>${formatTime(x.time)}</td>
+            </tr>
+        `).join("")
+
+                document.getElementById("content").innerHTML = `
+            <div class="mood-box" style="background:${mood.color}22; color:${mood.color}">
+    ${kullervoImg}
+                <div>Duviri Mood Spiral</div>
+                <div class="mood-name"
+     style="-webkit-text-fill-color:${mood.color}; color:${mood.color};">
+  ${mood.name}
+  <div style="font-size:14px; opacity:0.8;">${mood.th}</div>
+</div>
+                <div class="mood-timer" id="moodTimer"></div>
+
+                <div class="mood-next">
+                    <div style="margin-top:20px; margin-bottom:8px;">Coming Up Next</div>
+                    <table>
+                        <tr>
+                            <th>Next Mood</th>
+                            <th>Time</th>
+                        </tr>
+                        ${nextHTML}
+                    </table>
+                </div>
+            </div>
+        `
+
+                /* TIMER */
+                const next = new Date()
+                next.setMinutes(0, 0, 0)
+                next.setHours(next.getHours() + 1)
+
+                function updateMoodTimer() {
+                    const now = new Date()
+                    const diff = next - now
+
+                    const m = Math.floor(diff / (1000 * 60))
+                    const s = Math.floor(diff / 1000 % 60)
+
+                    const el = document.getElementById("moodTimer")
+                    if (el) el.innerText = `Next in ${m}m ${s}s`
+                }
+
+                updateMoodTimer()
+
+                // กัน setInterval ซ้ำ
+                if (window.moodInterval) clearInterval(window.moodInterval)
+                window.moodInterval = setInterval(updateMoodTimer, 1000)
+
+                return
             }
+
+            /* ---------------- NORMAL / SP ---------------- */
 
             let source = mode === "normal" ? normalWeeks : spWeeks
 
-            /* Week1 start date */
             let startDate = mode === "normal"
                 ? "2026-01-26T07:00:00+07:00"
                 : "2026-03-02T07:00:00+07:00"
@@ -1551,13 +1566,11 @@ ${i == 0
 <div class="rotation">`
 
                 data.forEach(x => {
-
                     html += `
 <div class="frameCard">
 <img src="${x.i}">
 <div class="frameName">${x.n}</div>
 </div>`
-
                 })
 
                 html += `</div></div>`
@@ -1581,10 +1594,6 @@ ${i == 0
                 showMode("normal")
             }
 
-        }
-
-        document.getElementById("railjackBtn").onclick = () => {
-            alert("Railjack panel coming soon")
         }
 
         document.addEventListener("click", function (e) {
@@ -1619,6 +1628,73 @@ ${i == 0
                 showMode(currentMode)
             }
         }, 60000)
+
+        const moods = [
+            { name: "Joy", th: "สุข", color: "#6ee7b7" },
+            { name: "Anger", th: "โกรธ", color: "#f87171" },
+            { name: "Envy", th: "อิจฉา", color: "#60a5fa" },
+            { name: "Sorrow", th: "เศร้า", color: "#818cf8" },
+            { name: "Fear", th: "กลัว", color: "#c084fc" }
+        ];
+
+        // 🔥 ปรับครั้งเดียวให้ตรง (สำคัญ)
+        const OFFSET = 1;
+
+        function getCurrentMood() {
+
+            const now = new Date();
+
+            // ใช้ UTC เพื่อให้ตรง global
+            const utcHour = now.getUTCHours();
+
+            // ทุก 2 ชั่วโมง = 1 mood
+            const cycle = Math.floor(utcHour / 2);
+
+            return (cycle + OFFSET) % moods.length;
+        }
+
+        function getMoodRotation() {
+
+            const now = new Date();
+
+            const utcHour = now.getUTCHours();
+            const cycle = Math.floor(utcHour / 2);
+
+            const currentIndex = (cycle + OFFSET) % moods.length;
+
+            // 🔥 หา reset ถัดไป (ทุก 2 ชม UTC)
+            const nextReset = new Date(now);
+            nextReset.setUTCMinutes(0, 0, 0);
+
+            const h = nextReset.getUTCHours();
+
+            if (h % 2 === 0) {
+                nextReset.setUTCHours(h + 2);
+            } else {
+                nextReset.setUTCHours(h + 1);
+            }
+
+            let list = [];
+
+            for (let i = 1; i <= 3; i++) {
+
+                const index = (currentIndex + i) % moods.length;
+
+                const time = new Date(nextReset);
+                time.setUTCHours(nextReset.getUTCHours() + ((i - 1) * 2));
+
+                list.push({
+                    name: moods[index].name,
+                    time: time
+                });
+            }
+
+            return {
+                current: moods[currentIndex],
+                next: list,
+                nextReset
+            };
+        }
 
     </script>
 
