@@ -229,16 +229,27 @@
             justify-content: space-between;
             font-size: 13px;
             margin-bottom: 4px;
+            gap: 10px;
+            /* 🔥 เพิ่ม */
         }
 
         .info-line span:first-child {
             opacity: 0.6;
+            flex-shrink: 0;
+            /* 🔥 กันคำว่า Trade ยุบ */
+        }
+
+        .info-line span:last-child {
+            text-align: right;
+            word-break: break-word;
+            /* 🔥 ตัดคำ */
+            overflow-wrap: anywhere;
+            /* 🔥 กันล้นโหด ๆ */
         }
 
         /* ===== BOUNTY TAG ===== */
         .bounty-source {
-            font-size: 12px;
-            margin-top: 6px;
+            font-weight: bold;
             color: #93c5fd;
         }
 
@@ -627,6 +638,18 @@
             filter: drop-shadow(0 0 25px cyan);
         }
 
+        .char-btn.no-data {
+            background: #111827;
+            opacity: 0.4;
+            filter: grayscale(100%);
+            cursor: default;
+        }
+
+        .char-btn.no-data:hover {
+            transform: none;
+            background: #111827;
+        }
+
         /* ANIMATION */
         @keyframes popupIn {
             from {
@@ -799,25 +822,6 @@
                 }
             ],
 
-            "Excalibur": [
-                {
-                    type: "boss",
-                    img: "https://wiki.warframe.com/images/thumb/Excalibur_Thumb.png/300px-Excalibur_Thumb.png",
-                    planet: "Mars",
-                    planetTH: "ดาวอังคาร",
-                    planetImg: "https://wiki.warframe.com/images/Mars.png",
-                    node: "War",
-                    mission: "Assassination",
-                    boss: "Lech Kril",
-                    blueprint: "Market",
-                    drops: [
-                        { item: "Chassis Blueprint", chance: "38.72%" },
-                        { item: "Systems Blueprint", chance: "22.56%" },
-                        { item: "Neuroptics Blueprint", chance: "38.72%" }
-                    ]
-                }
-            ],
-
             "Nekros": [
                 {
                     type: "boss",
@@ -903,7 +907,7 @@
                     planetTH: "เดมอส",
                     planetImg: "https://wiki.warframe.com/images/Deimos.png",
                     location: "Necralisk",
-                    source: "Bounty",
+                    source: "Mother",
                     blueprint: "Heart of Deimos Quest"
                 }
             ],
@@ -971,6 +975,7 @@
                     planetImg: "https://wiki.warframe.com/images/Lua.png",
                     node: "Circulus / Yuvarium",
                     mission: "Conjunction Survival",
+                    trade: "Zariman, Chrysalith, Archimedean Yonta",
                     drops: [
                         { item: "Blueprint", chance: "6.82-12.24%" },
                         { item: "Chassis Blueprint", chance: "4.55-8.16%" },
@@ -989,6 +994,7 @@
                     planetImg: "https://wiki.warframe.com/images/Venus.png",
                     node: "Orb Vallis",
                     mission: "Exploiter Orb",
+                    trade: "Venus, Fortuna, Little Duck",
                     blueprint: "Little Duck",
                     drops: [
                         { item: "Chassis Blueprint", chance: "38.72%" },
@@ -1049,6 +1055,345 @@
                 }
             ],
 
+            "Excalibur": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Excalibur_Thumb.png/300px-Excalibur_Thumb.png",
+                    planet: "Mars",
+                    planetTH: "ดาวอังคาร",
+                    planetImg: "https://wiki.warframe.com/images/Mars.png",
+                    node: "Wars",
+                    mission: "Assassination",
+                    boss: "LT. Lech Kril",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ],
+                }
+            ],
+
+            "Citrine": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Citrine_Thumb.png/300px-Citrine_Thumb.png",
+                    planet: "Mars",
+                    planetTH: "ดาวอังคาร",
+                    planetImg: "https://wiki.warframe.com/images/Mars.png",
+                    node: "Tyana Pass",
+                    mission: "Mirror Defense",
+                    trade: "Deimos, Necralisk, Otak",
+                    drops: [
+                        { item: "Blueprint", chance: "9.3%" },
+                        { item: "Chassis Blueprint", chance: "6.1%" },
+                        { item: "Systems Blueprint", chance: "6.1%" },
+                        { item: "Neuroptics Blueprint", chance: "6.1%" }
+                    ],
+                }
+            ],
+
+            "Dante": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Dante_Thumb.png/300px-Dante_Thumb.png",
+                    planet: "Deimos",
+                    planetTH: "ดาวเดมอส",
+                    planetImg: "https://wiki.warframe.com/images/Deimos.png",
+                    node: "Armartus",
+                    mission: "Disruption",
+                    trade: "Deimos, Sanctum Anatomica, Loid",
+                    drops: [
+                        { item: "Blueprint", chance: "7.5%" },
+                        { item: "Chassis Blueprint", chance: "5%" },
+                        { item: "Systems Blueprint", chance: "5%" },
+                        { item: "Neuroptics Blueprint", chance: "5%" }
+                    ],
+                }
+            ],
+
+            "Qorvex": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Qorvex_Thumb.png/300px-Qorvex_Thumb.png",
+                    planet: "Deimos",
+                    planetTH: "ดาวเดมอส",
+                    planetImg: "https://wiki.warframe.com/images/Deimos.png",
+                    location: "Sanctum Anatomica",
+                    source: "Fibonacci",
+                    blueprint: "Bird 3",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "13.56%" },
+                        { item: "Systems Blueprint", chance: "12.40%" },
+                        { item: "Neuroptics Blueprint", chance: "13.04%" }
+                    ],
+                }
+            ],
+
+            "Frost": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Frost_Thumb.png/300px-Frost_Thumb.png",
+                    planet: "Ceres",
+                    planetTH: "ดาวซีรีส",
+                    planetImg: "https://wiki.warframe.com/images/Ceres.png",
+                    node: "Exta",
+                    mission: "Assassination",
+                    boss: "LT. Lech Kril & CPT. Vor",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Wisp": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Wisp_Thumb.png/300px-Wisp_Thumb.png",
+                    planet: "Jupiter",
+                    planetTH: "ดาวพฤหัสบดี",
+                    planetImg: "https://wiki.warframe.com/images/Jupiter.png",
+                    node: "The Ropalolyst",
+                    mission: "Assassination",
+                    boss: "Ropalolyst",
+                    drops: [
+                        { item: "Blueprint", chance: "25.81%" },
+                        { item: "Chassis Blueprint", chance: "25.81%" },
+                        { item: "Systems Blueprint", chance: "25.81%" },
+                        { item: "Neuroptics Blueprint", chance: "25.81%" }
+                    ]
+                }
+            ],
+
+            "Valkyr": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Valkyr_Thumb.png/300px-Valkyr_Thumb.png",
+                    planet: "Jupiter",
+                    planetTH: "ดาวพฤหัสบดี",
+                    planetImg: "https://wiki.warframe.com/images/Jupiter.png",
+                    node: "Themisto",
+                    mission: "Assassination",
+                    boss: "Alad V",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Nova": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Nova_Thumb.png/300px-Nova_Thumb.png",
+                    planet: "Europa",
+                    planetTH: "ดาวยูโรปา",
+                    planetImg: "https://wiki.warframe.com/images/Europa.png",
+                    node: "Naamah",
+                    mission: "Assassination",
+                    boss: "Raptor",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Ember": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Ember_Thumb.png/300px-Ember_Thumb.png",
+                    planet: "Saturn",
+                    planetTH: "ดาวเสาร์",
+                    planetImg: "https://wiki.warframe.com/images/Saturn.png",
+                    node: "Tethys",
+                    mission: "Assassination",
+                    boss: "General Sargas Ruk",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Equinox": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Equinox_Thumb.png/300px-Equinox_Thumb.png",
+                    planet: "Uranus",
+                    planetTH: "ดาวยูเรนัส",
+                    planetImg: "https://wiki.warframe.com/images/Uranus.png",
+                    node: "Titania",
+                    mission: "Assassination",
+                    boss: "Tyl Regor",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Loki": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Loki_Thumb.png/300px-Loki_Thumb.png",
+                    planet: "Neptune",
+                    planetTH: "ดาวเนปจูน",
+                    planetImg: "https://wiki.warframe.com/images/Neptune.png",
+                    node: "Psamathe",
+                    mission: "Assassination",
+                    boss: "Hyena",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Trinity": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Trinity_Thumb.png/300px-Trinity_Thumb.png",
+                    planet: "Pluto",
+                    planetTH: "ดาวพลูโต",
+                    planetImg: "https://wiki.warframe.com/images/Pluto.png",
+                    node: "Hades",
+                    mission: "Assassination",
+                    boss: "Ambulas",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Nidus": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Nidus_Thumb.png/300px-Nidus_Thumb.png",
+                    planet: "Eris",
+                    planetTH: "ดาวอีรีส",
+                    planetImg: "https://wiki.warframe.com/images/Eris.png",
+                    node: "Oestrus",
+                    mission: "Infested Salvage",
+                    blueprint: "The Glast Gambit",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "7.69-14.29%" },
+                        { item: "Systems Blueprint", chance: "7.69-14.29%" },
+                        { item: "Neuroptics Blueprint", chance: "7.69-14.29%" }
+                    ],
+                }
+            ],
+
+            "Atlas": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Atlas_Thumb.png/300px-Atlas_Thumb.png",
+                    planet: "Eris",
+                    planetTH: "ดาวอีรีส",
+                    planetImg: "https://wiki.warframe.com/images/Eris.png",
+                    node: "Jordas Golem",
+                    mission: "Assassination",
+                    boss: "Jordas Golem",
+                    blueprint: "The Jordas Precept",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Mesa": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Mesa_Thumb.png/300px-Mesa_Thumb.png",
+                    planet: "Eris",
+                    planetTH: "ดาวอีรีส",
+                    planetImg: "https://wiki.warframe.com/images/Eris.png",
+                    node: "Mutalist Alad V Assassination",
+                    mission: "Assassination",
+                    boss: "Mutalist Alad V",
+                    blueprint: "Patient Zero",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Saryn": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Saryn_Thumb.png/300px-Saryn_Thumb.png",
+                    planet: "Sedna",
+                    planetTH: "ดาวเซดนา",
+                    planetImg: "https://wiki.warframe.com/images/Sedna.png",
+                    node: "Merrow",
+                    mission: "Assassination",
+                    boss: "Kela De Thaym",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Gauss": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Gauss_Thumb.png/300px-Gauss_Thumb.png",
+                    planet: "Sedna",
+                    planetTH: "ดาวเซดนา",
+                    planetImg: "https://wiki.warframe.com/images/Sedna.png",
+                    node: "Kappa",
+                    mission: "Disruption",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "7.69-14.29%" },
+                        { item: "Systems Blueprint", chance: "7.69-14.29%" },
+                        { item: "Neuroptics Blueprint", chance: "7.69-14.29%" }
+                    ],
+                }
+            ],
+
+            "Gyre": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Gyre_Thumb.png/300px-Gyre_Thumb.png",
+                    planet: "Zariman",
+                    planetTH: "Zariman",
+                    planetImg: "https://wiki.warframe.com/images/Zariman.png",
+                    location: "Chrysalith",
+                    source: "Quinn",
+                    drops: [
+                        { item: "Blueprint", chance: "12.99%" },
+                        { item: "Chassis Blueprint", chance: "13.56%" },
+                        { item: "Systems Blueprint", chance: "11.90%" },
+                        { item: "Neuroptics Blueprint", chance: "13.04%" }
+                    ],
+                }
+            ],
+            
+
         };
         const searchInput = document.getElementById("search");
         const container = document.getElementById("characters")
@@ -1058,7 +1403,10 @@
 
             list.forEach(wf => {
                 const div = document.createElement("div")
-                div.className = "char-btn"
+
+                const hasData = farmData[wf.name] // 🔥 เช็คว่ามีข้อมูลไหม
+
+                div.className = "char-btn" + (hasData ? "" : " no-data")
 
                 div.innerHTML = `
             <img src="${wf.normal}" data-normal="${wf.normal}" data-prime="${wf.prime}">
@@ -1067,7 +1415,8 @@
 
                 const img = div.querySelector("img")
 
-                if (wf.prime) {
+                // hover เฉพาะตัวที่มีข้อมูล + มี prime
+                if (wf.prime && hasData) {
                     div.addEventListener("mouseenter", () => {
                         img.src = img.dataset.prime
                     })
@@ -1077,7 +1426,12 @@
                     })
                 }
 
-                div.onclick = () => showFarm(wf)
+                // คลิกได้เฉพาะตัวที่มีข้อมูล
+                if (hasData) {
+                    div.onclick = () => showFarm(wf)
+                } else {
+                    div.title = "ยังไม่มีข้อมูล" // 🔥 tooltip
+                }
 
                 container.appendChild(div)
             })
@@ -1164,13 +1518,14 @@
                 /* ===== INFO BOX (node / mission / boss) ===== */
                 let infoTop = ""
 
-                if (f.node || f.mission || f.boss) {
+                if (f.node || f.mission || f.boss || f.trade) {
                     infoTop = `
-            <div class="info-box">
-                ${f.node ? `<div class="info-line"><span>Node</span><span>${f.node}</span></div>` : ""}
-                ${f.mission ? `<div class="info-line"><span>Mission</span><span>${f.mission}</span></div>` : ""}
-                ${f.boss ? `<div class="info-line"><span>Boss</span><span>${f.boss}</span></div>` : ""}
-            </div>`
+                <div class="info-box">
+                    ${f.node ? `<div class="info-line"><span>Node</span><span>${f.node}</span></div>` : ""}
+                    ${f.mission ? `<div class="info-line"><span>Mission</span><span>${f.mission}</span></div>` : ""}
+                    ${f.trade ? `<div class="info-line"><span>Trade</span><span>${f.trade}</span></div>` : ""}
+                    ${f.boss ? `<div class="info-line"><span>Boss</span><span>${f.boss}</span></div>` : ""}
+                </div>`
                 }
 
                 /* ===== INFO BOX (location / source / vendor) ===== */
