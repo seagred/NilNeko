@@ -213,6 +213,12 @@
             color: #93c5fd;
         }
 
+        .type-quest {
+            background: #7c3aed;
+            margin-top: 10px;
+            color: #dbbbfc;
+        }
+
         /* ===== SECTION BOX ===== */
         .info-box {
             margin-top: 10px;
@@ -258,7 +264,6 @@
             font-weight: bold;
             color: #4ade80;
         }
-
 
         /* ===== Search ===== */
         .search-box {
@@ -1071,7 +1076,16 @@
                         { item: "Systems Blueprint", chance: "22.56%" },
                         { item: "Neuroptics Blueprint", chance: "38.72%" }
                     ],
-                }
+                },
+
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/ExcaliburUmbra_Thumb.png/300px-ExcaliburUmbra_Thumb.png",
+                    planet: "The Sacrifice",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheSacrifice.png/300px-TheSacrifice.png",
+                    quest: "The Sacrifice",
+                },
             ],
 
             "Citrine": [
@@ -1392,7 +1406,526 @@
                     ],
                 }
             ],
+
+            "Wukong": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Wukong_Thumb.png/300px-Wukong_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Tenno Lab",
+                    vendor: "Tenno Lab",
+                    drops: [
+                        { item: "Blueprint", chance: "35,000 Credit" },
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
             
+            "Volt": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Volt_Thumb.png/300px-Volt_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Tenno Lab",
+                    vendor: "Tenno Lab",
+                    drops: [
+                        { item: "Blueprint", chance: "35,000 Credit" },
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
+
+            "Zephyr": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Zephyr_Thumb.png/300px-Zephyr_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Tenno Lab",
+                    vendor: "Tenno Lab",
+                    drops: [
+                        { item: "Blueprint", chance: "35,000 Credit" },
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
+
+            "Banshee": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Banshee_Thumb.png/300px-Banshee_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Tenno Lab",
+                    vendor: "Tenno Lab",
+                    drops: [
+                        { item: "Blueprint", chance: "35,000 Credit" },
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
+
+            "Nezha": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Nezha_Thumb.png/300px-Nezha_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Tenno Lab",
+                    vendor: "Tenno Lab",
+                    drops: [
+                        { item: "Blueprint", chance: "35,000 Credit" },
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
+
+            "Yareli": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Yareli_Thumb.png/300px-Yareli_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Ventkid's Bash Lab",
+                    vendor: "Ventkid's Bash Lab",
+                    blueprint: "The Waverider",
+                    drops: [
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
+
+            "Dagath": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Dagath_Thumb.png/300px-Dagath_Thumb.png",
+                    planet: "Dojo",
+                    planetTH: "แคลน",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Dojo_Tower.png/300px-Dojo_Tower.png",
+                    location: "Dagath's Hollow",
+                    vendor: "Dagath's Hollow",
+                    drops: [
+                        { item: "Blueprint", chance: "15,000 Credit" },
+                        { item: "Chassis", chance: "15,000 Credit" },
+                        { item: "Systems", chance: "15,000 Credit" },
+                        { item: "Neuroptics", chance: "15,000 Credit" }
+                    ]
+                }
+            ],
+
+            "Oraxia": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Oraxia_Thumb.png/300px-Oraxia_Thumb.png",
+                    planet: "Duviri",
+                    planetTH: "Duviri",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheDuviriParadox.png/300px-TheDuviriParadox.png",
+                    node: "Isle weaver",
+                    mission: "The Lone Story",
+                    trade: "Duviri,  Dormizone, Acrithis",
+                    drops: [
+                        { item: "Blueprint", chance: "7.69%" },
+                        { item: "Chassis Blueprint", chance: "7.69%" },
+                        { item: "Systems Blueprint", chance: "7.69%" },
+                        { item: "Neuroptics Blueprint", chance: "7.69%" }
+                    ],
+                }
+            ],
+
+            "Kullervo": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Kullervo_Thumb.png/300px-Kullervo_Thumb.png",
+                    planet: "Duviri",
+                    planetTH: "Duviri",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheDuviriParadox.png/300px-TheDuviriParadox.png",
+                    node: "The Duviri Experience",
+                    mission: "Kullervo Boss (Anger, Sorrow, Fear)",
+                    trade: "Duviri,  Dormizone, Acrithis",
+                }
+            ],
+
+            "Protea": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Protea_Thumb.png/300px-Protea_Thumb.png",
+                    planet: "The Deadlock Protocol",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheDeadlockProtocol.png/300px-TheDeadlockProtocol.png",
+                    quest: "The Deadlock Protocol",
+                    location: "Corpus Ship",
+                    source: "Granum Void",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Extended" },
+                        { item: "Systems Blueprint", chance: "Nightmare" },
+                        { item: "Neuroptics Blueprint", chance: "Granum" }
+                    ],
+                },
+            ],
+
+            "Chroma": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Chroma_Thumb.png/300px-Chroma_Thumb.png",
+                    planet: "The New Strange",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheNewStrange.png/300px-TheNewStrange.png",
+                    quest: "The New Strange",
+                    location: "Junctions",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Neptune" },
+                        { item: "Systems Blueprint", chance: "Pluto" },
+                        { item: "Neuroptics Blueprint", chance: "Uranus " }
+                    ],
+                },
+            ],
+
+            "Octavia": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Octavia_Thumb.png/300px-Octavia_Thumb.png",
+                    planet: "Octavia's Anthem",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Octavia%27sAnthem.png/300px-Octavia%27sAnthem.png",
+                    quest: "Octavia's Anthem",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Orokin Storage Container" },
+                        { item: "Systems Blueprint", chance: "Lua Exterminate Resource Caches" },
+                        { item: "Neuroptics Blueprint", chance: "Orokin Derelict Survival" }
+                    ],
+                },
+            ],
+
+            "Inaros": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Inaros_Thumb.png/300px-Inaros_Thumb.png",
+                    planet: "Sands of Inaros",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/SandsofInaros.png/300px-SandsofInaros.png",
+                    quest: "Sands of Inaros",
+                    vendor: "Baro Ki'Teer",
+                },
+            ],
+
+            "Mirage": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Mirage_Thumb.png/300px-Mirage_Thumb.png",
+                    planet: "Hidden Messages",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/HiddenMessages.png/300px-HiddenMessages.png",
+                    quest: "Hidden Messages",
+                },
+            ],
+
+            "Titania": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Titania_Thumb.png/300px-Titania_Thumb.png",
+                    planet: "The Silver Grove",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheSilverGrove.png/300px-TheSilverGrove.png",
+                    quest: "The Silver Grove",
+                },
+            ],
+
+            "Limbo": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Limbo_Thumb.png/300px-Limbo_Thumb.png",
+                    planet: "The Limbo Theorem",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheLimboTheorem.png/300px-TheLimboTheorem.png",
+                    quest: "The Limbo Theorem",
+                },
+            ],
+
+             "Jade": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Jade_Thumb.png/300px-Jade_Thumb.png",
+                    planet: "Jade Shadows",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/JadeShadows.png/300px-JadeShadows.png",
+                    quest: "Jade Shadows",
+                    location: "Earth",
+                    vendor: "Ordis, Drifter's Camp",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Uranus, Brutus" },
+                        { item: "Systems Blueprint", chance: "Uranus, Brutus" },
+                        { item: "Neuroptics Blueprint", chance: "Uranus, Brutus" }
+                    ],
+                },
+            ],
+
+            "Harrow": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Harrow_Thumb.png/300px-Harrow_Thumb.png",
+                    planet: "Chains of Harrow",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/ChainsofHarrow.png/300px-ChainsofHarrow.png",
+                    quest: "Chains of Harrow",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Kuva Fortress Survival" },
+                        { item: "Systems Blueprint", chance: "Void Fissure Corrupted Enemy" },
+                        { item: "Neuroptics Blueprint", chance: "Kuva Fortress Survival / Spy" }
+                    ],
+                },
+            ],
+            
+            "Uriel": [
+                {
+                    type: "quest",
+                    img: "https://wiki.warframe.com/images/thumb/Uriel_Thumb.png/300px-Uriel_Thumb.png",
+                    planet: "The Old Peace ",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheOldPeace.png/300px-TheOldPeace.png",
+                    quest: "The Old Peace ",
+                    location: "Deimos",
+                    vendor: "Roathe,  La Cathėdrale, Sanctum Anatomica",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Roathe (Descendia, Infernum 21)" },
+                        { item: "Systems Blueprint", chance: "Roathe (Descendia, Infernum 21)" },
+                        { item: "Neuroptics Blueprint", chance: "Roathe (Descendia, Infernum 21)" }
+                    ],
+                },
+            ],
+
+            "Cyte-09": [
+                {
+                    type: "bounty",
+                    img: "https://wiki.warframe.com/images/thumb/Cyte09_Thumb.png/300px-Cyte09_Thumb.png",
+                    planet: "The Hex",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheHex.png/300px-TheHex.png",
+                    location: "Höllvania Central Mall",
+                    source: "Bounties",
+                    trades: "Amir Beckett",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "11.63%" },
+                        { item: "Systems Blueprint", chance: "13.33%" },
+                        { item: "Neuroptics Blueprint", chance: "12.20%" }
+                    ],
+                }
+            ],
+
+            "Temple": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Temple_Thumb.png/300px-Temple_Thumb.png",
+                    planet: "The Hex",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/TheHex.png/300px-TheHex.png",
+                    node: "Höllvania Central Mall",
+                    mission: "Solstice Square",
+                    trade: "Flare Varleon",
+                    drops: [
+                        { item: "Blueprint", chance: "0.97-4.58%" },
+                        { item: "Chassis Blueprint", chance: "0.97-4.58%" },
+                        { item: "Systems Blueprint", chance: "0.97-4.58%" },
+                        { item: "Neuroptics Blueprint", chance: "0.97-4.58%" }
+                    ]
+                }
+            ],
+
+            "Nyx": [
+                {
+                    type: "boss",
+                    img: "https://wiki.warframe.com/images/thumb/Nyx_Thumb.png/300px-Nyx_Thumb.png",
+                    planet: "Infestation Outbreaks",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/FactionsInfested.png/300px-FactionsInfested.png",
+                    node: "Infested Boss",
+                    mission: "Assassination",
+                    boss: "Phorid",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "38.72%" },
+                        { item: "Systems Blueprint", chance: "22.56%" },
+                        { item: "Neuroptics Blueprint", chance: "38.72%" }
+                    ]
+                }
+            ],
+
+            "Vauban": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Vauban_Thumb.png/300px-Vauban_Thumb.png",
+                    planet: "Nightwave",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/NightwaveSyndicate.png/300px-NightwaveSyndicate.png",
+                    vendor: "Nightwave",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "25 Cred" },
+                        { item: "Systems Blueprint", chance: "25 Cred" },
+                        { item: "Neuroptics Blueprint", chance: "25 Cred" }
+                    ]
+                }
+            ],
+
+            "Ivara": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Ivara_Thumb.png/300px-Ivara_Thumb.png",
+                    planet: "Spy",
+                    planetTH: "สอดแนม",
+                    planetImg: "https://wiki.warframe.com/images/thumb/SpySplash.png/300px-SpySplash.png",
+                    node: "All Spy",
+                    mission: "Spy",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Tier 1 Spy (Lv.2-13)" },
+                        { item: "Systems Blueprint", chance: "Tier 2 Spy (Lv.12-23)" },
+                        { item: "Neuroptics Blueprint", chance: "Tier 3 Spy (Lv.27-40)" }
+                    ]
+                }
+            ],
+
+             "Grendel": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Grendel_Thumb.png/300px-Grendel_Thumb.png",
+                    planet: "Relay",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/CBRelay.png/300px-CBRelay.png",
+                    location: "Arbiters of Hexis",
+                    vendor: "Arbitration Honors in any Relay",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Icefields of Riddah" },
+                        { item: "Systems Blueprint", chance: "Mines of Karishh" },
+                        { item: "Neuroptics Blueprint", chance: "Archaeo-freighter" }
+                    ]
+                }
+            ],
+
+            "Khora": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Khora_Thumb.png/300px-Khora_Thumb.png",
+                    planet: "Normal Sanctuary Onslaught",
+                    planetTH: "การบุกรุกวิหารศักดิ์สิทธิ์",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Simaris_Sigil_gold.png/300px-Simaris_Sigil_gold.png",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Normal Sanctuary Onslaught" },
+                        { item: "Systems Blueprint", chance: "Normal Sanctuary Onslaught" },
+                        { item: "Neuroptics Blueprint", chance: "Normal Sanctuary Onslaught" }
+                    ]
+                }
+            ],
+
+            "Styanax": [
+                {
+                    type: "vendor",
+                    img: "https://wiki.warframe.com/images/thumb/Styanax_Thumb.png/300px-Styanax_Thumb.png",
+                    planet: "Earth ",
+                    planetTH: "โลก",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Earth.png/300px-Earth.png",
+                    node: "Drifter's Camp",
+                    vendor: "Chipper",
+                    drops: [
+                        { item: "Blueprint", chance: "90 Stock" },
+                        { item: "Chassis Blueprint", chance: "60 Stock" },
+                        { item: "Systems Blueprint", chance: "60 Stock" },
+                        { item: "Neuroptics Blueprint", chance: "60 Stock" }
+                    ]
+                }
+            ],
+
+            "Oberon": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Oberon_Thumb.png/300px-Oberon_Thumb.png",
+                    planet: "Railjack",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/RailjackMarket.png/300px-RailjackMarket.png",
+                    mission: "Point of Interest",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Saturn Proxima" },
+                        { item: "Systems Blueprint", chance: "Earth Proxima" },
+                        { item: "Neuroptics Blueprint", chance: "Earth Proxima" }
+                    ]
+                }
+            ],
+
+            "Ash": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Ash_Thumb.png/300px-Ash_Thumb.png",
+                    planet: "Railjack",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/RailjackMarket.png/300px-RailjackMarket.png",
+                    mission: "Defense, Survival, Volatile, Exterminate",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Pluto Proxima" },
+                        { item: "Systems Blueprint", chance: "Venus Proxima" },
+                        { item: "Neuroptics Blueprint", chance: "Neptune Proxima" }
+                    ]
+                }
+            ],
+
+            "Sevagoth": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Sevagoth_Thumb.png/300px-Sevagoth_Thumb.png",
+                    planet: "Railjack",
+                    planetTH: "",
+                    planetImg: "https://wiki.warframe.com/images/thumb/RailjackMarket.png/300px-RailjackMarket.png",
+                    location: "Veil,Pluto, Neptune",
+                    mission: "Void Storm",
+                    blueprint: "Market",
+                    drops: [
+                        { item: "Chassis Blueprint", chance: "Proxima Void Storm" },
+                        { item: "Systems Blueprint", chance: "Proxima Void Storm" },
+                        { item: "Neuroptics Blueprint", chance: "Proxima Void Storm" }
+                    ]
+                }
+            ],
+
+            "Follie": [
+                {
+                    type: "mission",
+                    img: "https://wiki.warframe.com/images/thumb/Follie_Thumb.png/300px-Follie_Thumb.png",
+                    planet: "Venus",
+                    planetTH: "ดาวศุกร์",
+                    planetImg: "https://wiki.warframe.com/images/thumb/Venus.png/300px-Venus.png",
+                    node:"Vesper Relay",
+                    mission: "Follie's Hunt",
+                    trade: "Aspirant Zorba in any Relay",
+                    drops: [
+                        { item: "Blueprint", chance: "5-6%" },
+                        { item: "Chassis Blueprint", chance: "5-6%" },
+                        { item: "Systems Blueprint", chance: "5-6%" },
+                        { item: "Neuroptics Blueprint", chance: "5-6%" }
+                    ]
+                }
+            ],
 
         };
         const searchInput = document.getElementById("search");
@@ -1492,6 +2025,11 @@
                     typeClass = "type-mission"
                 }
 
+                else if (f.type === "quest") {
+                    typeLabel = "📜 Quest"
+                    typeClass = "type-quest"
+                }
+
                 /* ===== DROPS ===== */
                 let dropsHTML = ""
 
@@ -1515,7 +2053,7 @@
                     })
                 }
 
-                /* ===== INFO BOX (node / mission / boss) ===== */
+                /* ===== INFO BOX (node / mission / boss / quest) ===== */
                 let infoTop = ""
 
                 if (f.node || f.mission || f.boss || f.trade) {
@@ -1531,13 +2069,15 @@
                 /* ===== INFO BOX (location / source / vendor) ===== */
                 let infoBottom = ""
 
-                if (f.location || f.source || f.vendor) {
+                if (f.location || f.source || f.vendor || f.quest || f.trades) {
                     infoBottom = `
-            <div class="info-box">
-                ${f.location ? `<div class="info-line"><span>Location</span><span>${f.location}</span></div>` : ""}
-                ${f.source ? `<div class="bounty-source">🎯 ${f.source}</div>` : ""}
-                ${f.vendor ? `<div class="vendor-name">🧑‍🚀 ${f.vendor}</div>` : ""}
-            </div>`
+                    <div class="info-box">
+                        ${f.quest ? `<div class="info-line"><span>Quest</span><span>${f.quest}</span></div>` : ""}
+                        ${f.location ? `<div class="info-line"><span>Location</span><span>${f.location}</span></div>` : ""}
+                        ${f.source ? `<div class="bounty-source">🎯 ${f.source}</div>` : ""}
+                        ${f.vendor ? `<div class="vendor-name">🧑‍🚀 ${f.vendor}</div>` : ""}
+                        ${f.trades ? `<div class="info-line"><span>Trade</span><span>${f.trades}</span></div>` : ""}
+                    </div>`
                 }
 
                 /* ===== PLANET ===== */
@@ -1560,7 +2100,9 @@
                 <img class="wf" src="${f.img}">
 
                 <div>
-                    <div class="farm-name">${wf.name}</div>
+                    <div class="farm-name">
+                        ${f.img.includes("Umbra") ? "Excalibur Umbra" : wf.name}
+                    </div>
                     <div class="farm-type ${typeClass}">${typeLabel}</div>
 
                     ${infoTop}
