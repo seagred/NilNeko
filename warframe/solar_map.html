@@ -686,7 +686,7 @@
 
 <body>
 
-    <h1>Warframe Farm</h1>
+    <h1 id="title">Warframe Farm</h1>
     <div class="search-box">
         <input type="text" id="search" placeholder="🔍 ค้นหา Warframe...">
     </div>
@@ -709,7 +709,7 @@
         <div class="tabs">
             <div class="tab active" onclick="showMode('normal')">Normal</div>
             <div class="tab" onclick="showMode('sp')">Steel Path</div>
-            <div class="tab" onclick="showMode('mood')">Mood</div>
+            <div class="tab" style="pointer-events:none; opacity:0.5;">Mood</div>
         </div>
 
         <div id="content"></div>
@@ -1424,7 +1424,7 @@
                     ]
                 }
             ],
-            
+
             "Volt": [
                 {
                     type: "vendor",
@@ -1661,7 +1661,7 @@
                 },
             ],
 
-             "Jade": [
+            "Jade": [
                 {
                     type: "quest",
                     img: "https://wiki.warframe.com/images/thumb/Jade_Thumb.png/300px-Jade_Thumb.png",
@@ -1694,7 +1694,7 @@
                     ],
                 },
             ],
-            
+
             "Uriel": [
                 {
                     type: "quest",
@@ -1804,7 +1804,7 @@
                 }
             ],
 
-             "Grendel": [
+            "Grendel": [
                 {
                     type: "vendor",
                     img: "https://wiki.warframe.com/images/thumb/Grendel_Thumb.png/300px-Grendel_Thumb.png",
@@ -1915,7 +1915,7 @@
                     planet: "Venus",
                     planetTH: "ดาวศุกร์",
                     planetImg: "https://wiki.warframe.com/images/thumb/Venus.png/300px-Venus.png",
-                    node:"Vesper Relay",
+                    node: "Vesper Relay",
                     mission: "Follie's Hunt",
                     trade: "Aspirant Zorba in any Relay",
                     drops: [
@@ -2592,6 +2592,9 @@ ${i == 0
                 nextReset
             };
         }
+
+        document.getElementById("title").innerText =
+            "Warframe Farm (" + warframes.length + ")";
 
     </script>
 
