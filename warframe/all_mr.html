@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Warframe MR Tracker</title>
+    <link rel="icon" type="image/png" href="../81_20210123192755.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Anuphan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 🔍 search */
+        #searchBox {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        /* ===== รวมทั้งหมด ===== */
+        #totalProgress {
+            margin-bottom: 20px;
+        }
+
+        .bar {
+            height: 10px;
+            background: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #22c55e;
+            width: 0%;
+            transition: 0.3s;
+        }
+
+        /* ===== หมวด ===== */
+        .category {
+            margin-bottom: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #1e293b;
+        }
+
+        .category-header {
+            padding: 12px;
+            cursor: pointer;
+            background: #334155;
+            position: relative;
+        }
+
+        .category-title {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .category-header::after {
+            content: "▼";
+            position: absolute;
+            right: 15px;
+            top: 12px;
+            transition: 0.2s;
+        }
+
+        .category.active .category-header::after {
+            transform: rotate(-180deg);
+        }
+
+        /* progress หมวด */
+        .category-bar {
+            margin-top: 6px;
+            height: 6px;
+            background: #0f172a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .category-bar-fill {
+            height: 100%;
+            background: #22c55e;
+            width: 0%;
+        }
+
+        /* content */
+        .category-content {
+            display: none;
+            padding: 10px;
+        }
+
+        .category.active .category-content {
+            display: block;
+        }
+
+        /* grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        /* card */
+        .card {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card.done {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        .card.hidden {
+            display: none;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* ===== SEARCH UI ===== */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: white;
+            font-size: 15px;
+
+            transition: 0.25s;
+        }
+
+        .search-wrapper input::placeholder {
+            color: #64748b;
+        }
+
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+        }
+
+        /* hover glow */
+        .search-wrapper input:hover {
+            border-color: #475569;
+        }
+
+        /* ===== fallback รูป ===== */
+        .no-image {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 26px;
+            font-weight: 600;
+
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Warframe MR Tracker</h1>
+
+    <!-- 🔍 SEARCH -->
+    <div class="search-wrapper">
+        <input id="searchBox" type="text" placeholder="🔍 ค้นหา MR Tracker...">
+    </div>
+
+    <!-- Progress รวม -->
+    <div id="totalProgress">
+        <div id="totalText"></div>
+        <div class="bar">
+            <div id="totalBar" class="bar-fill"></div>
+        </div>
+    </div>
+
+    <div id="app"></div>
+
+    <script src="final_data.js"></script>
+
+    <script>
+        const app = document.getElementById("app");
+        const searchBox = document.getElementById("searchBox");
+
+        let saved = JSON.parse(localStorage.getItem("mrTracker") || "{}");
+
+        function save() {
+            localStorage.setItem("mrTracker", JSON.stringify(saved));
+        }
+
+        // 🔥 เรียง A-Z ทุกหมวด
+        data.forEach(cat => {
+            cat.items.sort((a, b) => a.name.localeCompare(b.name));
+        });
+
+        // ===== รวม =====
+        function updateTotal() {
+            let all = 0;
+            let done = 0;
+
+            data.forEach(cat => {
+                cat.items.forEach(item => {
+                    all++;
+                    let key = cat.name + "_" + item.name;
+                    if (saved[key]) done++;
+                });
+            });
+
+            let percent = all ? (done / all) * 100 : 0;
+
+            document.getElementById("totalText").innerText =
+                `รวมทั้งหมด ${done} / ${all} (${percent.toFixed(1)}%)`;
+
+            document.getElementById("totalBar").style.width = percent + "%";
+        }
+
+        // ===== หมวด =====
+        function updateCategory(cat, text, barFill) {
+            let total = cat.items.length;
+
+            let done = cat.items.filter(item => {
+                let key = cat.name + "_" + item.name;
+                return saved[key];
+            }).length;
+
+            let percent = total ? (done / total) * 100 : 0;
+
+            text.innerText = `${cat.name} (${done} / ${total})`;
+            barFill.style.width = percent + "%";
+        }
+
+        // ===== SEARCH =====
+        searchBox.addEventListener("input", () => {
+            let value = searchBox.value.toLowerCase();
+
+            document.querySelectorAll(".card").forEach(card => {
+                let name = card.dataset.name.toLowerCase();
+
+                if (name.includes(value)) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
+        });
+
+        // ===== สร้าง UI =====
+        data.forEach(cat => {
+            let section = document.createElement("div");
+            section.className = "category";
+
+            let header = document.createElement("div");
+            header.className = "category-header";
+
+            let title = document.createElement("div");
+            title.className = "category-title";
+
+            let text = document.createElement("span");
+
+            title.appendChild(text);
+
+            let bar = document.createElement("div");
+            bar.className = "category-bar";
+
+            let barFill = document.createElement("div");
+            barFill.className = "category-bar-fill";
+
+            bar.appendChild(barFill);
+
+            header.appendChild(title);
+            header.appendChild(bar);
+
+            header.onclick = () => {
+                section.classList.toggle("active");
+            };
+
+            let content = document.createElement("div");
+            content.className = "category-content";
+
+            let grid = document.createElement("div");
+            grid.className = "grid";
+
+            cat.items.forEach(item => {
+                let card = document.createElement("div");
+                card.className = "card";
+
+                card.dataset.name = item.name;
+
+                let key = cat.name + "_" + item.name;
+
+                if (saved[key]) card.classList.add("done");
+
+                card.onclick = () => {
+                    saved[key] = !saved[key];
+                    save();
+
+                    card.classList.toggle("done");
+
+                    updateCategory(cat, text, barFill);
+                    updateTotal();
+                };
+
+                let img = document.createElement("img");
+                img.src = item.img;
+                img.onerror = () => {
+                    // ซ่อนรูป
+                    img.style.display = "none";
+
+                    // สร้าง fallback
+                    let fallback = document.createElement("div");
+                    fallback.className = "no-image";
+
+                    // เอา 2 ตัวแรก
+                    fallback.innerText = item.name.substring(0, 2).toUpperCase();
+
+                    // สีสุ่มนิดหน่อย
+                    const colors = ["#1e293b", "#334155", "#1f2937", "#0f172a"];
+                    fallback.style.background = colors[item.name.length % colors.length];
+
+                    card.prepend(fallback);
+                };
+
+                let name = document.createElement("div");
+                name.innerText = item.name;
+
+                card.appendChild(img);
+                card.appendChild(name);
+
+                grid.appendChild(card);
+            });
+
+            content.appendChild(grid);
+            section.appendChild(header);
+            section.appendChild(content);
+            app.appendChild(section);
+
+            updateCategory(cat, text, barFill);
+        });
+
+        updateTotal();
+    </script>
+
+</body>
+
+</html>

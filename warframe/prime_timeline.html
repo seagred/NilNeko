@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../81_20210123192755.png">
+
+    <title>Warframe Prime Timeline</title>
+
+    <!-- ========================= -->
+    <!-- FONT -->
+    <!-- ========================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- ไทย -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- วันที่ -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+
+            --bg:
+                linear-gradient(180deg,
+                    #e2e8f0 0%,
+                    #d6dbe3 100%);
+
+            --header:
+                linear-gradient(180deg,
+                    #0b314f 0%,
+                    #07263d 100%);
+
+            --border:
+                #6f8aa0;
+
+            --table-bg:
+                #edf3f8;
+
+            --hover:
+                #dbe8f2;
+
+            --text:
+                #111827;
+
+            --shadow:
+                0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+
+            margin: 0;
+
+            padding: 20px;
+
+            background: var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                'IBM Plex Sans Thai',
+                system-ui,
+                sans-serif;
+        }
+
+        .container {
+
+            max-width: 1280px;
+
+            margin: auto;
+        }
+
+        /* ========================= */
+        /* TITLE */
+        /* ========================= */
+
+        h1 {
+
+            margin: 0 0 20px;
+
+            text-align: center;
+
+            font-size: 34px;
+
+            font-weight: 600;
+
+            letter-spacing: -1px;
+
+            color: #0f172a;
+        }
+
+        /* ========================= */
+        /* SEARCH */
+        /* ========================= */
+
+        .search {
+
+            margin-bottom: 18px;
+        }
+
+        .search input {
+
+            width: 100%;
+
+            padding:
+                14px 18px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid #cbd5e1;
+
+            background: white;
+
+            font-size: 15px;
+
+            font-family:
+                'IBM Plex Sans Thai',
+                sans-serif;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .search input::placeholder {
+
+            color: #64748b;
+        }
+
+        .search input:focus {
+
+            outline: none;
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        /* ========================= */
+        /* TABLE */
+        /* ========================= */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+            border-radius: 18px;
+
+            background: white;
+
+            box-shadow: var(--shadow);
+
+            border:
+                1px solid #cbd5e1;
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1100px;
+
+            text-align: center;
+        }
+
+        thead th {
+
+            background: var(--header);
+
+            color: white;
+
+            padding: 12px;
+
+            border:
+                1px solid #35546d;
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+        }
+
+        tbody td {
+
+            padding:
+                8px 10px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--table-bg);
+
+            font-size: 18px;
+
+            font-weight: 400;
+
+            transition: 0.15s;
+        }
+
+        tbody tr:hover td {
+
+            background:
+                var(--hover);
+        }
+
+        /* ========================= */
+        /* DATE */
+        /* ========================= */
+
+        .date-cell {
+
+            background:
+                linear-gradient(180deg,
+                    #287ab9 0%,
+                    #2070ad 100%);
+
+            color: #f8fafc;
+
+            font-family:
+                'JetBrains Mono',
+                monospace;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            border-color:
+                #35546d !important;
+
+            text-shadow:
+                0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        /* ========================= */
+        /* PRIME */
+        /* ========================= */
+
+        .prime-name {
+
+            font-weight: 400;
+
+            color: #111827;
+        }
+
+        /* ========================= */
+        /* GENDER */
+        /* ========================= */
+
+        .male {
+
+            color: #2563eb;
+
+            font-weight: 400;
+        }
+
+        .female {
+
+            color: #db2777;
+
+            font-weight: 400;
+        }
+
+        .unknown {
+
+            color: #6b7280;
+
+            font-weight: 400;
+        }
+
+        /* ========================= */
+        /* ORDER */
+        /* ========================= */
+
+        .order {
+
+            font-family:
+                'JetBrains Mono',
+                monospace;
+
+            font-weight: 500;
+        }
+
+        /* ========================= */
+        /* LOADING */
+        /* ========================= */
+
+        .loading {
+
+            padding: 50px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 15px;
+        }
+
+        /* ========================= */
+        /* MOBILE */
+        /* ========================= */
+
+        @media(max-width:700px) {
+
+            body {
+
+                padding: 10px;
+            }
+
+            h1 {
+
+                font-size: 24px;
+            }
+
+            thead th,
+            tbody td {
+
+                font-size: 12px;
+
+                padding: 5px;
+            }
+
+            .date-cell {
+
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Warframe Prime Timeline
+        </h1>
+
+        <!-- SEARCH -->
+        <div class="search">
+
+            <input type="text" id="searchBox" placeholder="🔍 ค้นหา Warframe / Prime">
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Release Date</th>
+                        <th>Normal</th>
+                        <th>เพศ</th>
+                        <th>ลำดับ</th>
+
+                        <th>ลำดับ</th>
+                        <th>เพศ</th>
+                        <th>Prime</th>
+                        <th>Release Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tableBody">
+
+                    <tr>
+
+                        <td colspan="8" class="loading">
+                            กำลังโหลดข้อมูล...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // =========================
+        // GOOGLE SHEETS
+        // =========================
+
+        const SHEET_ID =
+            "1h7nvEtuNh6TxNHgkFsytzmYqRORH-N3MRcA0oaRHiSY";
+
+        const GID =
+            "1617018810";
+
+        const URL =
+            `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${GID}&tqx=out:json`;
+
+        const tableBody =
+            document.getElementById("tableBody");
+
+        const searchBox =
+            document.getElementById("searchBox");
+
+        let allRows = [];
+
+        // =========================
+        // FORMAT DATE
+        // =========================
+
+        function formatDate(value) {
+
+            if (!value) return "";
+
+            // ถ้าเป็น object date ของ Google
+            if (typeof value === "object" && value instanceof Date) {
+
+                const year =
+                    value.getFullYear();
+
+                const month =
+                    String(value.getMonth() + 1)
+                        .padStart(2, '0');
+
+                const day =
+                    String(value.getDate())
+                        .padStart(2, '0');
+
+                return `${year} /${month}/${day} `;
+            }
+
+            // ถ้าเป็น string Date(...)
+            if (
+                typeof value === "string" &&
+                value.startsWith("Date(")
+            ) {
+
+                const nums =
+                    value.match(/\d+/g);
+
+                if (!nums) return value;
+
+                const year =
+                    nums[0];
+
+                const month =
+                    String(Number(nums[1]) + 1)
+                        .padStart(2, '0');
+
+                const day =
+                    String(nums[2])
+                        .padStart(2, '0');
+
+                return `${day}/${month}/${year} `;
+            }
+
+            // fallback
+            return value;
+        }
+
+
+        // =========================
+        // LOAD DATA
+        // =========================
+
+        fetch(URL)
+            .then(res => res.text())
+            .then(data => {
+
+                const json = JSON.parse(
+                    data.substring(47).slice(0, -2)
+                );
+
+                allRows = json.table.rows;
+
+                render(allRows);
+            });
+
+        // =========================
+        // COLORS
+        // =========================
+
+        const colors = [
+
+            "#7f1d1d",
+            "#92400e",
+            "#14532d",
+            "#1e3a8a",
+            "#4c1d95",
+            "#831843",
+            "#0f766e",
+            "#9a3412",
+            "#991b1b",
+            "#164e63"
+
+        ];
+
+        function getColor(index) {
+
+            return colors[
+                index % colors.length
+            ];
+        }
+
+        // =========================
+        // GENDER CLASS
+        // =========================
+
+        function genderClass(gender) {
+
+            gender =
+                String(gender).toLowerCase();
+
+            if (
+                gender.includes("ชาย")
+            ) return "male";
+
+            if (
+                gender.includes("หญิง")
+            ) return "female";
+
+            return "unknown";
+        }
+
+        // =========================
+        // RENDER
+        // =========================
+
+        function render(rows) {
+
+            tableBody.innerHTML = "";
+
+            rows.forEach((row, index) => {
+
+                const c = row.c || [];
+
+                const normalDate =
+                    formatDate(c[0]?.v);
+
+                const normalName =
+                    c[1]?.v || "";
+
+                const normalGender =
+                    c[2]?.v || "";
+
+                const normalOrder =
+                    c[3]?.v || "";
+
+                const primeOrder =
+                    c[4]?.v || "";
+
+                const primeGender =
+                    c[5]?.v || "";
+
+                const primeName =
+                    c[6]?.v || "";
+
+                const primeDate =
+                    formatDate(c[7]?.v);
+
+                const leftColor =
+                    getColor(index);
+
+                const rightColor =
+                    getColor(index + 3);
+
+                tableBody.innerHTML += `
+
+                <tr>
+
+                    <td class="date-cell"> ${normalDate} </td>
+
+                    <td>
+                        ${normalName}
+                    </td>
+
+                    <td class="${genderClass(normalGender)}">
+                        ${normalGender}
+                    </td>
+
+                    <td class="order">
+                        ${normalOrder}
+                    </td>
+
+                    <td class="order">
+                        ${primeOrder}
+                    </td>
+
+                    <td class="${genderClass(primeGender)}">
+                        ${primeGender}
+                    </td>
+
+                    <td class="prime-name">
+                        ${primeName}
+                    </td>
+
+                    <td class="date-cell"> ${primeDate} </td>
+
+                </tr>
+                `;
+            });
+
+            // ไม่มีข้อมูล
+            if (rows.length === 0) {
+
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8"
+                            class="loading">
+                            ไม่พบข้อมูล
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // =========================
+        // SEARCH
+        // =========================
+
+        searchBox.addEventListener("input", () => {
+
+            const value =
+                searchBox.value.toLowerCase();
+
+            const filtered =
+                allRows.filter(row => {
+
+                    const c = row.c || [];
+
+                    return c.some(col =>
+                        String(col?.v || "")
+                            .toLowerCase()
+                            .includes(value)
+                    );
+                });
+
+            render(filtered);
+
+        });
+
+    </script>
+
+</body>
+
+</html>
